@@ -1,5 +1,20 @@
 ActiveAdmin.register Book do
+  permit_params :title, :price, :description, author_ids: [], pictures_attributes: [:id, :_destroy, :image]
 
-  permit_params :name, :price, :description
+  form html: { multipart: true } do |f|
+    semantic_errors
 
+    inputs do
+      input :title
+      input :author_ids, as: :tags, collection: Author.all, display_name: :full_name
+      input :price
+    end
+
+    inputs do
+      has_many :pictures, allow_destroy: true do |p|
+        p.input :image, as: :file, hint: p.object.image.url ? image_tag(p.object.image.url(:thumb)) : ''
+      end
+    end
+    actions
+  end
 end

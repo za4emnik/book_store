@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 33681d7a627fbc758303c792943b625a1aeaace7
+  revision: 6966a84c950b0c86f713548e78587ea659e13c55
   specs:
     activeadmin (1.0.0.pre4)
       arbre (~> 1.0, >= 1.0.2)
@@ -16,6 +16,15 @@ GIT
       ransack (~> 1.3)
       sass-rails
       sprockets (< 4.1)
+
+GIT
+  remote: git://github.com/carrierwaveuploader/carrierwave.git
+  revision: 6a1445e0daef29a5d4f799a016359b62d82dbc24
+  specs:
+    carrierwave (1.0.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
 
 GEM
   remote: https://rubygems.org/
@@ -44,6 +53,10 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    activeadmin_addons (0.10.1)
+      railties
+      select2-rails (~> 3.5.9)
+      xdan-datetimepicker-rails (~> 2.5.1)
     activejob (5.0.1)
       activesupport (= 5.0.1)
       globalid (>= 0.3.6)
@@ -63,13 +76,13 @@ GEM
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (7.1.4)
-    autoprefixer-rails (6.4.0.3)
+    autoprefixer-rails (6.7.6)
       execjs
     bcrypt (3.1.11)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bourbon (4.3.2)
+    bourbon (4.3.3)
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.3)
@@ -82,10 +95,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    carrierwave (1.0.0)
-      activemodel (>= 4.0.0)
-      activesupport (>= 4.0.0)
-      mime-types (>= 1.16)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -93,7 +102,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.0.4)
+    concurrent-ruby (1.0.5)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     devise (4.2.0)
@@ -108,7 +117,7 @@ GEM
     faraday (0.10.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.17)
-    formtastic (3.1.4)
+    formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
     globalid (0.3.7)
@@ -118,15 +127,15 @@ GEM
     has_scope (0.7.0)
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
-    hashie (3.5.4)
+    hashie (3.5.5)
     i18n (0.8.1)
     inherited_resources (1.7.0)
       actionpack (>= 3.2, < 5.1)
       has_scope (~> 0.6)
       railties (>= 3.2, < 5.1)
       responders
-    jbuilder (2.6.2)
-      activesupport (>= 3.0.0, < 5.1)
+    jbuilder (2.6.3)
+      activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
     jquery-rails (4.2.2)
       rails-dom-testing (>= 1, < 3)
@@ -249,6 +258,8 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    select2-rails (3.5.10)
+      thor (~> 0.14)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     spring (2.0.1)
@@ -264,14 +275,14 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     thor (0.19.4)
-    thread_safe (0.3.5)
+    thread_safe (0.3.6)
     tilt (2.0.6)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.4)
+    uglifier (3.1.1)
       execjs (>= 0.3.0, < 3)
     warden (1.2.7)
       rack (>= 1.0)
@@ -283,6 +294,9 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xdan-datetimepicker-rails (2.5.4)
+      jquery-rails
+      rails (>= 3.2.16)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -292,11 +306,12 @@ PLATFORMS
 DEPENDENCIES
   aasm
   activeadmin!
+  activeadmin_addons
   bootstrap-sass
   byebug
   cancan
   capybara
-  carrierwave
+  carrierwave!
   coffee-rails (~> 4.2)
   database_cleaner
   devise
