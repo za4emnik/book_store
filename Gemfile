@@ -26,6 +26,9 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'capybara'
 end
 
 group :development do
@@ -36,10 +39,9 @@ group :development do
 end
 
 group :test do
-   gem 'rspec-rails'
-   gem 'database_cleaner'
-   gem 'capybara'
-   gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'ffaker'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
