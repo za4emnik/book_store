@@ -4,12 +4,12 @@ ActiveAdmin.register Book do
   index do
     selectable_column
     column 'Image' do |book|
-       image_tag book.pictures.first.image.url(:thumb)
+       image_tag book.pictures.first.image.url(:thumb) unless book.pictures.first.blank?
     end
     column :category
     column :title
     column 'Authors' do |book|
-      book.authors.map(&:full_name).join(", ").html_safe
+      book.authors.map(&:full_name).join(', ').html_safe
     end
     column 'Short description' do |book|
       book.description.truncate(50)
@@ -23,13 +23,13 @@ ActiveAdmin.register Book do
       row :id
       row :title
       row 'Authors' do
-        book.authors.map(&:full_name).join(", ").html_safe
+        book.authors.map(&:full_name).join(', ').html_safe
       end
       row :category
       row :price
       row :description
       row 'Image' do
-         image_tag book.pictures.first.image.url(:thumb)
+         image_tag book.pictures.first.image.url(:thumb) unless book.pictures.first.blank?
       end
     end
   end

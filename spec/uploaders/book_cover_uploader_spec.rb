@@ -18,12 +18,6 @@ describe BookCoverUploader do
     uploader.remove!
   end
 
-  context 'the thumb' do
-    it 'scales down a landscape image to be exactly 64 by 64 pixels' do
-      expect(uploader.thumb).to have_dimensions(200, 300)
-    end
-  end
-
   it 'makes the image readable only to the owner and not executable' do
     expect(uploader).to have_permissions(0644)
   end
