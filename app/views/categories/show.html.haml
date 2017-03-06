@@ -19,19 +19,12 @@
       %li.mr-35
         %a.filter-link{href: "#"}
           All
-          %span.badge.general-badge 135
-      %li.mr-35
-        %a.filter-link{href: "#"}
-          Mobile Development
-          %span.badge.general-badge 135
-      %li.mr-35
-        %a.filter-link{href: "#"}
-          Photo
-          %span.badge.general-badge 135
-      %li.mr-35
-        %a.filter-link{href: "#"}
-          Web Design
-          %span.badge.general-badge 135
+          %span.badge.general-badge= @books_count
+      - categories.each do |category|
+        %li.mr-35
+          %a.filter-link{href: "/categories/#{category.id}"}
+            = category.name
+            %span.badge.general-badge= category.books.count
   .mb-40.visible-xs
     %p.in-grey-600.small.mb-10 Filter by category
     .dropdown.mb-20
@@ -63,66 +56,22 @@
           %a{href: "#"} Price: Low to hight
   .mb-120
     .row
-      .col-xs-6.col-sm-3
-        .general-thumb-wrap
-          .thumbnail.general-thumbnail
-            %img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-            .thumb-hover
-              .general-thumb-link-wrap
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-shopping-cart.thumb-icon
-        .general-thumb-info
-          %p.general-title Android Programming for Beginners
-          %p.font-16.in-gold-500 €28.50
-          %span.divider-sm
-          %p.in-grey-600.small John Horton
-      .col-xs-6.col-sm-3
-        .general-thumb-wrap
-          .thumbnail.general-thumbnail
-            %img.img-shadow.general-thumbnail-img{src: "https://d31wxntiwn0x96.cloudfront.net/rzgade/productimages/1276.jpg?width=400&height=400&etag=%22a2ebd1488b087bf0e6db43ee8bae0634%22", alt: "design-book"}
-            .thumb-hover
-              .general-thumb-link-wrap
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-shopping-cart.thumb-icon
-        .general-thumb-info
-          %p.general-title Android Programming for Beginners
-          %p.font-16.in-gold-500 €28.50
-          %span.divider-sm
-          %p.in-grey-600.small Bass Jobsen, David Cochran, Ian Whitley
-      .col-xs-6.col-sm-3
-        .general-thumb-wrap
-          .thumbnail.general-thumbnail
-            %img.img-shadow.general-thumbnail-img{src: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ352GRUKdIFLP3va0Tj7QREidI4lwUABrtUJbQehqIL02O_blo", alt: "design-book"}
-            .thumb-hover
-              .general-thumb-link-wrap
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-shopping-cart.thumb-icon
-        .general-thumb-info
-          %p.general-title Android Programming for Beginners
-          %p.font-16.in-gold-500 €28.50
-          %span.divider-sm
-          %p.in-grey-600.small Bass Jobsen, David Cochran, Ian Whitley
-      .col-xs-6.col-sm-3
-        .general-thumb-wrap
-          .thumbnail.general-thumbnail
-            %img.img-shadow.general-thumbnail-img{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
-            .thumb-hover
-              .general-thumb-link-wrap
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-shopping-cart.thumb-icon
-        .general-thumb-info
-          %p.general-title Android Programming for Beginners
-          %p.font-16.in-gold-500 €28.50
-          %span.divider-sm
-          %p.in-grey-600.small Bass Jobsen, David Cochran, Ian Whitley
+      - @category.books.each do |book|
+        .col-xs-6.col-sm-3
+          .general-thumb-wrap
+            .thumbnail.general-thumbnail
+              %img.img-shadow.general-thumbnail-img{src: "#{book.pictures.first.image.url(:thumb)}", alt: "#{book.title}"}
+              .thumb-hover
+                .general-thumb-link-wrap
+                  %a.thumb-hover-link{href: "/books/#{book.id}"}
+                    %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+                  %a.thumb-hover-link{href: "/books/#{book.id}"}
+                    %i.fa.fa-shopping-cart.thumb-icon
+          .general-thumb-info
+            %p.general-title= book.title
+            %p.font-16.in-gold-500 €#{book.price}
+            %span.divider-sm
+            %p.in-grey-600.small= separated book.authors, :full_name
     .row.mb-25
       .col-xs-6.col-sm-3
         .general-thumb-wrap
@@ -186,32 +135,3 @@
           %p.in-grey-600.small Bass Jobsen, David Cochran, Ian Whitley
     .text-center
       %button.btn.btn-primary View More
-%footer.navbar.navbar-inverse.mb-0
-  .container
-    .row
-      .col-sm-9
-        %ul.list-inline.general-align.mb-25
-          %li
-            %a.nav-link{href: "#"} Home
-          %li
-            %a.nav-link{href: "#"} Shop
-          %li
-            %a.nav-link{href: "#"} Orders
-          %li
-            %a.nav-link{href: "#"} Settings
-      .col-sm-3
-        %p.general-nav-mail support@bookstore.com
-        %p.general-nav-number (555)-555-5555
-        %ul.list-inline.general-align
-          %li
-            %a.nav-link{href: "#"}
-              %i.fa.fa-facebook{'aria-hidden': "true"}
-          %li
-            %a.nav-link{href: "#"}
-              %i.fa.fa-twitter{'aria-hidden': "true"}
-          %li
-            %a.nav-link{href: "#"}
-              %i.fa.fa-google-plus{'aria-hidden': "true"}
-          %li
-            %a.nav-link{href: "#"}
-              %i.fa.fa-instagram{'aria-hidden': "true"}

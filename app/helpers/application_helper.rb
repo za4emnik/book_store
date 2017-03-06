@@ -11,4 +11,8 @@ module ApplicationHelper
     end
   end
 
+  def separated(obj, field=:name, mark=', ')
+    obj.map(&field).join(mark).html_safe
+  end
+
 end

@@ -16,6 +16,8 @@ RSpec.describe Book, type: :model do
   context 'should have associations' do
     it { should have_and_belong_to_many(:authors) }
 
+    it { should have_and_belong_to_many(:materials) }
+
     it { should have_many(:pictures) }
 
     it { should belong_to(:category) }

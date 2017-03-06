@@ -15,7 +15,7 @@
               .mb-60
                 %h1= book.title
                 %p.lead= markdown(book.description)
-                %p.in-grey-600.small= book.authors.map(&:full_name).join(', ').html_safe
+                %p.in-grey-600.small= separated book.authors, :full_name
                 .general-align.pt-20
                   %button.disabled.btn Buy Now
                   - flag = false
@@ -50,33 +50,4 @@
             %p.pull-right.font-16.in-gold-500= "€#{bestseller.price}"
             %p.general-title.mr-55= bestseller.title
           %span.divider-sm
-          %p.in-grey-600.small= bestseller.authors.map(&:full_name).join(', ').html_safe
-%footer.navbar.navbar-inverse.mb-0
-  .container
-    .row
-      .col-sm-9
-        %ul.list-inline.general-align.mb-25
-          %li
-            %a.nav-link{href: "#"} Home
-          %li
-            %a.nav-link{href: "#"} Shop
-          %li
-            %a.nav-link{href: "#"} Orders
-          %li
-            %a.nav-link{href: "#"} Settings
-      .col-sm-3
-        %p.general-nav-mail support@bookstore.com
-        %p.general-nav-number (555)-555-5555
-        %ul.list-inline.general-align
-          %li
-            %a.nav-link{href: "#"}
-              %i.fa.fa-facebook{'aria-hidden': "true"}
-          %li
-            %a.nav-link{href: "#"}
-              %i.fa.fa-twitter{'aria-hidden': "true"}
-          %li
-            %a.nav-link{href: "#"}
-              %i.fa.fa-google-plus{'aria-hidden': "true"}
-          %li
-            %a.nav-link{href: "#"}
-              %i.fa.fa-instagram{'aria-hidden': "true"}
+          %p.in-grey-600.small= separated bestseller.authors, :full_name
