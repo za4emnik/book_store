@@ -11,7 +11,7 @@ ActiveAdmin.register Category do
 
   actions :all
 
-  batch_action :destroy do |ids|
+batch_action :destroy do |ids|
     redirect_to collection_path, alert: "Didn't really delete these!"
   end
 end
