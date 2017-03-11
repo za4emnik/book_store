@@ -11,5 +11,7 @@
     %link{href: "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600", rel: "stylesheet"}
   %body
     = render :partial => '/layouts/header'
+    %p.notice= notice
+    %p.alert= alert
     = yield
     = render :partial => '/layouts/footer'
