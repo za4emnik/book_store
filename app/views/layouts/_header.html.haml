@@ -31,7 +31,15 @@
                 %a{href: "/account"} My account
         - if user_signed_in?
           %li
-            %a{href: "/account"} My account
+            %a{type: "button", 'data-toggle': "dropdown", href: "/", 'aria-expanded': "false"} My account
+            %ul.dropdown-menu
+              %li
+                %a.collapse-link{href: "/orders"} Orders
+              %li
+                %a.collapse-link{href: "/settings"} Settings
+              %li.divider{role: "separator"}
+              %li
+                %a.collapse-link{href: "/logout"} Log out
         - else
           %li
             %a{href: "/login"} Log In
@@ -53,7 +61,15 @@
                   %a{href: "/account"} My account
             - if user_signed_in?
               %li
-                %a{href: "/account"} My account
+                %a{type: "button", 'data-toggle': "dropdown", href: "/", 'aria-expanded': "false"} My account
+                %ul.dropdown-menu
+                  %li
+                    %a.collapse-link{href: "/orders"} Orders
+                  %li
+                    %a.collapse-link{href: "/settings"} Settings
+                  %li.divider{role: "separator"}
+                  %li
+                    %a.collapse-link{href: "/logout"} Log out
             - else
               %li
                 %a{href: "/login"} Log In
