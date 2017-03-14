@@ -15,8 +15,7 @@
   = f.label :zip, {class: "control-label font-weight-light", value: "Zip"}
   = f.text_field :zip, {class: "form-control", placeholder: "Zip"}
 .form-group
-  %label.control-label.font-weight-light{for: "сountry"} Country
-  %input#country.form-control{name: "country", type: "text", placeholder: "Select a country"}
+  = f.collection_select(:country_id, Country.all, :id, :name, {}, { id: "country", class: "form-control"})
 .form-group.mb-60
   = f.label :phone, {class: "control-label font-weight-light", value: "Phone"}
   = f.text_field :phone, {class: "form-control", placeholder: "Example +355 66 123 4567"}

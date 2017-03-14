@@ -6,7 +6,7 @@ class CreateAddresses < ActiveRecord::Migration[5.0]
       t.string     :address
       t.string     :city
       t.string     :zip
-      t.string     :country
+      t.references :country
       t.string     :phone
       t.references :user
       t.string     :type

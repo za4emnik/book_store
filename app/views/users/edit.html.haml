@@ -14,13 +14,13 @@
           .col-md-5.col-md-offset-1
             %h3.general-subtitle.mt-0 Shipping Address
       .row
-        = form_for @shipping_address, method: :patch, url: user_save_shipping_path(current_user) do |f|
+        = form_for @shipping_address, method: :patch, url: user_update_shipping_path(current_user) do |f|
           .col-md-5.mb-40
             .visible-xs.visible-sm
               %h3.general-subtitle.mt-0 Billing Address
             .form-group.has-error
             = render partial: '/users/fields', locals: {f: f}
-        = form_for @billing_address, method: :patch, url: user_save_billing_path(current_user) do |f|
+        = form_for @billing_address, method: :patch, url: user_update_billing_path(current_user) do |f|
           .col-md-5.col-md-offset-1.mb-25
             .visible-xs.visible-sm
               %h3.general-subtitle.mt-0 Shipping Address
@@ -30,31 +30,31 @@
       .row.mb-60
         .col-sm-5
           %p.in-gold-500.font-18.mb-25 Email
-          %form.general-form-md
+          = form_for current_user, method: :patch, url: user_update_email_path(current_user) do |f|
             .form-group.mb-35
               %label.control-label.font-weight-light{for: "email"} Enter Email
-              %input#email.form-control{name:"email", type: "email", placeholder: "Enter your email", value: "#{current_user.email}"}
-              %button.btn.btn-default.mb-35 Save
+              = f.text_field :email, {class: "form-control font-weight-light", placeholder: "Enter your email", value: "#{current_user.email}"}
+              = f.submit "Save", class: "btn btn-default mb-35"
         .col-sm-5.col-sm-offset-1
           %p.in-gold-500.font-18.mb-25 Password
-          %form.general-form-md.pb-25
+          = form_for current_user, method: :patch, class: "general-form-md pb-25", url: user_update_password_path(current_user) do |f|
             .form-group.mb-30
               %label.control-label.font-weight-light{for: "oldPassword"} Old Password
-              %input#oldPassword.form-control{name:"password", type: "password", placeholder: "Old Password"}
+              = f.text_field :current_password, {id: "oldPassword", class: "form-control", type: 'password', placeholder: "Old Password"}
             .form-group.mb-30
               %label.control-label.font-weight-light{for: "password"} New Password
-              %input#password.form-control{name:"password", type: "password", placeholder: "New Password"}
+              = f.text_field :password, {id: "password", class: "form-control", type: 'password', placeholder: "New Password"}
             .form-group.mb-40
               %label.control-label.font-weight-light{for: "confirmPassword"} Confirm Password
-              %input#confirmPassword.form-control{name:"password", type: "password", placeholder: "Confirm Password"}
+              = f.text_field :password_confirmation, {id: "confirmPassword", class: "form-control", type: 'password', placeholder: "Confirm Password"}
             .general-text-align
-              %button.btn.disabled.mb-10 Save
+              = f.submit "Save", class: "btn btn-default mb-10"
         .col-sm-12
           .divider-lg-bottom
           %p.in-gold-500.font-18.mb-25.pt-20 Remove Account
-          %form
+          = form_for current_user, method: :delete, class: "general-form-md pb-25", url: admin_user_path(current_user) do |f|
             .general-settings-btn
-              %button.btn.disabled.mb-20 Please Remove My Account
+              = f.submit "Please Remove My Account", class: "btn disabled mb-20"
             .form-group.checkbox.general-settings-checkbox
               %label.font-weight-light.pl-0
                 %input.checkbox-input{type: "checkbox", hidden: "true"}

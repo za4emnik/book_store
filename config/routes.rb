@@ -15,11 +15,12 @@ Rails.application.routes.draw do
   resources :addresses, only: [:create]
   resources :categories, only: [:show, :index]
   resources :users, only: [:edit] do
-    patch 'save_billing',  to: 'save_billing_address'
-    patch 'save_shipping', to: 'save_shipping_address'
-    patch 'save_email',    to: 'save_email'
-    patch 'save_password', to: 'save_password'
+    patch 'update_billing'
+    patch 'update_shipping'
+    patch 'update_email'
+    patch 'update_password'
   end
+
   get 'settings' => 'users#edit'
   get 'cart' => 'cart#show'
 end
