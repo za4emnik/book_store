@@ -10,7 +10,8 @@
           .row
             .col-sm-5
               .general-img-wrap
-                %img.img-shadow.general-thumbnail-img.width-full{src: book.pictures.first.image.url, alt: "#{book.title}"}
+                %a{ href: "/books/#{book.id}"}
+                  %img.img-shadow.general-thumbnail-img.width-full{src: book.pictures.first.image.url, alt: "#{book.title}"}
             .col-sm-7
               .mb-60
                 %h1= book.title
@@ -41,7 +42,7 @@
             %img.img-shadow.general-thumbnail-img{src: bestseller.pictures.first.image.url(:thumb), alt: bestseller.title}
             .thumb-hover
               .general-thumb-link-wrap
-                %a.thumb-hover-link{href: "#"}
+                %a.thumb-hover-link{href: "/books/#{bestseller.id}"}
                   %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
                 %a.thumb-hover-link{href: "#"}
                   %i.fa.fa-shopping-cart.thumb-icon

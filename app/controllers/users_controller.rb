@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
 
   def edit
     @billing_address = current_user.billing_address || BillingAddress.new

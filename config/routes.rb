@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :books, only: [:show]
   resources :addresses, only: [:create]
-  resources :categories, only: [:show, :index]
+  resources :categories, only: [:index, :show]
+  resources :reviews, only: [:create]
   resources :users, only: [:edit] do
     patch 'update_billing'
     patch 'update_shipping'

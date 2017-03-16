@@ -1,7 +1,9 @@
 class HomeController < ApplicationController
 
   def index
-    @books = Book.first 2
+    @books = Book.all
+    #category =
+    @latest_books# = Book.find(category: params['category']).last(3)
     @bestsellers = Book.first 4
   end
 

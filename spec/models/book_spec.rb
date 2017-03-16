@@ -23,5 +23,7 @@ RSpec.describe Book, type: :model do
     it { should belong_to(:category) }
   end
 
+  #context ''
+
   it { should accept_nested_attributes_for(:pictures) }
 end
