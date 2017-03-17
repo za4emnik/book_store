@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :addresses, only: [:create]
   resources :categories, only: [:index, :show]
   resources :reviews, only: [:create]
+  resources :orders
+  resources :order_items, only: [:create]
   resources :users, only: [:edit] do
     patch 'update_billing'
     patch 'update_shipping'
@@ -23,5 +25,5 @@ Rails.application.routes.draw do
   end
 
   get 'settings' => 'users#edit'
-  get 'cart' => 'cart#show'
+  get 'cart' => 'orders#show'
 end
