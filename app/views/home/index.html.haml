@@ -18,7 +18,7 @@
                 %p.lead= markdown(book.description)
                 %p.in-grey-600.small= separated book.authors, :full_name
                 .general-align.pt-20
-                  %button.disabled.btn Buy Now
+                  =button_to 'Buy Now', order_items_path(book_id: book.id), remote: true, class: "btn btn-primary", method: :post
                   - flag = false
     %a.left.carousel-control{href: "#slider", role: "button", 'data-slide': "prev"}
       %span.icon-prev{'aria-hidden': "true"}
