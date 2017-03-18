@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317095216) do
+ActiveRecord::Schema.define(version: 20170317155225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,10 +77,10 @@ ActiveRecord::Schema.define(version: 20170317095216) do
 
   create_table "books", force: :cascade do |t|
     t.string   "title"
-    t.string   "price"
+    t.decimal  "price",       precision: 8, scale: 2
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "category_id"
     t.integer  "year"
     t.string   "dimensions"
@@ -103,6 +103,16 @@ ActiveRecord::Schema.define(version: 20170317095216) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string   "code"
+    t.decimal  "value",      precision: 8, scale: 2
+    t.integer  "order_id"
+    t.boolean  "active",                             default: true
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.index ["order_id"], name: "index_coupons_on_order_id", using: :btree
   end
 
   create_table "materials", force: :cascade do |t|

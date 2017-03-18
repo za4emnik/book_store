@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_one :shipping_address, dependent: :destroy
-  has_one :billing_address, dependent: :destroy
+  has_one  :shipping_address, dependent: :destroy
+  has_one  :billing_address, dependent: :destroy
   has_many :reviews
   has_many :orders
 

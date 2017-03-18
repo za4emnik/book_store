@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show]
   resources :reviews, only: [:create]
   resources :orders
-  resources :order_items, only: [:create]
+  resources :order_items, only: [:create, :destroy]
   resources :users, only: [:edit] do
     patch 'update_billing'
     patch 'update_shipping'
