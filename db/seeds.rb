@@ -1,5 +1,10 @@
 User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', is_admin: true)
 
+Coupon.create!(code: 'qwerty123', value: '51,1')
+
+Delivery.create!(name: 'Delivery Next Day!', interval: '3 to 7 days', price: '28,50')
+Delivery.create!(name: 'Free!', interval: '10 days', price: '0')
+
 Country.create!(name: 'Afghanistan')
 Country.create!(name: 'Albania')
 Country.create!(name: 'Algeria')

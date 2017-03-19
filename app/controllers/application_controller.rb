@@ -12,7 +12,13 @@ class ApplicationController < ActionController::Base
 
   def current_order
     return @current_order if @current_order
-    @current_order = session[:order_id] ? Order.find(session[:order_id]) : Order.new
+    @current_order = if session[:order_id]
+      Order.where(id: session[:order_id], aasm_state: 'pending').first || Order.create!
+    else
+      Order.create!
+    end
+    session[:order_id] = @current_order.id
+    @current_order
   end
 
 end

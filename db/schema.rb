@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317155225) do
+ActiveRecord::Schema.define(version: 20170319121727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,17 @@ ActiveRecord::Schema.define(version: 20170317155225) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.string   "number"
+    t.string   "name"
+    t.string   "date"
+    t.string   "cvv"
+    t.integer  "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_carts_on_order_id", using: :btree
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -115,6 +126,14 @@ ActiveRecord::Schema.define(version: 20170317155225) do
     t.index ["order_id"], name: "index_coupons_on_order_id", using: :btree
   end
 
+  create_table "deliveries", force: :cascade do |t|
+    t.string   "name"
+    t.string   "interval"
+    t.decimal  "price",      precision: 5, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "materials", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -133,9 +152,13 @@ ActiveRecord::Schema.define(version: 20170317155225) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "delivery_id"
+    t.decimal  "total",       precision: 8, scale: 2, default: "0.0"
+    t.decimal  "subtotal",    precision: 8, scale: 2, default: "0.0"
+    t.string   "aasm_state"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.index ["delivery_id"], name: "index_orders_on_delivery_id", using: :btree
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 

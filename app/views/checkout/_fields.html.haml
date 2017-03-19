@@ -15,9 +15,7 @@
   = f.label :zip, {class: "control-label font-weight-light", value: "Zip"}
   = f.text_field :zip, {class: "form-control", placeholder: "Zip"}
 .form-group
-  = f.collection_select(:country_id, Country.all, :id, :name, {}, { id: "country", class: "form-control"})
+  = f.collection_select(:country, Country.all, :id, :name, {}, { id: "country", class: "form-control"})
 .form-group.mb-60
   = f.label :phone, {class: "control-label font-weight-light", value: "Phone"}
   = f.text_field :phone, {class: "form-control", placeholder: "Example +355 66 123 4567"}
-.text-center.general-text-align
-  = f.submit "Save", class: "button btn btn-default"

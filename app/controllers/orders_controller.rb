@@ -1,14 +1,15 @@
 class OrdersController < ApplicationController
 
-  def show
+  def index
+    @orders = current_user.orders
   end
 
-  def update
-    params[:order_items].each do |key, value|
-      OrderItem.update(key, quantity: value[:quantity])
-    end
-    check_coupon if params[:order][:coupon].present?
-    redirect_back(fallback_location: root_path)
+  def show
+    @order = Order.find params[:id]
+  end
+
+  def success
+    @order = current_user.orders.where.not(aasm_state: 'pending').order(:created_at).first
   end
 
   private
@@ -17,7 +18,7 @@ class OrdersController < ApplicationController
     coupon = Coupon.where(code: params[:order][:coupon], active: true).first
     if coupon
       coupon.active = false
-      @order.coupon = coupon
+      current_order.coupon = coupon
     end
   end
 end

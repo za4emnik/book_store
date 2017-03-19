@@ -1,0 +1,64 @@
+%main.container.general-main-wrap
+  %h1.mt-0.mb-25 My Orders
+  %p.in-grey-600.small.mb-10.visible-xs Sort by
+  .dropdown.general-order-dropdown.mb-20
+    %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      Waiting for processing
+      %i.fa.fa-angle-down.dropdown-icon
+    %ul.dropdown-menu
+      %li
+        %a{href: "#"} Newest first
+      %li
+        %a{href: "#"} Popular first
+      %li
+        %a{href: "#"} Price: Low to hight
+      %li
+        %a{href: "#"} Price: Low to hight
+  .visible-xs
+    .general-cart-item.divider-lg-bottom.pt-0
+      %table.table
+        - @orders.each do |order|
+          %tr
+            %td.col-half
+              %span.in-grey-600 Number
+            %td.col-half
+              %span.general-order-number #{order.id}
+          %tr
+            %td
+              %span.in-grey-600 Completed at
+            %td
+              %span.in-grey-900.font-16.font-weight-light #{order.updated_at.strftime('%F')}
+          %tr
+            %td
+              %span.in-grey-600 Status
+            %td
+              %span.font-16.in-grey-900.font-weight-light #{order.aasm_state.humanize}
+          %tr
+            %td
+              %span.in-grey-600 Total
+            %td
+              %strong.font-16 €#{order.total}
+  .hidden-xs.mb-res-50
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Number
+          %th
+            %span.in-grey-600 Completed at
+          %th
+            %span.in-grey-600 Status
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        - @orders.each do |order|
+          %tr
+            %td
+              = link_to order_path(order) do
+                %span.general-order-number #{order.id}
+            %td
+              %span.in-grey-900.font-16.font-weight-light #{order.updated_at.strftime('%F')}
+            %td
+              %span.font-16.in-grey-900.font-weight-light #{order.aasm_state.humanize}
+            %td
+              %strong.font-16 €#{order.total}

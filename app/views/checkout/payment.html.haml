@@ -1,0 +1,28 @@
+%main.container.mb-res-50
+  = render partial: '/checkout/steps'
+  %h3.general-subtitle Credit Card
+  = form_for @cart, url: wizard_path, class: "max-600 mb-80", method: :put do |f|
+    .form-group.has-error
+      = f.label :number, {class: "control-label font-weight-light", value: "Card Number"}
+      = f.text_field :number, {class: "form-control", placeholder: "Card Number"}
+      %span.help-block Please enter a valid credit card number
+    .row
+      .col-sm-6
+        .form-group
+        = f.label :name, {class: "control-label font-weight-light", value: "Name on Card"}
+        = f.text_field :name, {class: "form-control", placeholder: "Name on Card"}
+      .col-sm-3
+        .form-group
+          = f.label :date, {class: "control-label font-weight-light", value: "MM / YY"}
+          = f.text_field :date, {class: "form-control", placeholder: "MM / YY"}
+      .col-sm-3
+        .form-group.relative
+          = f.label :cvv, {class: "control-label font-weight-light", value: "CVV"}
+          = f.text_field :cvv, {class: "form-control", placeholder: "CVV"}
+          %i.fa.fa-question-circle.general-form-help.font-18
+    .general-text-align
+      %p.in-gold-500.font-18 Order Summary
+      %table.general-summary-table
+        = render partial: '/checkout/summary'
+    .text-center
+      = f.submit "Save and Continue", class: "btn btn-primary center-block mb-20"

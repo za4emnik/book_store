@@ -1,8 +1,5 @@
-class AddressForm
-  include ActiveModel::Model
-  include Virtus
+class AddressForm < Rectify::Form
 
-  # Attributes (DSL provided by Virtus)
   attribute :first_name, String
   attribute :last_name, String
   attribute :address, String

@@ -1,83 +1,137 @@
 %main.container.general-main-wrap
-  %h1.general-title-margin Cart
+  %h1.general-title-margin Order #{@order.id}
+  .row.mb-20
+    .col-sm-3
+      %h3.general-subtitle.mt-0 Shipping Address
+      %p.general-address
+        John Doe
+        %span.general-edit edit
+        %br
+        44 Fifth Ave v231
+        %br
+        New York NY 1001
+        %br
+        United States
+        %br
+        Phone +16507599755
+    .col-sm-3
+      %h3.general-subtitle.mt-0 Billing Address
+      %p.general-address
+        John Doe
+        %span.general-edit edit
+        %br
+        44 Fifth Ave v231
+        %br
+        New York NY 1001
+        %br
+        United States
+        %br
+        Phone +16507599755
+    .col-sm-3
+      %h3.general-subtitle.mt-0 Shipments
+      %p.general-address
+        Delivery Next Day!
+        %span.general-edit edit
+        %br
+        By train
+    .col-sm-3
+      %h3.general-subtitle.mt-0 Payment Information
+      %p.general-address
+        ** ** ** 8756
+        %span.general-edit edit
+        %br
+        12/2018
   .visible-xs
-    = form_for current_order, url: order_path(current_order), method: :put do |f|
-      - current_order.order_items.each do |item|
-        .general-cart-item.divider-lg-bottom
-          %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
-            %span{'aria-hidden': "true"} &times;
-          .general-img-wrap-table
-            %img.cart-img-shadow.width-full{src: "#{item.book.pictures.first.image.url}", alt: "#{item.book.title}"}
-          %p.general-title #{item.book.title}
-          %table.table
-            %tr
-              %td
-                %span.in-grey-600 Price
-              %td
-                %span.font-16.in-gold-500 €#{item.book.price}
-            %tr
-              %td.vertical-middle
-                %span.in-grey-600 Quantity
-              %td
-                = fields_for 'order_items[]', item do |field|
-                  .input-group
-                    %a.input-link{href: "#"}
-                      %i.fa.fa-minus.line-height-40
-                    = field.text_field :quantity, class: 'form-control quantity-input', min: 1, value: "#{item.quantity}"
-                    %a.input-link{href: "#"}
-                      %i.fa.fa-plus.line-height-40
-            %tr
-              %td
-                %span.in-grey-600 SubTotal
-              %td
-                %span.font-16.in-gold-500 €#{item.quantity * item.book.price}
-            = f.submit "Update cart", class: "btn btn-primary mb-15 res-block"
-          = render partial: '/orders/summary'
-  .hidden-xs
-    = form_for current_order, url: order_path(current_order), method: :put do |f|
-      %table.table.table-hover
-        %tr.no-hover
-          %th.col-pic.pl-0
-            %span.in-grey-600 Product
-          %th.col-title
-          %th.col-price
+    .general-cart-item.divider-lg
+      .general-img-wrap-table
+        %img.cart-img-shadow.width-full{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+      %p.general-title Android Programming for Beginners
+      %P.in-grey-600.font-weight-light A recipe-based book to help you efficiently create amazing PHP-based applications with Laravel 5.x
+      %table.table
+        %tr
+          %td
             %span.in-grey-600 Price
-          %th.col-quantity
+          %td
+            %span.font-16.in-gold-500 €28.50
+        %tr
+          %td.vertical-middle
             %span.in-grey-600 Quantity
-          %th.col-total
+          %td
+            %span 1
+        %tr
+          %td
             %span.in-grey-600 SubTotal
-          %th.col-close
-        - current_order.order_items.each do |item|
-          %tr
-            %td
-              .general-img-wrap-table
-                %img.cart-img-shadow.pull-left.width-full{src: "#{item.book.pictures.first.image.url}", alt: "#{item.book.title}"}
-            %td
-              %p.general-title #{item.book.title}
-            %td
-              %span.font-16.in-gold-500 €#{item.book.price}
-            %td
-              = fields_for 'order_items[]', item do |field|
-                .input-group
-                  %a.input-link{href: "#"}
-                    %i.fa.fa-minus.line-height-40
-                  = field.text_field :quantity, class: 'form-control quantity-input', min: 1, value: "#{item.quantity}"
-                  %a.input-link{href: "#"}
-                    %i.fa.fa-plus.line-height-40
-            %td
-              %span.font-16.in-gold-500 €#{item.quantity * item.book.price}
-            %td
-              %a.close.general-cart-close{'aria-label': "Close", href: order_item_path(item.id), 'data-method': 'delete'}
-                %span{'aria-hidden': "true"} &times;
-            %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
-      .general-order-wrap
-        .row
-          .col-sm-4
-            .input-group.general-input-group
-              %label.font-weight-light Enter Your Coupon Code
-              = f.text_field :coupon, {class: "form-control mb-30", placeholder: "Enter Your Coupon Code", value: current_order.coupon ? current_order.coupon.code : ''}
-              %div
-                = f.submit "Update cart", class: "btn btn-primary mb-15 res-block"
-          = render partial: '/orders/summary'
-  %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
-  %button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
+          %td
+            %span.font-16.in-gold-500 €32.90
+    .general-cart-item.divider-lg.mb-55
+      .general-img-wrap-table
+        %img.cart-img-shadow.width-full{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+      %p.general-title Android Programming for Beginners
+      %table.table
+        %tr
+          %td
+            %span.in-grey-600 Price
+          %td
+            %span.font-16.in-gold-500 €28.50
+        %tr
+          %td.vertical-middle
+            %span.in-grey-600 Quantity
+          %td
+            .input-group
+              %a.input-link{href: "#"}
+                %i.fa.fa-minus.line-height-40
+              %input.form-control.quantity-input{type: "text"}
+              %a.input-link{href: "#"}
+                %i.fa.fa-plus.line-height-40
+        %tr
+          %td
+            %span.in-grey-600 SubTotal
+          %td
+            %span.font-16.in-gold-500 €32.90
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        %tr
+          %td
+            .general-img-wrap-table
+              %img.cart-img-shadow.pull-left.width-full{src: "http://jonathantweedy.com/resources/thumbs/SmashingBook5ResponsiveWebDesign.jpg", alt: "design-book"}
+          %td
+            %p.general-title Android Programming for Beginners
+            %p.in-grey-600.font-weight-light Maximize the potential of Bootstrap with a collection of real-world site projects for better, faster, more responsive web applications
+          %td
+            %span.font-16.in-gold-500 €28.50
+          %td
+            %span.ml-30 1
+          %td
+            %span.font-16.in-gold-500 €32.90
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      %tr
+        %td
+          %p.font-16 Subtotal:
+        %td
+          %p.font-16 €117.69
+      %tr
+        %td
+          %p.font-16 Coupon:
+        %td
+          %p.font-16 €0.00
+      %tr
+        %td
+          %strong.font-18 Order Total:
+        %td
+          %strong.font-18 €117.69
+  .text-center
+    %button.btn.btn-default.mb-20 Place Order

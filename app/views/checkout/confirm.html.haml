@@ -1,0 +1,98 @@
+%main.container.general-main-wrap
+  = render partial: '/checkout/steps'
+  .row.mb-20
+    .col-sm-3
+      %h3.general-subtitle Shipping Address
+      %p.general-address
+        #{current_user.shipping_address.full_name}
+        = link_to 'edit', wizard_path(:address)
+        %br
+        #{current_user.shipping_address.address}
+        %br
+        #{current_user.shipping_address.city} #{current_user.shipping_address.zip}
+        %br
+        #{current_user.shipping_address.country}
+        %br
+        Phone #{current_user.shipping_address.phone}
+    .col-sm-3
+      %h3.general-subtitle Billing Address
+      %p.general-address
+        #{current_user.billing_address.full_name}
+        = link_to 'edit', wizard_path(:address)
+        %br
+        #{current_user.billing_address.address}
+        %br
+        #{current_user.billing_address.city} #{current_user.billing_address.zip}
+        %br
+        #{current_user.billing_address.country}
+        %br
+        Phone #{current_user.billing_address.phone}
+    .col-sm-3
+      %h3.general-subtitle Shipments
+      %p.general-address
+        #{current_order.delivery.name}
+        = link_to 'edit', wizard_path(:delivery)
+    .col-sm-3
+      %h3.general-subtitle Payment Information
+      %p.general-address
+        #{current_order.cart.number}
+        = link_to 'edit', wizard_path(:payment)
+        %br
+        #{current_order.cart.date}
+  .visible-xs
+    - current_order.order_items.each do |item|
+      .general-cart-item.divider-lg
+        .general-img-wrap-table
+          %img.cart-img-shadow.width-full{src: "#{item.book.pictures.first.image.url}", alt: "#{item.book.title}"}
+        %p.general-title #{item.book.title}
+        %P.in-grey-600.font-weight-light #{markdown(item.book.description)}
+        %table.table
+          %tr
+            %td
+              %span.in-grey-600 Price
+            %td
+              %span.font-16.in-gold-500 €#{item.book.price}
+          %tr
+            %td.vertical-middle
+              %span.in-grey-600 Quantity
+            %td
+              %span #{item.quantity}
+          %tr
+            %td
+              %span.in-grey-600 SubTotal
+            %td
+              %span.font-16.in-gold-500 €#{item.quantity * item.book.price}
+  .hidden-xs.divider-lg.pt-20
+    %table.table.table-hover
+      %thead
+        %tr
+          %th
+            %span.in-grey-600 Book
+          %th.col-method
+          %th
+            %span.in-grey-600 Price
+          %th
+            %span.in-grey-600 Quantity
+          %th
+            %span.in-grey-600 Total
+      %tbody
+        - current_order.order_items.each do |item|
+          %tr
+            %td
+              .general-img-wrap-table
+                %img.cart-img-shadow.pull-left.width-full{src: "#{item.book.pictures.first.image.url}", alt: "#{item.book.title}"}
+            %td
+              %p.general-title #{item.book.title}
+              %p.in-grey-600.font-weight-light #{markdown(item.book.description)}
+            %td
+              %span.font-16.in-gold-500 €#{item.book.price}
+            %td
+              %span.ml-30 #{item.quantity}
+            %td
+              %span.font-16.in-gold-500 €#{item.quantity * item.book.price}
+  .text-center.general-text-right
+    %p.in-gold-500.font-18 Order Summary
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render partial: '/checkout/summary'
+  .text-center
+    = button_to 'Place Order', wizard_path, {method: :put, class: "btn btn-default mb-20"}

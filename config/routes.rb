@@ -11,13 +11,15 @@ Rails.application.routes.draw do
   end
 
   root 'home#index'
-  resources :books, only: [:show]
-  resources :addresses, only: [:create]
-  resources :categories, only: [:index, :show]
-  resources :reviews, only: [:create]
-  resources :orders
+  resources :books,       only: [:show]
+  resources :addresses,   only: [:create]
+  resources :categories,  only: [:index, :show]
+  resources :reviews,     only: [:create]
+  resources :orders,      only: [:index, :show]
+  resources :checkout
+  resources :carts,       only: [:index, :update]
   resources :order_items, only: [:create, :destroy]
-  resources :users, only: [:edit] do
+  resources :users,       only: [:edit] do
     patch 'update_billing'
     patch 'update_shipping'
     patch 'update_email'
@@ -25,5 +27,6 @@ Rails.application.routes.draw do
   end
 
   get 'settings' => 'users#edit'
-  get 'cart' => 'orders#show'
+  get 'cart' => 'carts#index'
+  get 'success' => 'orders#success'
 end
