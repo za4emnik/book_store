@@ -10,6 +10,9 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
+
   def self.new_with_session(params, session)
     super.tap do |user|
      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
@@ -28,5 +31,4 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
     end
   end
-
 end

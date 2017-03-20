@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
 
   def create
-    current_user.account.billing_address = params
+    current_user.billing_address = params
   end
 
   private

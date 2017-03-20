@@ -9,7 +9,7 @@ RSpec.describe HomeController, type: :controller do
       expect(subject.status).to eq(200)
     end
 
-    variables = ['latest_books', 'bestsellers']
+    variables = ['latest_books', 'bestsellers', 'books']
     variables.each do |variable|
       it "should have ##{variable} variable" do
         expect(subject.instance_variable_get(:@variable)).kind_of? subject.class
