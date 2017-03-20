@@ -31,7 +31,7 @@
     %h2.h1 Welcome to our amazing Bookstore!
     .mb-res-50
       %p.in-grey-600 We pore through hundreds of new books each month and select the five best we can find to share with our members.
-    %button.btn.btn-default Get Started
+    =button_to 'Get Started', categories_path, class: "btn btn-default", method: :get
   .mb-35
     %h3 Best Sellers
     .row

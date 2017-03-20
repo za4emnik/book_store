@@ -19,7 +19,7 @@
             .visible-xs.visible-sm
               %h3.general-subtitle.mt-0 Billing Address
             .form-group.has-error
-            = render partial: '/checkout/fields', locals: {f: f}
+            = render partial: '/checkout/fields', locals: {f: f, obj: @billing_address}
             .text-center.general-text-align
               = f.submit "Save", class: "button btn btn-default"
         = form_for @shipping_address, method: :patch, url: user_update_shipping_path(current_user) do |f|
@@ -27,7 +27,7 @@
             .visible-xs.visible-sm
               %h3.general-subtitle.mt-0 Shipping Address
             .form-group.has-error
-            = render partial: '/checkout/fields', locals: {f: f}
+            = render partial: '/checkout/fields', locals: {f: f, obj: @shipping_address}
             .text-center.general-text-align
               = f.submit "Save", class: "button btn btn-default"
     #privacy.tab-pane.fade{role: "tabpanel"}

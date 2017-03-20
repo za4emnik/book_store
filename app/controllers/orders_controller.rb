@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
 
   def index
-    @orders = current_user.orders
+    @orders = current_user.orders.with_filter(params[:filter])
+    @state = params[:filter].humanize
   end
 
   def show

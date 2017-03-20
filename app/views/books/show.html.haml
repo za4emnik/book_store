@@ -1,5 +1,5 @@
 %main.container
-  %a.general-back-link{href: "#"}
+  = link_to :back, class: "general-back-link" do
     %i.fa.fa-long-arrow-left.mr-15
     Back to results
   .row
@@ -20,10 +20,10 @@
         =form_for @order_item, url: order_items_path(book_id: @book.id), method: :post do |f|
           .col-xs-5.col-md-3
             .input-group.general-position
-              %a.input-link{href: "#"}
+              %div.input-link.inc.button
                 %i.fa.fa-minus.line-height-40
-              = f.text_field :quantity, {class: "form-control quantity-input"}
-              %a.input-link{href: "#"}
+              = f.text_field :quantity, {class: "form-control quantity-input", id: 'quantity'}
+              %div.input-link.dec.button
                 %i.fa.fa-plus.line-height-40
           .col-xs-7.col-md-5
             = f.submit "Add to Cart", class: "btn btn-default pull-right general-position"

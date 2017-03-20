@@ -3,17 +3,19 @@
   %p.in-grey-600.small.mb-10.visible-xs Sort by
   .dropdown.general-order-dropdown.mb-20
     %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      Waiting for processing
+      #{@state}
       %i.fa.fa-angle-down.dropdown-icon
     %ul.dropdown-menu
       %li
-        %a{href: "#"} Newest first
+        %a{href: "/orders?filter=all"} All
       %li
-        %a{href: "#"} Popular first
+        %a{href: "/orders?filter=waiting_for_processing"} Waiting for processing
       %li
-        %a{href: "#"} Price: Low to hight
+        %a{href: "/orders?filter=in_progress"} In Progress
       %li
-        %a{href: "#"} Price: Low to hight
+        %a{href: "/orders?filter=in_delivery"} In delivery
+      %li
+        %a{href: "/orders?filter=delivered"} Delivered
   .visible-xs
     .general-cart-item.divider-lg-bottom.pt-0
       %table.table
