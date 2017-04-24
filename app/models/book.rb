@@ -9,12 +9,25 @@ class Book < ApplicationRecord
   has_many :reviews, -> { where(published: true ).order(updated_at: :desc) }
   accepts_nested_attributes_for :pictures, allow_destroy: true
 
-  def self.bestsellers(number)
-    joins(:order_items).group(:id).select('books.*, sum(order_items.quantity) as quantity').order('quantity desc').first(number)
+  def self.bestsellers(items)
+    includes(:pictures, :authors).joins(:order_items).group(:id).select('books.*, sum(order_items.quantity) as quantity').order('quantity desc').first(items)
   end
 
-  def self.latest_books
-    order(created_at: :desc).limit(5)
+  def self.latest_books(items)
+    includes(:pictures, :authors).order(created_at: :desc).limit(items)
+  end
+
+  def self.with_category_filter(category)
+    case category
+    when 'photo'
+      self.joins(:category).where("categories.name = 'Photo'")
+    when 'web_design'
+      self.joins(:category).where("categories.name = 'Web design'")
+    when 'web_development'
+      self.joins(:category).where("categories.name = 'Web development'")
+    else
+      self.joins(:category).where("categories.name = 'Mobile development'")
+    end
   end
 
   def self.with_filter(filter)

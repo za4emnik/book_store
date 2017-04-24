@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     patch 'update_password'
   end
 
+  #get 'catalog', to: 'categories#index'
   get 'settings' => 'users#edit'
   get 'cart' => 'carts#index'
   get 'success' => 'orders#success'

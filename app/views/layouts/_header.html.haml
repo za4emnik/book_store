@@ -6,7 +6,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand Bookstore
+      %a.navbar-brand{href: '/'} Bookstore
       %a.shop-link.pull-right.visible-xs{href: "/cart"}
         %span.shop-icon
           %span.shop-quantity #{items_in_cart}
@@ -19,7 +19,16 @@
           %span{'aria-hidden': "true"} &times;
         %ul.nav.navbar-nav
           %li
-            %a{href: "/"} Home
+            %a{type: "button", 'data-toggle': "collapse", href: "/", 'aria-expanded': "false", 'aria-controls': "menu"} Home
+            %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
+              %li
+                %a.collapse-link{href: "/?category=mobile_development"} Mobile delevopment
+              %li
+                %a.collapse-link{href: "/?category=photo"} Photo
+              %li
+                %a.collapse-link{href: "/?category=web_design"} Web design
+              %li
+                %a.collapse-link{href: "/?category=web_development"} Web development
           %li
             %a{type: "button", 'data-toggle': "collapse", href: "/", 'aria-expanded': "false", 'aria-controls': "menu"} Shop
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
@@ -48,7 +57,16 @@
       .hidden-xs
         %ul.nav.navbar-nav
           %li
-            %a{href: "/"} Home
+            %a.dropdown-toggle{href: "/", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Home
+            %ul.dropdown-menu
+              %li
+                %a.collapse-link{href: "/?category=mobile_development"} Mobile delevopment
+              %li
+                %a.collapse-link{href: "/?category=photo"} Photo
+              %li
+                %a.collapse-link{href: "/?category=web_design"} Web design
+              %li
+                %a.collapse-link{href: "/?category=web_development"} Web development
           %li.dropdown
             %a.dropdown-toggle{href: "/", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
             %ul.dropdown-menu

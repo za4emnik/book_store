@@ -1,9 +1,8 @@
 class HomeController < ApplicationController
 
   def index
-    @books = Book.all
-    @latest_books = Book.latest_books
-    @bestsellers = Book.bestsellers(4)
+    @latest_books = Book.with_category_filter(params['category']).latest_books(3)
+    @bestsellers = Book.with_category_filter(params['category']).bestsellers(4)
   end
 
 end

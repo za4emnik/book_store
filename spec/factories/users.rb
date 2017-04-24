@@ -5,7 +5,7 @@ FactoryGirl.define do
     password_confirmation "password"
 
     trait :admin do
-      association :is_admin, :name => true
+      association :is_admin, name: true
     end
   end
 end

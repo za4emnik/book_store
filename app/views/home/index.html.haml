@@ -5,7 +5,7 @@
       %li{'data-target': "#slider", 'data-slide-to': "1"}
     .carousel-inner{role: "listbox"}
       - flag = true
-      - @books.each do |book|
+      - @latest_books.each do |book|
         .item{ class: (flag ? 'active' : '') }
           .row
             .col-sm-5

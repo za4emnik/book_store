@@ -1,5 +1,10 @@
 User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', is_admin: true)
 
+Category.create!(name: 'Mobile development')
+Category.create!(name: 'Photo')
+Category.create!(name: 'Web design')
+Category.create!(name: 'Web development')
+
 Coupon.create!(code: 'qwerty123', value: '51,1')
 
 Delivery.create!(name: 'Delivery Next Day!', interval: '3 to 7 days', price: '28,50')
