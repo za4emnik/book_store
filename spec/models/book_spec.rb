@@ -90,9 +90,15 @@ RSpec.describe Book, type: :model do
       expect(Book.with_filter('price_hight_to_low')).to eq(books)
     end
 
+    it 'should sort title Z - A' do
+      books = Book.order(title: :desc)
+      expect(Book.with_filter('title_z_a')).to eq(books)
+    end
+
     it 'should sort descending by default' do
-      books = Book.order(updated_at: :desc)
-      expect(Book.with_filter('other_params')).to eq(books)
+      books = Book.order(title: :asc)
+      expect(Book.with_filter('title_a_z')).to eq(books)
     end
   end
+
 end

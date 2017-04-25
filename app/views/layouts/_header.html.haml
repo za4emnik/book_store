@@ -68,15 +68,7 @@
               %li
                 %a.collapse-link{href: "/?category=web_development"} Web development
           %li.dropdown
-            %a.dropdown-toggle{href: "/", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Shop
-            %ul.dropdown-menu
-              - categories.each do |category|
-                %li
-                  %a.collapse-link{href: "/categories/#{category.id}"}= category.name
-              - if user_signed_in?
-                %li.divider{role: "separator"}
-                %li
-                  %a{href: "/account"} My account
+            %a{href: "/categories"} Shop
             - if user_signed_in?
               %li
                 %a{type: "button", 'data-toggle': "dropdown", href: "/", 'aria-expanded': "false"} My account

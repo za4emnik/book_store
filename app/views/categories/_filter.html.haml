@@ -2,7 +2,7 @@
   .pull-right
     .dropdown
       %a.dropdown-toggle.dropdown-btn.width-240{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-        Newest first
+        #{filter_state || 'Title a z'}
         %i.fa.fa-angle-down.dropdown-icon
       %ul.dropdown-menu
         %li
@@ -10,12 +10,16 @@
         %li
           %a{href: "?filter=popular_first"} Popular first
         %li
-          %a{href: "?filter=price_low_to_hight"} Price: Low to hight
+          %a{href: "?filter=price_low_to_hight"} Price low to hight
         %li
-          %a{href: "?filter=price_hight_to_low"} Price: Hight to low
+          %a{href: "?filter=price_hight_to_low"} Price hight to low
+        %li
+          %a{href: "?filter=title_a_z"} Title a z
+        %li
+          %a{href: "?filter=title_z_a"} Title z a
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
-      %a.filter-link{href: "#"}
+      %a.filter-link{href: "/categories"}
         All
         %span.badge.general-badge= @books_count
     - categories.each do |category|

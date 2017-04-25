@@ -27,7 +27,7 @@
                 %i.fa.fa-plus.line-height-40
           .col-xs-7.col-md-5
             = f.submit "Add to Cart", class: "btn btn-default pull-right general-position"
-      .general-info-wrap.divider-lg
+      .general-info-wrap.divider-lg#descr
         %p Description
         %p.lead.small.line-height-2
           = markdown(@book.description)
@@ -73,3 +73,10 @@
         = f.label :message, "Review", class: "control-label input-label"
         = f.text_area :message, class: "form-control", placeholder: "Review"
         = f.submit "Post", class: "btn btn-default center-block mb-20"
+= javascript_include_tag "readmore.min.js"
+:javascript
+  $('#descr').readmore({
+    maxHeight: 350,
+    moreLink: '<a href="#">Read more</a>',
+    lessLink: '<a href="#">Hide</a>'
+  });

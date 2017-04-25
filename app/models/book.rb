@@ -40,7 +40,9 @@ class Book < ApplicationRecord
       self.order(price: :asc)
     when 'price_hight_to_low'
       self.order(price: :desc)
-    else self.order(updated_at: :desc)
+    when 'title_z_a'
+      self.order(title: :desc)
+    else self.order(title: :asc)
     end
   end
 end
