@@ -41,7 +41,7 @@ class Order < ApplicationRecord
       self.where(aasm_state: 'in_delivery')
     when 'delivered'
       self.where(aasm_state: 'delivered')
-    when 'all'
+    else
       self.all
     end
   end

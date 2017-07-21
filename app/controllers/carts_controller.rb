@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+  before_action :authenticate_user!, only: :update
 
   def index
     current_order.subtotal!
@@ -11,6 +12,16 @@ class CartsController < ApplicationController
     end
     check_coupon if params[:order][:coupon].present?
     redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+  def check_coupon
+    coupon = Coupon.where(code: params[:order][:coupon], active: true).first
+    if coupon
+      coupon.active = false
+      current_order.coupon = coupon
+    end
   end
 
 end

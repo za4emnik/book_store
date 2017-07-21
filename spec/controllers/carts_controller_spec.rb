@@ -2,16 +2,45 @@ require 'rails_helper'
 
 RSpec.describe CartsController, type: :controller do
 
-  let(:order_item_params) { FactoryGirl.attributes_for(:order_item).stringify_keys }
-  let(:order) { FactoryGirl.create(:order) }
+  describe '#index' do
+    subject { get :index }
 
-  describe 'PUT #update' do
+    FactoryGirl.create(:order)
 
-    it 'receives update order_items' do
-      allow(OrderItem).to receive(:update)
-      expect(OrderItem).to receive(:update)
-      put :update, id: order.id, order_items: order_item_params
-    end
+    it_should_behave_like 'given page'
+
   end
 
+  describe '#update' do
+
+    let!(:order) { FactoryGirl.create(:order) }
+    let!(:order_item) { FactoryGirl.create(:order_item, order: order, quantity: 0) }
+    let!(:item) { FactoryGirl.attributes_for(:order_item, quantity: 5) }
+    subject { put :update, params: { id: order.id, order_items: { order_item.id => item }, order: {:coupon => false} } }
+
+    context 'when logged' do
+      login_user
+
+      it 'should update order items' do
+        order.order_items << order_item
+        expect{ subject }.to change{ OrderItem.find(order_item.id).quantity }.from(order_item.quantity).to(item[:quantity])
+      end
+
+      it 'should call #check_coupon if coupon is entered' do
+        expect(controller).to receive(:check_coupon)
+        subject
+      end
+
+      it 'should redirect to home page' do
+        subject
+        request.env['HTTP_REFERER'] = root_url
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    it_should_behave_like 'when guest' do
+      subject { put :update, params: { id: order.id, order_items: { order_item.id => item }, order: {:coupon => false} } }
+    end
+
+  end
 end

@@ -7,13 +7,13 @@ class UsersController < ApplicationController
   end
 
   def update_shipping
-    current_user.shipping_address ||= current_user.build_shipping_address
+    current_user.build_shipping_address unless current_user.shipping_address
     current_user.shipping_address.update_attributes(address_params)
     redirect_to settings_path
   end
 
   def update_billing
-    current_user.billing_address ||= current_user.build_billing_address
+    current_user.build_billing_address unless current_user.billing_address
     current_user.billing_address.update_attributes(address_params)
     redirect_to settings_path
   end
@@ -30,11 +30,11 @@ class UsersController < ApplicationController
 
   def destroy
     current_user.destroy
-    redirect_to settings_path
+    redirect_to root_path
   end
 
 
-  protected
+  private
 
 
   def address_params

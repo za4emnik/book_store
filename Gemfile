@@ -27,6 +27,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'wicked'
 gem 'rectify'
+gem 'draper', '3.0.0.pre1'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -47,6 +48,7 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'ffaker'
+  gem 'rspec-html-matchers'
 end
 gem "rails_12factor", group: :production
 

@@ -3,7 +3,7 @@
   %h3.general-subtitle Credit Card
   .visible-xs
     = form_for current_order, url: wizard_path, method: :put do |f|
-      -@deliveries.each do |delivery|
+      -@form.each do |delivery|
         .general-cart-item.divider-lg-bottom
           %table.table
             %tr
@@ -12,7 +12,7 @@
               %td.col-half
                 .form-group.radio.mt-0.mb-0
                   %label.font-16.font-weight-light.pl-0
-                    =f.radio_button :delivery, delivery.id, class: "radio-input", hidden: "true"
+                    =f.radio_button :delivery_id, delivery.id, class: "radio-input", hidden: "true"
                     %span.radio-icon
                     %span.radio-text #{delivery.name}
             %tr
@@ -43,12 +43,12 @@
             %th
               %span.in-grey-600 Price
         %tbody
-          -@deliveries.each do |delivery|
+          -@form.each do |delivery|
             %tr
               %td
                 .form-group.radio.mt-0.mb-0
                   %label.font-16.font-weight-light.pl-0
-                    =f.radio_button :delivery, delivery.id, class: "radio-input", hidden: "true"
+                    =f.radio_button :delivery, delivery.id, checked: checked_delivery?(delivery.id), class: "radio-input", hidden: "true"
                     %span.radio-icon
                     %span.radio-text #{delivery.name}
               %td

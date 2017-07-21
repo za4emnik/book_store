@@ -1,8 +1,11 @@
+require 'ffaker'
+
 FactoryGirl.define do
   factory :user do
+    @pass = FFaker::Internet::password
     email { FFaker::Internet::email }
-    password "password"
-    password_confirmation "password"
+    password @pass
+    password_confirmation @pass
 
     trait :admin do
       is_admin true

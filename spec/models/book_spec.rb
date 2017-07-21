@@ -1,33 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-  subject(:book) { FactoryGirl.create :book }
 
-  context 'should be presence' do
-    it { should validate_presence_of(:title) }
-
-    it { should validate_presence_of(:price) }
-
-    it { should validate_presence_of(:description) }
-
-    it { should validate_presence_of(:category_id) }
-  end
-
-  context 'should have associations' do
+  context 'associations' do
     it { should have_and_belong_to_many(:authors) }
-
     it { should have_and_belong_to_many(:materials) }
-
-    it { should have_many(:pictures) }
-
     it { should have_many(:order_items) }
-
-    it { should have_many(:reviews) }
-
     it { should belong_to(:category) }
+    it { should have_many(:pictures) }
+    it { should have_many(:reviews) }
+    it { should accept_nested_attributes_for(:pictures) }
   end
 
-  it { should accept_nested_attributes_for(:pictures) }
+  context 'validations' do
+    [:title, :price, :description, :category_id].each do |field|
+      it { should validate_presence_of(field) }
+    end
+  end
 
   context '#bestsellers' do
     before do

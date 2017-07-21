@@ -1,25 +1,28 @@
 %main.container.mb-res-50
   = render partial: '/checkout/steps'
   %h3.general-subtitle Credit Card
-  = form_for @cart, url: wizard_path, class: "max-600 mb-80", method: :put do |f|
-    .form-group.has-error
+  = form_for @form, url: wizard_path, class: "max-600 mb-80", method: :put do |f|
+    .form-group{class: add_error_class(@form, :number)}
       = f.label :number, {class: "control-label font-weight-light", value: "Card Number"}
       = f.text_field :number, {class: "form-control", placeholder: "Card Number"}
-      %span.help-block Please enter a valid credit card number
+      .span.help-block= show_errors(@form, :number)
     .row
       .col-sm-6
-        .form-group
-        = f.label :name, {class: "control-label font-weight-light", value: "Name on Card"}
-        = f.text_field :name, {class: "form-control", placeholder: "Name on Card"}
+        .form-group{class: add_error_class(@form, :name)}
+          = f.label :name, {class: "control-label font-weight-light", value: "Name on Card"}
+          = f.text_field :name, {class: "form-control", placeholder: "Name on Card"}
+          .span.help-block= show_errors(@form, :name)
       .col-sm-3
-        .form-group
+        .form-group{class: add_error_class(@form, :date)}
           = f.label :date, {class: "control-label font-weight-light", value: "MM / YY"}
           = f.text_field :date, {class: "form-control", placeholder: "MM / YY"}
+          .span.help-block= show_errors(@form, :date)
       .col-sm-3
-        .form-group.relative
+        .form-group{class: "relative #{add_error_class(@form, :cvv)}"}
           = f.label :cvv, {class: "control-label font-weight-light", value: "CVV"}
           = f.text_field :cvv, {class: "form-control", placeholder: "CVV"}
           %i.fa.fa-question-circle.general-form-help.font-18
+          .span.help-block= show_errors(@form, :cvv)
     .general-text-align
       %p.in-gold-500.font-18 Order Summary
       %table.general-summary-table

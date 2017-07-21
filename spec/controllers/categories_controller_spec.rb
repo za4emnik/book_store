@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
 
-  describe 'index' do
+  describe '#index' do
     subject { get :index }
 
     it 'response should be 200' do
@@ -17,7 +17,7 @@ RSpec.describe CategoriesController, type: :controller do
     end
   end
 
-  describe 'show' do
+  describe '#show' do
     subject { get :show, params: { id: FactoryGirl.create(:category).id } }
 
     it 'response should be 200' do

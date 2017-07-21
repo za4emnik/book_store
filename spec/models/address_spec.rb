@@ -2,21 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Address, type: :model do
 
-  subject(:address) { FactoryGirl.create :address }
-
-  describe 'should presence' do
-    %w(first_name last_name address city zip phone).each do |field|
-      it { should validate_presence_of(field) }
-    end
+  context 'associations' do
+    it { should belong_to(:user) }
+    it { should belong_to(:country) }
   end
 
-  describe 'length should be maximum 50' do
-    %w(last_name city).each do |field|
-      it { should validate_length_of(field).is_at_most(50) }
+  context '#full_name' do
+    
+    it 'should return full name' do
+      address = FactoryGirl.create(:address)
+      expect(address.full_name).to eq("#{address.first_name} #{address.last_name}")
     end
   end
-
-  it { should validate_numericality_of(:zip) }
-  it { should validate_numericality_of(:phone) }
-
 end

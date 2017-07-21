@@ -1,16 +1,13 @@
-class AddressForm < Rectify::Form
+class AddressForm
 
-  attribute :first_name, String
-  attribute :last_name, String
-  attribute :address, String
-  attribute :city, String
-  attribute :zip, String
-  attribute :country, String
-  attribute :phone, String
+  include ActiveModel::Model
+  include Virtus.model
 
+  attribute :billing_address, BillingForm, default: BillingForm.new
+  attribute :shipping_address, ShippingForm, default: ShippingForm.new
+  attribute :current_user, User
 
-  # Validations
-  validates :first_name, presence: true
+  validate  :all_addresses_valid
 
   def save
     if valid?
@@ -21,10 +18,23 @@ class AddressForm < Rectify::Form
     end
   end
 
+  def all_addresses_valid
+    errors.add(:billing_address, billing_address.errors.messages) if billing_address.invalid?
+    errors.add(:shipping_address, shipping_address.errors.messages) if shipping_address.invalid?
+  end
+
+
   private
 
   def persist!
-    user = User.create!(email: email)
-    @expense = user.expenses.create!(amount: amount, paid: paid)
+    create_or_update('billing_address')
+    create_or_update('shipping_address')
+  end
+
+  def create_or_update(type)
+    unless current_user.public_send(type).present?
+      current_user.public_send("#{type}=", type.classify.constantize.new(public_send(type).attributes))
+    end
+    current_user.public_send(type).update_attributes(public_send(type).attributes)
   end
 end

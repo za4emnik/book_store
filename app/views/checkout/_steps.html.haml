@@ -1,21 +1,21 @@
 %h1.general-title-margin Checkout
 %ul.steps.list-inline
-  %li.step.active
+  %li.step{class: current_step(:address)}
     %span.step-number 1
     %span.step-text.hidden-xs Address
   %li.step-divider
-  %li.step
+  %li.step{class: current_step(:delivery)}
     %span.step-number 2
     %span.step-text.hidden-xs Delivery
   %li.step-divider
-  %li.step
+  %li.step{class: current_step(:payment)}
     %span.step-number 3
     %span.step-text.hidden-xs Payment
   %li.step-divider
-  %li.step
+  %li.step{class: current_step(:confirm)}
     %span.step-number 4
     %span.step-text.hidden-xs Confirm
   %li.step-divider
-  %li.step
+  %li.step{class: current_step(:complete)}
     %span.step-number 5
     %span.step-text.hidden-xs Complete

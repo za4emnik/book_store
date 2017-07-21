@@ -20,10 +20,10 @@
         =form_for @order_item, url: order_items_path(book_id: @book.id), method: :post do |f|
           .col-xs-5.col-md-3
             .input-group.general-position
-              %div.input-link.inc.button
-                %i.fa.fa-minus.line-height-40
-              = f.text_field :quantity, {class: "form-control quantity-input", id: 'quantity'}
               %div.input-link.dec.button
+                %i.fa.fa-minus.line-height-40
+              = f.text_field :quantity, {class: "form-control quantity-input", id: 'quantity', value: '1'}
+              %div.input-link.inc.button
                 %i.fa.fa-plus.line-height-40
           .col-xs-7.col-md-5
             = f.submit "Add to Cart", class: "btn btn-default pull-right general-position"
@@ -31,7 +31,6 @@
         %p Description
         %p.lead.small.line-height-2
           = markdown(@book.description)
-          %a.in-gold-500.ml-10{href: "#"} Read More
       .general-info-wrap.divider-lg
         .clearfix
           %p.pull-left Year of publication
@@ -76,7 +75,27 @@
 = javascript_include_tag "readmore.min.js"
 :javascript
   $('#descr').readmore({
-    maxHeight: 350,
-    moreLink: '<a href="#">Read more</a>',
-    lessLink: '<a href="#">Hide</a>'
+    maxHeight: 165,
+    moreLink: '<a class="in-gold-500 ml-10" href="#">Read more</a>',
+    lessLink: '<a href="#"></a>'
   });
+:javascript
+  $('.inc').bind('click', function(){
+    inc_dec('+');
+  });
+  $('.dec').bind('click', function(){
+    inc_dec('-');
+  });
+
+  function inc_dec(sign){
+    let value = $('#quantity').val() * 1;
+
+    if (sign == '+'){
+      value += 1;
+    }else{
+      if(value >= 2){
+        value -= 1;
+      }
+    }
+    $('#quantity').val(value);
+  }

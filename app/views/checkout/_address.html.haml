@@ -1,10 +1,10 @@
-#{address.full_name}
-%span.general-edit edit
+#{obj.full_name}
+= @form.edit_link
 %br
-#{address.address}
+#{obj.address}
 %br
-#{address.city} #{address.zip}
+#{obj.city} #{obj.zip}
 %br
-#{address.country}
+#{obj.country.name}
 %br
-Phone #{address.phone}
+Phone #{obj.phone}

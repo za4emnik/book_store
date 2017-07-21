@@ -1,18 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
-  describe 'index' do
+  describe '#index' do
+    login_user
     subject { get :index }
 
-    it 'response should be 200' do
-      expect(subject.status).to eq(200)
-    end
+    it_should_behave_like 'given page'
 
-    variables = ['orders', 'state']
-    variables.each do |variable|
-      it "should have ##{variable} variable" do
-        expect(subject.instance_variable_get(:@variable)).kind_of? subject.class
-      end
-    end
+  end
+
+  describe '#show' do
+    login_user
+    subject { get :show, params: { id: FactoryGirl.create(:order).id } }
+
+    it_should_behave_like 'given page'
+
   end
 end

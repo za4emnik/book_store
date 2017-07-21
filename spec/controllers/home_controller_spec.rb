@@ -17,13 +17,4 @@ RSpec.describe HomeController, type: :controller do
     end
   end
 
-
-  #context 'asasdas' do
-  #  login_user
-
-  #  it 'asdasdsad' do
-  #    expect(subject.current_user).to_not eq(nil)
-  #  end
-  #end
-
 end

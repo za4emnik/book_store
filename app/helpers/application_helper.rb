@@ -19,4 +19,12 @@ module ApplicationHelper
     obj.map(&field).join(mark).html_safe
   end
 
+  def show_errors(obj, field)
+    obj.errors[field].join(', ')
+  end
+
+  def add_error_class(obj, field)
+    'has-error' if obj.errors[field].any?
+  end
+
 end

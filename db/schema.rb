@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319121727) do
+ActiveRecord::Schema.define(version: 20170428134929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,13 +34,14 @@ ActiveRecord::Schema.define(version: 20170319121727) do
     t.string   "last_name"
     t.string   "address"
     t.string   "city"
-    t.string   "zip"
+    t.integer  "zip"
     t.integer  "country_id"
     t.string   "phone"
     t.integer  "user_id"
     t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "use_billing_address", default: false
     t.index ["country_id"], name: "index_addresses_on_country_id", using: :btree
     t.index ["user_id"], name: "index_addresses_on_user_id", using: :btree
   end
@@ -77,10 +78,10 @@ ActiveRecord::Schema.define(version: 20170319121727) do
 
   create_table "books", force: :cascade do |t|
     t.string   "title"
-    t.string   "price"
+    t.decimal  "price",       precision: 8, scale: 2
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "category_id"
     t.integer  "year"
     t.string   "dimensions"

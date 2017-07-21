@@ -1,6 +1,6 @@
 %main.container
   = render partial: '/checkout/steps'
-  = form_for @address, url: wizard_path, method: :put do |f|
+  = form_for @form, url: wizard_path, method: :put do |f|
     .hidden-xs.hidden-sm
       .row
         .col-md-5
@@ -13,21 +13,32 @@
         .visible-xs.visible-sm
           %h3.general-subtitle Billing Address
           %p.general-info-text all fields are required
-        = f.fields_for @billing_address do |b|
-          = render partial: '/checkout/fields', locals: {f: b}
+        = f.fields_for @form.billing_address do |b|
+          = render partial: '/checkout/fields', locals: {f: b, obj: @form.billing_address}
       .col-md-5.col-md-offset-1.mb-60
         .visible-xs.visible-sm
           %h3.general-subtitle Shipping Address
-        = f.fields_for @shipping_address do |s|
-          = render partial: '/checkout/fields', locals: {f: s}
+        #shipping_address_form
+          = f.fields_for @form.shipping_address do |s|
+            = render partial: '/checkout/fields', locals: {f: s, obj: @form.shipping_address}
         .form-group.checkbox
           %label.font-weight-light.pl-0
-            = check_box_tag :use_billing_address, hidden: "true"
-            %span.checkbox-icon
-              %i.fa.fa-check
-            %span.checkbox-text Use Billing Adress
+            = f.fields_for @form.shipping_address do |s|
+              = s.check_box :use_billing_address, onclick: 'hide_block(this)', hidden: true, class: 'checkbox-input'
+              %span.checkbox-icon
+                %i.fa.fa-check
+              %span.checkbox-text Use Billing Adress
     .general-text-align.mb-60
       %p.in-gold-500.font-18 Order Summary
       %table.general-summary-table
         = render partial: '/checkout/summary'
         = f.submit "Save and Continue", class: "btn btn-primary center-block mb-20"
+:javascript
+  $( document ).ready(hide_block($('#address_form_shipping_form_use_billing_address')[0]));
+
+  function hide_block(el){
+    if (el.checked)
+      $('#shipping_address_form').hide();
+    else
+      $('#shipping_address_form').show();
+  }

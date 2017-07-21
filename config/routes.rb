@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :checkout
   resources :carts,       only: [:index, :update]
   resources :order_items, only: [:create, :destroy]
-  resources :users,       only: [:edit] do
+  resources :users,       only: [:edit, :destroy] do
     patch 'update_billing'
     patch 'update_shipping'
     patch 'update_email'
@@ -28,6 +28,6 @@ Rails.application.routes.draw do
 
   #get 'catalog', to: 'categories#index'
   get 'settings' => 'users#edit'
-  get 'cart' => 'carts#index'
-  get 'success' => 'orders#success'
+  get 'cart' => 'carts#index', as: :cart_page
+  #get 'success' => 'orders#success'
 end

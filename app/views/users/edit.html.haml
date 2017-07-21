@@ -56,7 +56,7 @@
         .col-sm-12
           .divider-lg-bottom
           %p.in-gold-500.font-18.mb-25.pt-20 Remove Account
-          = form_for current_user, method: :delete, class: "general-form-md pb-25", url: admin_user_path(current_user) do |f|
+          = form_for current_user, method: :delete, class: "general-form-md pb-25", url: user_path(current_user) do |f|
             .general-settings-btn
               = f.submit "Please Remove My Account", class: "btn disabled mb-20"
             .form-group.checkbox.general-settings-checkbox
