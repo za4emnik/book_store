@@ -20,6 +20,6 @@
   .text-center.general-text-right
     %p.in-gold-500.font-18 Order Summary
     %table.general-summary-table.general-summary-table-right.general-text-right
-      = render partial: '/checkout/summary', locals: {order: @order}
+      = render partial: '/checkout/summary', locals: {order: @form}
   .text-center
     = button_to 'Back to Store', wizard_path(:complete), {method: :put, class: "btn btn-default mb-20"}

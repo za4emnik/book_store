@@ -5,7 +5,7 @@ class OrderDecorator < ApplicationDecorator
     if model.coupon
       h.content_tag :tr do
         h.concat h.content_tag(:td, h.content_tag(:p, 'Coupon:', class: 'font-16'))
-        h.concat h.content_tag(:td, h.content_tag(:p, model.coupon.value, class: 'font-16'))
+        h.concat h.content_tag(:td, h.content_tag(:p, "€#{model.coupon.value}", class: 'font-16'))
       end
     end
   end
@@ -14,7 +14,7 @@ class OrderDecorator < ApplicationDecorator
     if model.delivery
       h.content_tag :tr do
         h.concat h.content_tag(:td, h.content_tag(:p, 'Shipping:', class: 'font-16'))
-        h.concat h.content_tag(:td, h.content_tag(:p, order.delivery.price, class: 'font-16'))
+        h.concat h.content_tag(:td, h.content_tag(:p, "€#{order.delivery.price}", class: 'font-16'))
       end
     end
   end

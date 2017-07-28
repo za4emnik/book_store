@@ -3,7 +3,7 @@ require 'aasm/rspec'
 
 RSpec.describe Order, type: :model do
 
-  context 'associations' do
+  describe 'associations' do
     it { should have_one(:coupon) }
     it { should have_one(:cart) }
     it { should have_many(:order_items) }
@@ -11,14 +11,14 @@ RSpec.describe Order, type: :model do
     it { should belong_to(:delivery) }
   end
 
-  context 'change of states' do
+  describe 'change of states' do
     it { expect(subject).to transition_from(:pending).to(:waiting_for_processing).on_event(:waiting_processing) }
     it { expect(subject).to transition_from(:waiting_for_processing).to(:in_progress).on_event(:progress) }
     it { expect(subject).to transition_from(:in_progress).to(:in_delivery).on_event(:delivered) }
     it { expect(subject).to transition_from(:in_delivery).to(:delivered).on_event(:complete) }
   end
 
-  context '#with_filter' do
+  describe '#with_filter' do
     states = %w(waiting_for_processing in_progress in_delivery delivered)
 
     before do
@@ -38,7 +38,7 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  context '#update_total!' do
+  describe '#update_total!' do
     let (:coupon) { FactoryGirl.create(:coupon) }
     let (:delivery) { FactoryGirl.create(:delivery) }
     subject { FactoryGirl.create(:order, coupon: coupon, delivery: delivery) }
@@ -50,7 +50,7 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  context '#subtotal!' do
+  describe '#subtotal!' do
     subject { FactoryGirl.create(:order) }
 
     it 'should update subtotal' do
@@ -59,6 +59,20 @@ RSpec.describe Order, type: :model do
       value = subject.order_items[0].quantity * subject.order_items[0].book.price
       subject.subtotal!
       expect(subject.subtotal).to eq(value)
+    end
+  end
+
+  describe 'generate orders numbers' do
+
+    let(:order) { FactoryGirl.create(:order) }
+
+    it 'should generate order with format \'R00000000\'' do
+      expect(order.number).to match(/^(R)([\d]){8}$/)
+    end
+
+    it 'number should include order id' do
+      order = FactoryGirl.create(:order, id: 55555)
+      expect(order.number).to eq('R00055555')
     end
   end
 end

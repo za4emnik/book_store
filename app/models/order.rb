@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  after_create :generate_order_number
+
   include AASM
 
   has_one    :coupon
@@ -56,5 +58,15 @@ class Order < ApplicationRecord
   def subtotal!
     self.subtotal = order_items.collect{ |item| item.quantity * item.book.price }.sum
     self.save
+  end
+
+
+  private
+
+  def generate_order_number
+    number = if self.id.to_s.length < 8
+      'R'+('0' * (8 - self.id.to_s.length))
+    end
+    self.update!(number: number + self.id.to_s)
   end
 end

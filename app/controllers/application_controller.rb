@@ -2,9 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   helper_method :current_order
 
-  #def access_denied(exception)
-  #  redirect_to root_path, alert: exception.message
-  #end
+
+  def access_denied(exception)
+    redirect_to root_path, alert: exception.message
+  end
 
   def after_sign_in_path_for(user)
     user.is_admin? ? admin_root_path : root_path

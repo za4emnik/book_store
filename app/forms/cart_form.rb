@@ -5,15 +5,15 @@ class CartForm
 
   attribute :order, Order, default: Cart.new
 
-  attribute :number, Integer
+  attribute :number, String
   attribute :name, String
   attribute :date, String
   attribute :cvv, Integer
 
 
   validates :number, :name, :date, :cvv, :order, presence: true
-  validates :number, numericality: { only_integer: true }
   validates :name, length: { maximum: 50 }
+  validates :number, length: { maximum: 21 }
   validates :cvv, length: { minimum: 3, maximum: 4 }
 
 

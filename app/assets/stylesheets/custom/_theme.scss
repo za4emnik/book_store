@@ -250,6 +250,13 @@
 // Custom features
 
 // Shop basket component
+.fa-plus, .fa-minus{
+  cursor: pointer;
+}
+
+.item-box{
+  height:570px;
+}
 
 .shop-link {
   display: inline-block;

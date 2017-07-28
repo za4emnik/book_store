@@ -12,9 +12,9 @@ RSpec.describe AddressBuildForm, type: :model do
     %w(last_name city).each do |field|
       it { should validate_length_of(field).is_at_most(50) }
     end
+    it { should validate_length_of(:phone).is_at_most(21) }
   end
 
   it { should validate_numericality_of(:zip) }
-  it { should validate_numericality_of(:phone) }
 
 end

@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationController, type: :controller do
-
   let(:order) { FactoryGirl.create(:order) }
 
-  describe 'after_sign_in_path_for' do
+  describe '#after_sign_in_path_for' do
     it 'should return admin root path' do
       admin = FactoryGirl.create(:admin)
       expect(subject.after_sign_in_path_for(admin)).to eq admin_root_path
@@ -16,7 +15,7 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
-  describe 'current_order' do
+  describe '#current_order' do
 
     it 'should return order' do
       subject.current_order

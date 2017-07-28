@@ -45,7 +45,7 @@ class CheckoutController < ApplicationController
   end
 
   def check_order
-    unless request.fullpath == wizard_path(:complete)
+    unless ([wizard_path(:complete), wizard_path(:wicked_finish)].include?(request.fullpath))
       redirect_to(carts_path) if current_order.order_items.blank?
     end
   end

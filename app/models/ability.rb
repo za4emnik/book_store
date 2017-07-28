@@ -8,6 +8,7 @@ class Ability
     else
       can :manage, :Account
     end
+    can :read, ActiveAdmin::Page, name: 'Dashboard', namespace_name: :admin
 
     can :manage, User do |u|
       u.id == user.id

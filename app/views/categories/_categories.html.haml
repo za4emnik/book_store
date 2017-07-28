@@ -4,7 +4,7 @@
   .mb-120
     .row
       - books.each do |book|
-        .col-xs-6.col-sm-3
+        .col-xs-6.col-sm-3.item-box
           .general-thumb-wrap
             .thumbnail.general-thumbnail
               %img.img-shadow.general-thumbnail-img{src: "#{book.pictures.first.image.url(:thumb)}", alt: "#{book.title}"}
