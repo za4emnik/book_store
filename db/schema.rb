@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20170728093749) do
   end
 
   create_table "carts", force: :cascade do |t|
-    t.string   "number"
+    t.integer  "number"
     t.string   "name"
     t.string   "date"
     t.string   "cvv"

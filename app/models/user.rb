@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
+  validates :password, format: { with: /(?=^.{8,}$)(?=.*[\d])(?=.*[a-z])(?=.*[A-Z])/ }
 
   def self.new_with_session(params, session)
     super.tap do |user|

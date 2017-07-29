@@ -23,4 +23,7 @@ class OrderDecorator < ApplicationDecorator
     h.content_tag(:th, '', class: 'col-close') if is_cart_page?
   end
 
+  def show_total
+    model.total.positive? ? model.total : 0
+  end
 end

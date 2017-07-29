@@ -18,7 +18,7 @@
             .col-sm-4
               .input-group.general-input-group
                 %label.font-weight-light Enter Your Coupon Code
-                = f.text_field :coupon, {class: "form-control mb-30", placeholder: "Enter Your Coupon Code", value: current_order.coupon ? current_order.coupon.code : ''}
+                = f.text_field :coupon, { class: "form-control mb-30", placeholder: "Enter Your Coupon Code", value: current_order.coupon ? current_order.coupon.code : '', disabled: current_order.coupon ? true : false }
                 %div
                   = f.submit "Update cart", class: "btn btn-primary mb-15 res-block"
             .col-sm-8

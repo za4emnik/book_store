@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  context 'associations' do
+  describe 'associations' do
 
     before do
       subject.shipping_address = ShippingAddress.create(FactoryGirl.attributes_for(:address))
@@ -23,14 +23,22 @@ RSpec.describe User, type: :model do
     it { should have_many(:orders) }
   end
 
-  context 'validates' do
+  describe 'validates' do
     it { should validate_presence_of(:email) }
+
     it { should allow_value('test@domain.com').for(:email) }
     it { should_not allow_value('testdomain.com').for(:email) }
     it { should_not allow_value('te#st@domain.s').for(:email) }
+
+    it { should_not allow_value('password').for(:password) }
+    it { should_not allow_value('pasSword').for(:password) }
+    it { should_not allow_value('pasSword').for(:password) }
+    it { should_not allow_value('pasS2wo').for(:password) }
+    it { should allow_value('passwordS1').for(:password) }
+    it { should allow_value('pas5Tsa1').for(:password) }
   end
 
-  context '#new_with_session' do
+  describe '#new_with_session' do
 
     it 'should add email for new users who already has session' do
       email = 'some_email@domain.com'
