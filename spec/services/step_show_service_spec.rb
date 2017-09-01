@@ -32,8 +32,8 @@ RSpec.describe StepShowService do
 
   context '#address' do
     user = FactoryGirl.create(:user)
-    user.shipping_address = ShippingAddress.create(FactoryGirl.attributes_for(:address))
-    user.billing_address = BillingAddress.create(FactoryGirl.attributes_for(:billing_address))
+    user.shipping_address = ShippingAddress.create(FactoryGirl.attributes_for(:user_shipping_address))
+    user.billing_address = BillingAddress.create(FactoryGirl.attributes_for(:user_billing_address))
     order = FactoryGirl.create(:order, user: user)
     subject { StepShowService.new(:address, order, 'session') }
 

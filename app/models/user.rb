@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_one  :shipping_address, dependent: :destroy
-  has_one  :billing_address, dependent: :destroy
+  has_one  :shipping_address, as: :addressable, dependent: :destroy
+  has_one  :billing_address, as: :addressable, dependent: :destroy
   has_many :reviews
   has_many :orders
 
@@ -19,6 +19,17 @@ class User < ApplicationRecord
      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
        user.email = data["email"] if user.email.blank?
      end
+    end
+  end
+
+  def update_email(value)
+    self.email = value
+    self.valid?
+    if self.errors[:email].blank?
+      self.save(validate: false)
+    else
+      self.errors.delete(:password)
+      false
     end
   end
 

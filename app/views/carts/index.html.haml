@@ -43,5 +43,7 @@
         value -= 1;
       }
     }
-    $('#order_items_'+id+'_quantity').val(value);
+    $('.order-items-'+id+'-quantity').each(function() {
+      $(this).val(value);
+    });
   }

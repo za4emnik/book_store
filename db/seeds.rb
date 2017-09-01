@@ -1,4 +1,4 @@
-user = User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password', is_admin: true)
+user = User.create!(email: 'admin@example.com', password: 'paSsword1', password_confirmation: 'paSsword1', is_admin: true)
 user.billing_address = BillingAddress.create!(first_name: 'Vincent', last_name: 'Palmer', address: '2009 Tree Frog Lane', city: 'Longview', zip: 75604, country_id: 227, phone: '903-808-7859')
 user.shipping_address = ShippingAddress.create!(use_billing_address: true)
 

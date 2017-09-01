@@ -7,7 +7,7 @@ FactoryGirl.define do
     zip 7777777
     association :country
     phone { FFaker::PhoneNumberCU::e164_mobile_phone_number }
-    association :user
+    association :addressable, factory: :user
     type 'ShippingAddress'
     use_billing_address false
 
@@ -15,7 +15,21 @@ FactoryGirl.define do
     type 'BillingAddress'
   end
 
-  factory :billing_address, traits: [:billing_address]
+  trait :shipping_address do
+    type 'ShippingAddress'
+  end
 
+  trait :user_address do
+    association :addressable, factory: :user
+  end
+
+  trait :order_address do
+    association :addressable, factory: :order
+  end
+
+  factory :user_billing_address,  traits: [:billing_address, :user_address]
+  factory :user_shipping_address, traits: [:shipping_address, :user_address]
+  factory :order_billing_address, traits: [:billing_address, :order_address]
+  factory :order_shipping_address, traits: [:shipping_address, :order_address]
   end
 end

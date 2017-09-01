@@ -1,7 +1,12 @@
 class StepShowService
 
   def initialize(step, order, session)
-    @step, @order, @user, @session = step, order, order.user.decorate, session
+    @step, @order, @session = step, order, session
+    @obj = if order.billing_address && order.shipping_address
+      order.decorate
+    else
+      order.user.decorate
+    end
   end
 
   def form
@@ -9,9 +14,9 @@ class StepShowService
   end
 
   def address
-    form = AddressForm.new(current_user: @user)
-    form.shipping_address = @user.shipping_address.attributes
-    form.billing_address = @user.billing_address.attributes
+    form = AddressForm.new(obj: @obj)
+    form.billing_address = address_attributes(:billing_address)
+    form.shipping_address = address_attributes(:shipping_address)
     form
   end
 
@@ -28,11 +33,22 @@ class StepShowService
 
   def confirm
     @session[:steps_taken?] = true
-    @user
+    @obj
   end
 
   def complete
-    order = @user.orders.where.not(aasm_state: 'pending').order(:created_at).last
+    order = @order.user.orders.where.not(aasm_state: 'pending').order(:created_at).last
     order.decorate if order.present?
+  end
+
+
+  private
+
+  def address_attributes(type)
+    if @obj.public_send(type)
+      @obj.public_send(type).attributes
+    else
+      @obj.public_send("build_#{type.to_s}".to_sym).attributes
+    end
   end
 end

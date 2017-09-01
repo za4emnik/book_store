@@ -5,8 +5,8 @@ RSpec.describe User, type: :model do
   describe 'associations' do
 
     before do
-      subject.shipping_address = ShippingAddress.create(FactoryGirl.attributes_for(:address))
-      subject.billing_address = BillingAddress.create(FactoryGirl.attributes_for(:billing_address))
+      subject.shipping_address = ShippingAddress.create(FactoryGirl.attributes_for(:user_shipping_address))
+      subject.billing_address = BillingAddress.create(FactoryGirl.attributes_for(:user_billing_address))
     end
 
     it { should have_one(:shipping_address) }
@@ -45,6 +45,26 @@ RSpec.describe User, type: :model do
       params = { password: 'qqqqqqq', password_confirmation: 'qqqqqqq' }
       session = {'devise.facebook_data'=>{ 'extra'=> { 'raw_info'=> { 'email'=> email} } }}
       expect(User.new_with_session(params, session).email).to eq(email)
+    end
+  end
+
+  describe '#update_email' do
+    subject { FactoryGirl.create(:user) }
+
+    it 'should update email' do
+      email = 'new@email.com'
+      subject.update_email(email)
+      expect(subject.email).to eq(email)
+    end
+
+    it 'should return false if email not valid' do
+      email = 'newemail.com'
+      expect(subject.update_email(email)).to be_falsey
+    end
+
+    it 'should delete password errors if email not valid' do
+      subject.update_email('notvalidemail.com')
+      expect(subject.errors[:password]).to be_empty
     end
   end
 end

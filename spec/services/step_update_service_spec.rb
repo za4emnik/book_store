@@ -33,7 +33,7 @@ RSpec.describe StepUpdateService do
 
     let(:user) { FactoryGirl.create(:user) }
     let(:order) { FactoryGirl.create(:order, user: user) }
-    let(:address) { FactoryGirl.attributes_for(:address).except!(:type, :use_billing_address) }
+    let(:address) { FactoryGirl.attributes_for(:user_shipping_address).except!(:type, :use_billing_address) }
     subject { StepUpdateService.new(:address, order, address, 'session') }
 
     it 'should set shipping address to form' do

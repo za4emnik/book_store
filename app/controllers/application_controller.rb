@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   helper_method :current_order
 
+  rescue_from CanCan::AccessDenied do |exeption|
+    redirect_to root_path, notice: exeption.message
+  end
+
 
   def access_denied(exception)
     redirect_to root_path, alert: exception.message

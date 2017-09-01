@@ -22,86 +22,66 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe '#update_shipping' do
-    let(:address) { FactoryGirl.attributes_for(:address) }
-    subject { patch :update_shipping, params: { user_id: 1, shipping_address: address, billing_address: address } }
+  describe '#update' do
 
     context 'when logged' do
       login_user
 
-      it 'should update shipping address' do
-        expect(subject.request.env['action_controller.instance'].current_user.shipping_address.attributes.symbolize_keys.delete_if{ |item| address.exclude?(item) }).to eq(address)
+      context 'shipping form' do
+        let(:address) { FactoryGirl.attributes_for(:user_shipping_address) }
+        subject { patch :update, params: { user_id: 1, shipping_form: address } }
+
+        it 'should update shipping address' do
+          subject
+          expect(controller.current_user.shipping_address.attributes.symbolize_keys.delete_if{ |item| address.exclude?(item) }).to eq(address)
+        end
+
+        it 'should redirect to settings page' do
+          expect(subject).to redirect_to(settings_path)
+        end
       end
 
-      it 'should redirect to settings page' do
-        expect(subject).to redirect_to(settings_path)
-      end
-    end
+      context 'billing form' do
+        let(:address) { FactoryGirl.attributes_for(:user_billing_address) }
+        subject { patch :update, params: { user_id: 1, billing_form: address } }
 
-    context 'when guest' do
-      it_should_behave_like 'when guest'
-    end
-  end
+        it 'should update billing address' do
+          subject
+          expect(controller.current_user.billing_address.attributes.symbolize_keys.delete_if{ |item| address.exclude?(item) }).to eq(address)
+        end
 
-  describe '#update_billing' do
-    let(:address) { FactoryGirl.attributes_for(:billing_address) }
-    subject { patch :update_billing, params: { user_id: 1, shipping_address: address, billing_address: address } }
-
-    context 'when logged' do
-      login_user
-
-      it 'should update shipping address' do
-        expect(subject.request.env['action_controller.instance'].current_user.billing_address.attributes.symbolize_keys.delete_if{ |item| address.exclude?(item) }).to eq(address)
+        it 'should redirect to settings page' do
+          expect(subject).to redirect_to(settings_path)
+        end
       end
 
-      it 'should redirect to settings page' do
-        expect(subject).to redirect_to(settings_path)
-      end
-    end
+      context 'email form' do
+        let(:user) { FactoryGirl.attributes_for(:user) }
+        subject { patch :update, params: { user_id: 1, email_form: user } }
 
-    context 'when guest' do
-      it_should_behave_like 'when guest'
-    end
-  end
+        it 'should update user email' do
+          subject
+          expect(controller.current_user.email).to eq(user[:email])
+        end
 
-  describe '#update_email' do
-    let(:user) { FactoryGirl.attributes_for(:user) }
-    subject { patch :update_email, params: { user_id: 1, user: user } }
-
-    context 'when logged' do
-      login_user
-
-      it 'should update user email' do
-        expect(subject.request.env['action_controller.instance'].current_user.email).to eq(user[:email])
+        it 'should redirect to settings page' do
+          expect(subject).to redirect_to(settings_path)
+        end
       end
 
-      it 'should redirect to settings page' do
-        expect(subject).to redirect_to(settings_path)
-      end
-    end
+      context 'password form' do
+        let(:user) { User.new(FactoryGirl.attributes_for(:user)) }
+        subject { patch :update, params: { user_id: 1, password_form: user.attributes } }
 
-    context 'when guest' do
-      it_should_behave_like 'when guest'
-    end
-  end
-
-  describe '#update_password' do
-    let(:user) { FactoryGirl.attributes_for(:user) }
-    subject { patch :update_email, params: { user_id: 1, user: user } }
-
-    context 'when logged' do
-      login_user
-
-      it 'should update password' do
-        expect(subject.request.env['action_controller.instance'].current_user.password).to eq(user[:password])
-      end
-
-      it 'should redirect to settings page' do
-        expect(subject).to redirect_to(settings_path)
+        it 'should update password' do
+          subject
+          expect(controller.current_user.valid_password?(user.password)).to be_truthy
+        end
       end
     end
 
     context 'when guest' do
+      subject { patch :update, params: { user_id: 1, shipping_form: {} } }
       it_should_behave_like 'when guest'
     end
   end

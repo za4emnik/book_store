@@ -1,3 +1,4 @@
+- obj = AddressDecorator.decorate(obj)
 .form-group{class: add_error_class(obj, :first_name)}
   = f.label :first_name, {class: "control-label font-weight-light", value: "First Name"}
   = f.text_field :first_name, {class: "form-control", placeholder: "First Name"}
@@ -23,9 +24,9 @@
   = f.text_field :zip, {class: "form-control", placeholder: "Zip"}
   .span.help-block= show_errors(obj, :zip)
 
-.form-group{class: add_error_class(obj, :country)}
-  = f.collection_select(:country_id, Country.all, :id, :name, {}, { id: "country", class: "form-control"})
-  .span.help-block= show_errors(obj, :country)
+.form-group{class: add_error_class(obj, :country_id)}
+  = f.collection_select(:country_id, Country.all, :id, :name, {include_blank: 'Nothing selected', selected: obj.show_selected_value, disabled: 'Nothing selected'}, { id: "country", class: "form-control"})
+  .span.help-block= show_errors(obj, :country_id)
 
 .form-group.mb-60{class: add_error_class(obj, :phone)}
   = f.label :phone, {class: "control-label font-weight-light", value: "Phone"}

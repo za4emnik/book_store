@@ -5,7 +5,7 @@ class AddressForm
 
   attribute :billing_address, BillingForm, default: BillingForm.new
   attribute :shipping_address, ShippingForm, default: ShippingForm.new
-  attribute :current_user, User
+  attribute :obj, Object
 
   validate  :all_addresses_valid
 
@@ -32,9 +32,9 @@ class AddressForm
   end
 
   def create_or_update(type)
-    unless current_user.public_send(type).present?
-      current_user.public_send("#{type}=", type.classify.constantize.new(public_send(type).attributes))
+    unless obj.public_send(type).present?
+      obj.public_send("#{type}=", type.classify.constantize.new(public_send(type).attributes))
     end
-    current_user.public_send(type).update_attributes(public_send(type).attributes)
+    obj.public_send(type).update_attributes(public_send(type).attributes)
   end
 end

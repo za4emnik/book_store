@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ApplicationDecorator, type: :decorator do
   let(:order) { FactoryGirl.build_stubbed(:order).decorate }
 
-  context '#edit_link' do
+  describe '#edit_link' do
 
     it 'should return edit link if confirm page' do
       allow(h.request).to receive(:fullpath).and_return('/confirm')
@@ -11,12 +11,11 @@ describe ApplicationDecorator, type: :decorator do
     end
   end
 
-  context '#is_cart_page?' do
+  describe '#is_cart_page?' do
 
     it 'should return true if cart page' do
       allow(h.request).to receive(:fullpath).and_return(h.cart_page_path)
       expect(order.is_cart_page?).to be_truthy
     end
   end
-
 end

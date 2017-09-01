@@ -2,7 +2,7 @@ require 'ffaker'
 
 FactoryGirl.define do
   factory :user do
-    @pass = FFaker::Internet::password
+    @pass = 'pAssWord123'
     email { FFaker::Internet::email }
     password @pass
     password_confirmation @pass

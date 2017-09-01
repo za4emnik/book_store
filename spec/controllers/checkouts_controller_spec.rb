@@ -53,7 +53,7 @@ RSpec.describe CheckoutController, type: :controller do
       login_user
 
       context 'address step' do
-        address = FactoryGirl.attributes_for(:address)
+        address = FactoryGirl.attributes_for(:order_shipping_address)
         subject { put :update, params: { id: :address, address_form: { billing_form: address, shipping_form: address } } }
 
         it_should_behave_like 'should have @form'

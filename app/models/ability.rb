@@ -13,5 +13,9 @@ class Ability
     can :manage, User do |u|
       u.id == user.id
     end
+
+    can :read, Order do |o|
+      o.user_id == user.id
+    end
   end
 end

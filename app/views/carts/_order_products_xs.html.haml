@@ -19,12 +19,7 @@
           %span.in-grey-600 Quantity
         %td
           = fields_for 'order_items[]', item do |field|
-            .input-group
-              %a.input-link{href: "#"}
-                %i.fa.fa-minus.line-height-40
-              = field.text_field :quantity, class: 'form-control quantity-input', min: 1, value: "#{item.quantity}"
-              %a.input-link{href: "#"}
-                %i.fa.fa-plus.line-height-40
+            =item.quantity_field(field, item)
       %tr
         %td
           %span.in-grey-600 SubTotal

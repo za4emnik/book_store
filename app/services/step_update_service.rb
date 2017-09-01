@@ -1,7 +1,7 @@
 class StepUpdateService
 
   def initialize(step, order, params, session)
-    @step, @order, @user, @params, @session = step, order, order.user, params, session
+    @step, @order, @params, @session = step, order, params, session
   end
 
   def update
@@ -9,9 +9,9 @@ class StepUpdateService
   end
 
   def address
-    form = AddressForm.new(current_user: @user)
-    form.billing_address = address_params(:billing_form)
-    form.shipping_address = address_params(:shipping_form)
+    form = AddressForm.new(obj: @order)
+    form.billing_address.assign_attributes(address_params(:billing_form))
+    form.shipping_address.assign_attributes(address_params(:shipping_form))
     form.save
     form
   end
@@ -42,7 +42,7 @@ class StepUpdateService
 
 
   def address_params(type)
-    @params.require(:address_form).require(type).permit(:first_name, :last_name, :address, :city, :zip, :country_id, :phone, :country_id, :use_billing_address)
+    @params.require(:address_form).require(type).permit(:first_name, :last_name, :address, :city, :zip, :phone, :country_id, :use_billing_address)
   end
 
   def cart_params

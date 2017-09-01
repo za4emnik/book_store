@@ -6,7 +6,7 @@
     %li.mb-10{role: "presentation"}
       %a{href: "#privacy", 'aria-controls': "privacy", role: "tab", 'data-toggle': "tab"} Privacy
   .tab-content
-    #address.tab-pane.fade.in.active.general-main-wrap{role: "tabpanel"}
+    #address.fade.tab-pane.in.active.general-main-wrap{role: "tabpanel"}
       .hidden-xs.hidden-sm
         .row
           .col-md-5
@@ -14,7 +14,7 @@
           .col-md-5.col-md-offset-1
             %h3.general-subtitle.mt-0 Shipping Address
       .row
-        = form_for @billing_address, method: :patch, url: user_update_billing_path(current_user) do |f|
+        = form_for @billing_address, method: :put, url: settings_path do |f|
           .col-md-5.mb-40
             .visible-xs.visible-sm
               %h3.general-subtitle.mt-0 Billing Address
@@ -22,7 +22,7 @@
             = render partial: '/checkout/fields', locals: {f: f, obj: @billing_address}
             .text-center.general-text-align
               = f.submit "Save", class: "button btn btn-default"
-        = form_for @shipping_address, method: :patch, url: user_update_shipping_path(current_user) do |f|
+        = form_for @shipping_address, method: :put, url: settings_path do |f|
           .col-md-5.col-md-offset-1.mb-25
             .visible-xs.visible-sm
               %h3.general-subtitle.mt-0 Shipping Address
@@ -34,23 +34,27 @@
       .row.mb-60
         .col-sm-5
           %p.in-gold-500.font-18.mb-25 Email
-          = form_for current_user, method: :patch, url: user_update_email_path(current_user) do |f|
-            .form-group.mb-35
+          = form_for current_user, as: :email_form, method: :put, url: settings_path do |f|
+            .form-group.mb-35{class: add_error_class(current_user, :email)}
               %label.control-label.font-weight-light{for: "email"} Enter Email
               = f.text_field :email, {class: "form-control font-weight-light", placeholder: "Enter your email", value: "#{current_user.email}"}
+              .span.help-block= show_errors(current_user, :email)
               = f.submit "Save", class: "btn btn-default mb-35"
         .col-sm-5.col-sm-offset-1
           %p.in-gold-500.font-18.mb-25 Password
-          = form_for current_user, method: :patch, class: "general-form-md pb-25", url: user_update_password_path(current_user) do |f|
-            .form-group.mb-30
+          = form_for current_user, as: :password_form, method: :put, url: settings_path, class: "general-form-md pb-25" do |f|
+            .form-group.mb-30{class: add_error_class(current_user, :old_password)}
               %label.control-label.font-weight-light{for: "oldPassword"} Old Password
               = f.text_field :current_password, {id: "oldPassword", class: "form-control", type: 'password', placeholder: "Old Password"}
-            .form-group.mb-30
+              .span.help-block= show_errors(current_user, :old_password)
+            .form-group.mb-30{class: add_error_class(current_user, :password)}
               %label.control-label.font-weight-light{for: "password"} New Password
               = f.text_field :password, {id: "password", class: "form-control", type: 'password', placeholder: "New Password"}
-            .form-group.mb-40
+              .span.help-block= show_errors(current_user, :password)
+            .form-group.mb-40{class: add_error_class(current_user, :confirmation_password)}
               %label.control-label.font-weight-light{for: "confirmPassword"} Confirm Password
               = f.text_field :password_confirmation, {id: "confirmPassword", class: "form-control", type: 'password', placeholder: "Confirm Password"}
+              .span.help-block= show_errors(current_user, :confirmation_password)
             .general-text-align
               = f.submit "Save", class: "btn btn-default mb-10"
         .col-sm-12

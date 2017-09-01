@@ -14,7 +14,7 @@ class CartForm
   validates :number, :name, :date, :cvv, :order, presence: true
   validates :date, format: { with:  /\A([0][1-9]|[1][0-2])(\/)([1-3][0-9])\Z/ }
   validates :name, length: { maximum: 50 }
-  validates :number, numericality: { only_integer: true }, format: { with:  /\A[0-9]{17,21}\Z/ }
+  validates :number, format: { with:  /\A[0-9]{17,21}\Z/ }
   validates :cvv, numericality: { only_integer: true }, format: { with:  /\A[0-9]{3,4}\Z/ }
 
 
