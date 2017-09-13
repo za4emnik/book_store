@@ -6,7 +6,7 @@ class CreateReviews < ActiveRecord::Migration[5.0]
       t.text       :message
       t.references :book
       t.references :user
-      t.boolean    :published, default: false
+      t.string     :aasm_state
       t.timestamps
     end
   end

@@ -4,10 +4,14 @@ class Book < ApplicationRecord
   has_and_belongs_to_many :authors
   has_and_belongs_to_many :materials
   has_many :order_items
-  has_many :pictures
-  has_many :reviews, -> { where(published: true ).order(updated_at: :desc) }
+  has_many :pictures, dependent: :destroy
+  has_many :reviews, -> { where(aasm_state: 'approved' ).order(updated_at: :desc) }
   belongs_to :category
   accepts_nested_attributes_for :pictures, allow_destroy: true
+
+  def create_associated_image(image)
+    pictures.create(image: image)
+  end
 
   def self.bestsellers(items)
     includes(:pictures, :authors).joins(:order_items).group(:id).select('books.*, sum(order_items.quantity) as quantity').order('quantity desc').first(items)

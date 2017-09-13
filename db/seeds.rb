@@ -1,3 +1,4 @@
+require 'ffaker'
 user = User.create!(email: 'admin@example.com', password: 'paSsword1', password_confirmation: 'paSsword1', is_admin: true)
 user.billing_address = BillingAddress.create!(first_name: 'Vincent', last_name: 'Palmer', address: '2009 Tree Frog Lane', city: 'Longview', zip: 75604, country_id: 227, phone: '903-808-7859')
 user.shipping_address = ShippingAddress.create!(use_billing_address: true)
@@ -152,6 +153,12 @@ order.save!
   order.subtotal!
   order.update_total!
   order.save!
+end
+
+#reviews
+reviews_states = ['unprocessed', 'approved', 'rejected']
+30.times do
+  Review.create!(title: FFaker::Book::title, score: rand(1..5).to_s, message: FFaker::Lorem::sentences.join(' '), book: Book.order("RANDOM()").first, user: User.order("RANDOM()").first, aasm_state: reviews_states[rand(0..2)])
 end
 
 #countries

@@ -17,6 +17,7 @@ class Order < ApplicationRecord
     state :in_progress
     state :in_delivery
     state :delivered
+    state :cancelled
 
     event :waiting_processing do
       transitions from: :pending, to: :waiting_for_processing
@@ -32,6 +33,10 @@ class Order < ApplicationRecord
 
     event :complete do
       transitions from: :in_delivery, to: :delivered
+    end
+
+    event :cancelled do
+      transitions from: Order.aasm.states.map(&:name) - [:cancelled], to: :cancelled
     end
   end
 

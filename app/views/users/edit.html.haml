@@ -62,10 +62,24 @@
           %p.in-gold-500.font-18.mb-25.pt-20 Remove Account
           = form_for current_user, method: :delete, class: "general-form-md pb-25", url: user_path(current_user) do |f|
             .general-settings-btn
-              = f.submit "Please Remove My Account", class: "btn disabled mb-20"
+              = f.submit "Please Remove My Account", class: "btn disabled mb-20", disabled: true, id: 'delete-account-button'
             .form-group.checkbox.general-settings-checkbox
               %label.font-weight-light.pl-0
-                %input.checkbox-input{type: "checkbox", hidden: "true"}
+                %input.checkbox-input{type: "checkbox", hidden: "true", id: 'understand-button'}
                 %span.checkbox-icon
                   %i.fa.fa-check
                 %span.checkbox-text I understand that all data will be lost
+:javascript
+  $(document).on("click", ".general-settings-checkbox", function(){
+    let input = $('#delete-account-button');
+
+    if ($('#understand-button').is(":checked")){
+     input.prop('disabled', false);
+     input.removeClass('disabled');
+     input.addClass('btn-default');
+    }else{
+     input.prop('disabled', true);
+     input.removeClass('btn-default');
+     input.addClass('disabled');
+    }
+  });

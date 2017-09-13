@@ -1,23 +1,40 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  admin:
+    actions:
+      change_state:
+        menu: 'Change state'
+        title: 'Change state'
+        breadcrumb: 'Change state'
+        flash:
+          success: 'State updated successfully!'
+          error: 'Something went wrong :('
+      in_progress_tab:
+        menu: 'In progress'
+        title: 'In progress orders'
+        breadcrumb: 'In progress orders'
+      delivered_tab:
+        menu: 'Delivered'
+        title: 'Delivered orders'
+        breadcrumb: 'Delivered orders'
+      cancelled_tab:
+        menu: 'Cancelled'
+        title: 'Cancelled orders'
+        breadcrumb: 'Cancelled orders'
+      change_to_approved:
+        menu: 'Approve review'
+        flash:
+          success: 'Review approved!'
+          error: 'Something went wrong :('
+      change_to_rejected:
+        menu: 'Reject review'
+        flash:
+          success: 'Review rejected!'
+          error: 'Something went wrong :('
+      new_tab_review:
+        menu: 'New reviews'
+        title: 'New reviews'
+        breadcrumb: 'New reviews'
+      process_tab_review:
+        menu: 'Processed reviews'
+        title: 'Processed reviews'
+        breadcrumb: 'Processed reviews'

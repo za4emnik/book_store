@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
+  before_filter :reload_rails_admin, if: :rails_admin_path?
   protect_from_forgery with: :null_session
   helper_method :current_order
 
   rescue_from CanCan::AccessDenied do |exeption|
-    redirect_to root_path, notice: exeption.message
+    redirect_to main_app.root_path, notice: exeption.message
   end
 
 
@@ -12,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    user.is_admin? ? admin_root_path : root_path
+    user.is_admin? ? rails_admin_path : root_path
   end
 
   def current_order
@@ -31,6 +32,20 @@ class ApplicationController < ActionController::Base
     else
       Order.create!
     end
+  end
+
+  def reload_rails_admin
+    models = %W(Book Order Review)
+    models.each do |m|
+      RailsAdmin::Config.reset_model(m)
+    end
+    RailsAdmin::Config::Actions.reset
+
+    load("#{Rails.root}/config/initializers/rails_admin.rb")
+  end
+
+  def rails_admin_path?
+    controller_path =~ /rails_admin/ && Rails.env.development?
   end
 
 end

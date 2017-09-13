@@ -49,7 +49,7 @@
     - @book.reviews.each do |review|
       .general-message-wrap.divider-lg
         .clearfix
-          %img.img-circle.logo-size.inlide-block.pull-left{src: "#{review.user.avatar.url(:thumb).blank? ? '/uploads/img/no_avatar.png' : review.user.avatar.url(:thumb)}"}
+          %img.img-circle.logo-size.inlide-block.pull-left{src: "#{review.user.avatar.url(:thumb).blank? ? '/uploads/img/darthavatar.jpg' : review.user.avatar.url(:thumb)}"}
           .ml-70
             %div
               .general-message-date.hidden-xs #{review.updated_at.strftime("%d/%m/%y")}

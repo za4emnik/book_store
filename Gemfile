@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.3.0"
+ruby "2.3.1"
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
@@ -7,12 +7,15 @@ gem 'pg'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'activeadmin', :git => 'git://github.com/gregbell/active_admin.git'
-gem 'activeadmin_addons'
-gem 'activeadmin_pagedown'
+gem 'rails_admin', '~> 1.2'
+gem 'rails_admin_dropzone', '1.0.7'
+gem 'rails_admin_aasm'
+gem 'ckeditor'
+gem 'enumerize'
 gem 'redcarpet'
 gem 'cancan'
 gem 'kaminari'
+gem 'require_all'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'aasm'
 gem 'mini_magick'
