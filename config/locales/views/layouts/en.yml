@@ -2,7 +2,6 @@ en:
   home: 'Home'
   shop: 'Shop'
   orders: 'Orders'
-  settings: 'Settings'
   shop_name: 'Bookstore'
   mobile_development: 'Mobile delevopment'
   photo: 'Photo'
@@ -10,5 +9,3 @@ en:
   web_development: 'Web development'
   my_account: 'My account'
   log_out: 'Log out'
-  log_in: 'Log In'
-  sign_up: 'Sign Up'

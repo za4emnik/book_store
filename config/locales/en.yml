@@ -1,4 +1,18 @@
 en:
+  order_summary: 'Order Summary'
+  price: 'Price'
+  quantity: 'Quantity'
+  subtotal: 'SubTotal'
+  sort_by: 'Sort by'
+  address: 'Address'
+  billing_address: 'Billing Address'
+  shipping_address: 'Shipping Address'
+  order_summary: 'Order Summary'
+  order: 'Order'
+  shipments: 'Shipments'
+  settings: 'Settings'
+  log_in: 'Log In'
+  sign_up: 'Sign Up'
   admin:
     actions:
       change_state:
