@@ -34,7 +34,7 @@ module RailsAdmin
             else
               flash[:error] = I18n.t('admin.actions.change_to_approved.flash.error')
             end
-            redirect_to back_or_index
+            redirect_to :back
           end
         end
       end
@@ -60,7 +60,7 @@ module RailsAdmin
             else
               flash[:error] = I18n.t('admin.actions.change_to_rejected.flash.error')
             end
-            redirect_to back_or_index
+            redirect_to :back
           end
         end
       end

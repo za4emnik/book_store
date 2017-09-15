@@ -4,14 +4,14 @@
       .col-sm-9
         %ul.list-inline.general-align.mb-25
           %li
-            %a.nav-link{href: "/"} Home
+            %a.nav-link{href: "/"}=t :home
           %li
-            %a.nav-link{href: "/categories"} Shop
+            %a.nav-link{href: "/categories"}=t :shop
           - if user_signed_in?
             %li
-              %a.nav-link{href: "/orders"} Orders
+              %a.nav-link{href: "/orders"}=t :orders
             %li
-              %a.nav-link{href: "/settings"} Settings
+              %a.nav-link{href: "/settings"}=t :settings
       .col-sm-3
         %p.general-nav-mail support@bookstore.com
         %p.general-nav-number (555)-555-5555

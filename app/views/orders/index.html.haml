@@ -1,43 +1,43 @@
 %main.container.general-main-wrap
-  %h1.mt-0.mb-25 My Orders
-  %p.in-grey-600.small.mb-10.visible-xs Sort by
+  %h1.mt-0.mb-25=t :my_orders
+  %p.in-grey-600.small.mb-10.visible-xs=t :sort_by
   .dropdown.general-order-dropdown.mb-20
     %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
       #{@state}
       %i.fa.fa-angle-down.dropdown-icon
     %ul.dropdown-menu
       %li
-        %a{href: "/orders?filter=all"} All
+        %a{href: "/orders?filter=all"}=t :all
       %li
-        %a{href: "/orders?filter=waiting_for_processing"} Waiting for processing
+        %a{href: "/orders?filter=waiting_for_processing"}=t :waiting_for_processing
       %li
-        %a{href: "/orders?filter=in_progress"} In Progress
+        %a{href: "/orders?filter=in_progress"}=t :in_progress
       %li
-        %a{href: "/orders?filter=in_delivery"} In delivery
+        %a{href: "/orders?filter=in_delivery"}=t :in_delivery
       %li
-        %a{href: "/orders?filter=delivered"} Delivered
+        %a{href: "/orders?filter=delivered"}=t :delivered
   .visible-xs
     .general-cart-item.divider-lg-bottom.pt-0
       %table.table
         - @orders.each do |order|
           %tr
             %td.col-half
-              %span.in-grey-600 Number
+              %span.in-grey-600=t :number
             %td.col-half
               %span.general-order-number #{order.number}
           %tr
             %td
-              %span.in-grey-600 Completed at
+              %span.in-grey-600=t :completed_at
             %td
               %span.in-grey-900.font-16.font-weight-light #{order.updated_at.strftime('%F')}
           %tr
             %td
-              %span.in-grey-600 Status
+              %span.in-grey-600=t :status
             %td
               %span.font-16.in-grey-900.font-weight-light #{order.aasm_state.humanize}
           %tr
             %td
-              %span.in-grey-600 Total
+              %span.in-grey-600=t :total
             %td
               %strong.font-16 €#{order.total}
   .hidden-xs.mb-res-50
@@ -45,13 +45,13 @@
       %thead
         %tr
           %th
-            %span.in-grey-600 Number
+            %span.in-grey-600=t :number
           %th
-            %span.in-grey-600 Completed at
+            %span.in-grey-600=t :completed_at
           %th
-            %span.in-grey-600 Status
+            %span.in-grey-600=t :status
           %th
-            %span.in-grey-600 Total
+            %span.in-grey-600=t :total
       %tbody
         - @orders.each do |order|
           %tr

@@ -8,7 +8,7 @@
           %table.table
             %tr
               %td.col-half
-                %span.in-grey-600 Method
+                %span.in-grey-600=t :method
               %td.col-half
                 .form-group.radio.mt-0.mb-0
                   %label.font-16.font-weight-light.pl-0
@@ -17,31 +17,31 @@
                     %span.radio-text #{delivery.name}
             %tr
               %td
-                %span.in-grey-600 Days
+                %span.in-grey-600=t :days
               %td
                 %span.font-16.font-weight-light #{delivery.interval}
             %tr
               %td
-                %span.in-grey-600 Price
+                %span.in-grey-600=t :price
               %td
         %span.font-16.in-gold-500 €#{delivery.price}
       .general-text-align
-        %p.in-gold-500.font-18 Order Summary
+        %p.in-gold-500.font-18=t :order_summary
         %table.general-summary-table
           = render partial: '/checkout/summary'
       .text-center
-        = f.submit "Save and Continue", class: "btn btn-primary center-block mb-20"
+        = f.submit t(:save_and_continue), class: "btn btn-primary center-block mb-20"
   .hidden-xs.mb-res-50
     = form_for current_order, url: wizard_path, method: :put do |f|
       %table.table.table-hover
         %thead
           %tr
             %th.col-method
-              %span.in-grey-600.ml-40 Method
+              %span.in-grey-600.ml-40=t :method
             %th
-              %span.in-grey-600 Days
+              %span.in-grey-600=t :days
             %th
-              %span.in-grey-600 Price
+              %span.in-grey-600=t :price
         %tbody
           -@form.each do |delivery|
             %tr
@@ -56,8 +56,8 @@
               %td
                 %span.font-16.in-gold-500 €#{delivery.price}
       .general-text-align
-        %p.in-gold-500.font-18 Order Summary
+        %p.in-gold-500.font-18=t :order_summary
         %table.general-summary-table
           = render partial: '/checkout/summary'
       .text-center
-        = f.submit "Save and Continue", class: "btn btn-primary center-block mb-20"
+        = f.submit t(:save_and_continue), class: "btn btn-primary center-block mb-20"

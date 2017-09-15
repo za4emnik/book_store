@@ -1,27 +1,27 @@
 %main.container.general-main-wrap
   .text-center
-    %h3.general-login-title Log In
+    %h3.general-login-title=t :log_in
     %a.general-login-icon{href: "#{omniauth_authorize_path(resource_name, :facebook)}"}
       %i.fa.fa-facebook-official
-    %p.general-login-text or
+    %p.general-login-text=t :or
   = form_for(resource, as: resource_name, html: { class: 'general-form' }, url: session_path(resource_name)) do |f|
     .form-group.mb-30
       = f.label :email, class: 'control-label font-weight-light'
-      = f.email_field :email, autofocus: true, class: 'form-control', placeholder: 'Enter Email'
+      = f.email_field :email, autofocus: true, class: 'form-control', placeholder: t(:enter_email)
     .form-group.mb-30
       = f.label :password, class: 'control-label font-weight-light'
-      = f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'Password'
+      = f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: t(:password)
       - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
-        = link_to 'Forgot password?', new_password_path(resource_name), class: 'help-block in-gold-500'
+        = link_to t(:forgot_your_password), new_password_path(resource_name), class: 'help-block in-gold-500'
     - if devise_mapping.rememberable?
       %label.font-weight-light.pl-0
         = f.check_box :remember_me, hidden: true, class: 'checkbox-input'
         %span.checkbox-icon
           %i.fa.fa-check
-        %span.checkbox-text Remember me
+        %span.checkbox-text=t :remember_me
     .text-center
-      = f.submit 'Log in', class: 'btn btn-default mb-20'
+      = f.submit t(:log_in), class: 'btn btn-default mb-20'
   - if devise_mapping.registerable? && controller_name != 'registrations'
     %p.general-sign-text.text-center
-      Don’t have an Account?
-      = link_to 'Sign Up', new_registration_path(resource_name), class: 'in-gold-500'
+      =t :dont_have_account
+      = link_to t(:sign_up), new_registration_path(resource_name), class: 'in-gold-500'

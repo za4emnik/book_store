@@ -1,5 +1,5 @@
 %main.container
-  %h1.general-title-margin Сatalog
+  %h1.general-title-margin=t :catalog
   = render partial: '/categories/filter'
   .mb-120
     .row
@@ -20,4 +20,4 @@
             %span.divider-sm
             %p.in-grey-600.small= separated book.authors, :full_name
     .text-center
-      =link_to_next_page books, 'View More', class: "btn btn-primary"
+      =link_to_next_page books, t(:view_more), class: "btn btn-primary"

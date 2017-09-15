@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_filter :reload_rails_admin, if: :rails_admin_path?
   protect_from_forgery with: :null_session
   helper_method :current_order
+  before_action :set_locale
 
   rescue_from CanCan::AccessDenied do |exeption|
     redirect_to main_app.root_path, notice: exeption.message
@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+
   def get_order
     if session[:order_id]
       Order.where(id: session[:order_id], aasm_state: 'pending').first || Order.create!
@@ -33,19 +37,4 @@ class ApplicationController < ActionController::Base
       Order.create!
     end
   end
-
-  def reload_rails_admin
-    models = %W(Book Order Review)
-    models.each do |m|
-      RailsAdmin::Config.reset_model(m)
-    end
-    RailsAdmin::Config::Actions.reset
-
-    load("#{Rails.root}/config/initializers/rails_admin.rb")
-  end
-
-  def rails_admin_path?
-    controller_path =~ /rails_admin/ && Rails.env.development?
-  end
-
 end

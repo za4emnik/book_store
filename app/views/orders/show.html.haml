@@ -1,21 +1,21 @@
 %main.container.general-main-wrap
-  %h1.general-title-margin Order #{@order.number}
+  %h1.general-title-margin #{t(:order)} #{@order.number}
   .row.mb-20
     .col-sm-3
-      %h3.general-subtitle.mt-0 Shipping Address
+      %h3.general-subtitle.mt-0=t :shipping_address
       %p.general-address
-        = render partial: '/checkout/address', locals: { obj: @order.shipping_address.use_billing_address ? @order.billing_address : @order.shipping_address }
+        =@order.render_shipping_address
     .col-sm-3
-      %h3.general-subtitle.mt-0 Billing Address
+      %h3.general-subtitle.mt-0=t :billing_address
       %p.general-address
         = render partial: '/checkout/address', locals: { obj: @order.billing_address }
     .col-sm-3
-      %h3.general-subtitle.mt-0 Shipments
+      %h3.general-subtitle.mt-0=t :shipments
       %p.general-address
         #{@order.delivery.name}
         %br
     .col-sm-3
-      %h3.general-subtitle.mt-0 Payment Information
+      %h3.general-subtitle.mt-0=t :payment_information
       %p.general-address
         #{@order.cart.number}
         %br
@@ -30,17 +30,17 @@
         %table.table
           %tr
             %td
-              %span.in-grey-600 Price
+              %span.in-grey-600=t :price
             %td
               %span.font-16.in-gold-500 €#{item.book.price}
           %tr
             %td.vertical-middle
-              %span.in-grey-600 Quantity
+              %span.in-grey-600=t :quantity
             %td
               %span #{item.quantity}
           %tr
             %td
-              %span.in-grey-600 SubTotal
+              %span.in-grey-600=t :subtotal
             %td
               %span.font-16.in-gold-500 €#{item.quantity * item.book.price}
   .hidden-xs.divider-lg.pt-20
@@ -48,14 +48,14 @@
       %thead
         %tr
           %th
-            %span.in-grey-600 Book
+            %span.in-grey-600=t :book
           %th.col-method
           %th
-            %span.in-grey-600 Price
+            %span.in-grey-600=t :price
           %th
-            %span.in-grey-600 Quantity
+            %span.in-grey-600=t :quantity
           %th
-            %span.in-grey-600 Total
+            %span.in-grey-600=t :total
       %tbody
         -@order.order_items.each do |item|
           %tr
@@ -72,6 +72,6 @@
             %td
               %span.font-16.in-gold-500 €#{item.quantity * item.book.price}
   .text-center.general-text-right
-    %p.in-gold-500.font-18 Order Summary
+    %p.in-gold-500.font-18=t :order_summary
     %table.general-summary-table.general-summary-table-right.general-text-right
       = render partial: '/checkout/summary', locals: {order: @order}

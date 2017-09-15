@@ -2,18 +2,18 @@
   = render partial: '/checkout/steps'
   .row.mb-20
     .col-sm-3
-      %h3.general-subtitle Shipping Address
+      %h3.general-subtitle=t :shipping_address
       %p.general-address
         = @form.show_shipping_address
     .col-sm-3
-      %h3.general-subtitle Billing Address
+      %h3.general-subtitle=t :billing_address
       %p.general-address
         = @form.show_billing_address
     .col-sm-3
-      %h3.general-subtitle Shipments
+      %h3.general-subtitle=t :shipments
       %p.general-address
         #{current_order.delivery.name}
-        = link_to 'edit', wizard_path(:delivery), class: 'general-edit'
+        = link_to t(:edit), wizard_path(:delivery), class: 'general-edit'
     .col-sm-3
       %h3.general-subtitle Payment Information
       %p.general-address
@@ -26,8 +26,8 @@
   .hidden-xs.divider-lg.pt-20
     = render partial: '/carts/order_products_md'
   .text-center.general-text-right
-    %p.in-gold-500.font-18 Order Summary
+    %p.in-gold-500.font-18=t :order_summary
     %table.general-summary-table.general-summary-table-right.general-text-right
       = render partial: '/checkout/summary'
   .text-center
-    = button_to 'Place Order', wizard_path, {method: :put, class: "btn btn-default mb-20"}
+    = button_to t(:place_order), wizard_path, {method: :put, class: "btn btn-default mb-20"}

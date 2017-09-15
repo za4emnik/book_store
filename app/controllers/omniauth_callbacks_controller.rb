@@ -1,5 +1,4 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  #skip_before_filter
 
   def facebook
     auth = request.env['omniauth.auth']

@@ -2,21 +2,21 @@
   .pull-right
     .dropdown
       %a.dropdown-toggle.dropdown-btn.width-240{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-        #{filter_state || 'Title a z'}
+        #{filter_state || t(:title_a_z)}
         %i.fa.fa-angle-down.dropdown-icon
       %ul.dropdown-menu
         %li
-          %a{href: "?filter=newest_first"} Newest first
+          %a{href: "?filter=newest_first"}=t :newest_first
         %li
-          %a{href: "?filter=popular_first"} Popular first
+          %a{href: "?filter=popular_first"}=t :popular_first
         %li
-          %a{href: "?filter=price_low_to_hight"} Price low to hight
+          %a{href: "?filter=price_low_to_hight"}=t :price_low_hight
         %li
-          %a{href: "?filter=price_hight_to_low"} Price hight to low
+          %a{href: "?filter=price_hight_to_low"}=t :price_hight_low
         %li
-          %a{href: "?filter=title_a_z"} Title a z
+          %a{href: "?filter=title_a_z"}=t :title_a_z
         %li
-          %a{href: "?filter=title_z_a"} Title z a
+          %a{href: "?filter=title_z_a"}=t :title_z_a
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
       %a.filter-link{href: "/categories"}
@@ -28,31 +28,31 @@
           = category.name
           %span.badge.general-badge= category.books.count
 .mb-40.visible-xs
-  %p.in-grey-600.small.mb-10 Filter by category
+  %p.in-grey-600.small.mb-10=t :filter_by_category
   .dropdown.mb-20
     %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      Newest first
+      =t :newest_first
       %i.fa.fa-angle-down.dropdown-icon
     %ul.dropdown-menu
       %li
-        %a{href: "?filter=newest_first"} Newest first
+        %a{href: "?filter=newest_first"}=t :newest_first
       %li
-        %a{href: "?filter=popular_first"} Popular first
+        %a{href: "?filter=popular_first"}=t :popular_first
       %li
-        %a{href: "?filter=price_low_to_hight"} Price: Low to hight
+        %a{href: "?filter=price_low_to_hight"}=t :price_low_hight
       %li
-        %a{href: "?filter=price_hight_to_low"} Price: Hight to low
-  %p.in-grey-600.small.mb-10 Sort by
+        %a{href: "?filter=price_hight_to_low"}=t :price_hight_low
+  %p.in-grey-600.small.mb-10=t :sort_by
   .dropdown
     %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
-      Newest first
+      =t :newest_first
       %i.fa.fa-angle-down.dropdown-icon
     %ul.dropdown-menu
       %li
-        %a{href: "#"} Newest first
+        %a{href: "?filter=newest_first"}=t :newest_first
       %li
-        %a{href: "#"} Popular first
+        %a{href: "?filter=popular_first"}=t :popular_first
       %li
-        %a{href: "#"} Price: Low to hight
+        %a{href: "?filter=price_low_to_hight"}=t :price_hight_low
       %li
-        %a{href: "#"} Price: Low to hight
+        %a{href: "?filter=price_hight_to_low"}=t :price_low_hight

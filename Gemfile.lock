@@ -112,8 +112,6 @@ GEM
       request_store (~> 1.0)
     dropzonejs-rails (0.7.4)
       rails (> 3.1)
-    enumerize (2.1.2)
-      activesupport (>= 3.2)
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -365,7 +363,6 @@ DEPENDENCIES
   database_cleaner
   devise
   draper (= 3.0.0.pre1)
-  enumerize
   factory_girl_rails
   ffaker
   haml

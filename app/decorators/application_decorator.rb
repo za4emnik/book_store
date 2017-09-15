@@ -4,7 +4,7 @@ class ApplicationDecorator < Draper::Decorator
 
   def edit_link
     if h.request.fullpath == h.wizard_path(:confirm)
-      h.link_to 'edit', h.wizard_path(:address), class: 'general-edit'
+      h.link_to t(:edit), h.wizard_path(:address), class: 'general-edit'
     end
   end
 

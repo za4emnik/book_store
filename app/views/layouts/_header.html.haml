@@ -6,7 +6,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand{href: '/'} Bookstore
+      %a.navbar-brand{href: '/'}=t :shop_name
       %a.shop-link.pull-right.visible-xs{href: "/cart"}
         %span.shop-icon
           %span.shop-quantity #{items_in_cart}
@@ -19,69 +19,69 @@
           %span{'aria-hidden': "true"} &times;
         %ul.nav.navbar-nav
           %li
-            %a{type: "button", 'data-toggle': "collapse", href: "/", 'aria-expanded': "false", 'aria-controls': "menu"} Home
+            %a{type: "button", 'data-toggle': "collapse", href: "/", 'aria-expanded': "false", 'aria-controls': "menu"}=t :home
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
               %li
-                %a.collapse-link{href: "/?category=mobile_development"} Mobile delevopment
+                %a.collapse-link{href: "/?category=mobile_development"}=t :mobile_development
               %li
-                %a.collapse-link{href: "/?category=photo"} Photo
+                %a.collapse-link{href: "/?category=photo"}=t :photo
               %li
-                %a.collapse-link{href: "/?category=web_design"} Web design
+                %a.collapse-link{href: "/?category=web_design"}=t :web_design
               %li
-                %a.collapse-link{href: "/?category=web_development"} Web development
+                %a.collapse-link{href: "/?category=web_development"}=t :web_development
           %li
-            %a{type: "button", 'data-toggle': "collapse", href: "/", 'aria-expanded': "false", 'aria-controls': "menu"} Shop
+            %a{type: "button", 'data-toggle': "collapse", href: "/", 'aria-expanded': "false", 'aria-controls': "menu"}=t :shop
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
             - categories.each do |category|
               %li
                 %a.collapse-link{href: "/categories/#{category.id}"}= category.name
             - if user_signed_in?
               %li
-                %a{href: "/account"} My account
+                %a{href: "/account"}=t :my_account
         - if user_signed_in?
           %li
-            %a{type: "button", 'data-toggle': "dropdown", href: "/", 'aria-expanded': "false"} My account
+            %a{type: "button", 'data-toggle': "dropdown", href: "/", 'aria-expanded': "false"}=t :my_account
             %ul.dropdown-menu
               %li
-                %a.collapse-link{href: "/orders"} Orders
+                %a.collapse-link{href: "/orders"}=t :orders
               %li
-                %a.collapse-link{href: "/settings"} Settings
+                %a.collapse-link{href: "/settings"}=t :settings
               %li.divider{role: "separator"}
               %li
-                %a.collapse-link{href: "/logout"} Log out
+                %a.collapse-link{href: "/logout"}=t :log_out
         - else
           %li
-            %a{href: "/login"} Log In
+            %a{href: "/login"}=t :log_in
           %li
-            %a{href: "/signup"} Sign Up
+            %a{href: "/signup"}=t :sign_up
       .hidden-xs
         %ul.nav.navbar-nav
           %li
-            %a.dropdown-toggle{href: "/", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"} Home
+            %a.dropdown-toggle{href: "/", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}=t :home
             %ul.dropdown-menu
               %li
-                %a.collapse-link{href: "/?category=mobile_development"} Mobile delevopment
+                %a.collapse-link{href: "/?category=mobile_development"}=t :mobile_development
               %li
-                %a.collapse-link{href: "/?category=photo"} Photo
+                %a.collapse-link{href: "/?category=photo"}=t :photo
               %li
-                %a.collapse-link{href: "/?category=web_design"} Web design
+                %a.collapse-link{href: "/?category=web_design"}=t :web_design
               %li
-                %a.collapse-link{href: "/?category=web_development"} Web development
+                %a.collapse-link{href: "/?category=web_development"}=t :web_development
           %li.dropdown
-            %a{href: "/categories"} Shop
+            %a{href: "/categories"}=t :shop
             - if user_signed_in?
               %li
-                %a{type: "button", 'data-toggle': "dropdown", href: "/", 'aria-expanded': "false"} My account
+                %a{type: "button", 'data-toggle': "dropdown", href: "/", 'aria-expanded': "false"}=t :my_account
                 %ul.dropdown-menu
                   %li
-                    %a.collapse-link{href: "/orders"} Orders
+                    %a.collapse-link{href: "/orders"}=t :orders
                   %li
-                    %a.collapse-link{href: "/settings"} Settings
+                    %a.collapse-link{href: "/settings"}=t :settings
                   %li.divider{role: "separator"}
                   %li
-                    %a.collapse-link{href: "/logout"} Log out
+                    %a.collapse-link{href: "/logout"}=t :log_out
             - else
               %li
-                %a{href: "/login"} Log In
+                %a{href: "/login"}=t :log_in
               %li
-                %a{href: "/signup"} Sign Up
+                %a{href: "/signup"}=t :sign_up

@@ -200,7 +200,12 @@ RailsAdmin.config do |config|
 
     edit do
       exclude_fields :user
+      field :message
       field :aasm_state, :state
+    end
+
+    show do
+      include_fields :message
     end
   end
 end

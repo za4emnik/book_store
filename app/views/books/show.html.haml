@@ -2,7 +2,7 @@
   %div.center= flash[:success]
   = link_to :back, class: "general-back-link" do
     %i.fa.fa-long-arrow-left.mr-15
-    Back to results
+    = t :back_to_results
   .row
     .col-sm-6
       .product-gallery
@@ -27,25 +27,25 @@
               %div.input-link.inc.button
                 %i.fa.fa-plus.line-height-40
           .col-xs-7.col-md-5
-            = f.submit "Add to Cart", class: "btn btn-default pull-right general-position"
+            = f.submit t(:add_to_cart), class: "btn btn-default pull-right general-position"
       .general-info-wrap.divider-lg#descr
-        %p Description
+        %p=t :description
         %p.lead.small.line-height-2
           = markdown(@book.description)
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Year of publication
+          %p.pull-left=t :year_of_publication
           %p.lead.small.pull-right= @book.year
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Dimensions
+          %p.pull-left=t(:dimensions)
           %p.lead.small.pull-right= @book.dimensions
       .general-info-wrap.divider-lg
         .clearfix
-          %p.pull-left Materials
+          %p.pull-left=t :materials
           %p.lead.small.pull-right= separated @book.materials
   .mb-80
-    %h3.in-gold-500.mb-25 Reviews (#{@book.reviews.count})
+    %h3.in-gold-500.mb-25=t(:reviews, count: @book.reviews.count)
     - @book.reviews.each do |review|
       .general-message-wrap.divider-lg
         .clearfix
@@ -54,7 +54,7 @@
             %div
               .general-message-date.hidden-xs #{review.updated_at.strftime("%d/%m/%y")}
               .max-240
-                .general-message-verified Verified Reviewer
+                .general-message-verified=t :verified_reviewer
                 .general-message-name #{review.user.email}
             .mb-15
               - review.score.to_i.times do
@@ -64,20 +64,20 @@
       = form_for @review, url: reviews_path, method: :post, html: { class: "max-600 mb-80" } do |f|
         = hidden_field(:review, :book_id, :value => @book.id)
         .form-group
-        = f.label :score, "Rating", class: "control-label input-label"
+        = f.label :score, t(:rating), class: "control-label input-label"
         = f.number_field :score, class: "form-control", min: "1", max: "5"
         .form-group
-        = f.label :title, "Title", class: "control-label input-label"
-        = f.text_field :title, class: "form-control", placeholder: "Title"
+        = f.label :title, t(:title), class: "control-label input-label"
+        = f.text_field :title, class: "form-control", placeholder: t(:title)
         .form-group
-        = f.label :message, "Review", class: "control-label input-label"
-        = f.text_area :message, class: "form-control", placeholder: "Review"
-        = f.submit "Post", class: "btn btn-default center-block mb-20"
+        = f.label :message, t(:review), class: "control-label input-label"
+        = f.text_area :message, class: "form-control", placeholder: t(:review)
+        = f.submit t(:post), class: "btn btn-default center-block mb-20"
 = javascript_include_tag "readmore.min.js"
 :javascript
   $('#descr').readmore({
     maxHeight: 165,
-    moreLink: '<a class="in-gold-500 ml-10" href="#">Read more</a>',
+    moreLink: "<a class='in-gold-500 ml-10' href='#'>#{t(:read_more)}</a>",
     lessLink: '<a href="#"></a>'
   });
 :javascript
