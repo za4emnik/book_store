@@ -3,10 +3,29 @@ require 'rails_helper'
 RSpec.describe ApplicationController, type: :controller do
   let(:order) { FactoryGirl.create(:order) }
 
+  describe 'cancan access denied' do
+
+    controller do
+      def index
+        raise CanCan::AccessDenied
+      end
+    end
+
+    before do
+      get :index
+    end
+
+    it_should_behave_like 'redirect to root page'
+
+    it 'should alert exeption' do
+      expect(flash[:notice]).to be
+    end
+  end
+
   describe '#after_sign_in_path_for' do
     it 'should return admin root path' do
       admin = FactoryGirl.create(:admin)
-      expect(subject.after_sign_in_path_for(admin)).to eq admin_root_path
+      expect(subject.after_sign_in_path_for(admin)).to eq rails_admin_path
     end
 
     it 'should return root path' do

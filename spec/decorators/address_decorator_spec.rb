@@ -7,7 +7,7 @@ describe AddressDecorator, type: :decorator do
 
     it "should return 'Nothing selected' text" do
       address.country = nil
-      expect(address.show_selected_value).to eq('Nothing selected')
+      expect(address.show_selected_value).to eq(I18n.t(:nothing_selected))
     end
 
     it 'should return country id if country exist' do

@@ -9,7 +9,7 @@ class Ability
       can :manage, :Account
     end
 
-    can :manage, User, :id == user.id
-    can :read, Order, :user_id == user.id
+    can :manage, User, id: user.id
+    can :read, Order, user_id: user.id
   end
 end

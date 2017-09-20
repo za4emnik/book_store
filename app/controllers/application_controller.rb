@@ -7,11 +7,6 @@ class ApplicationController < ActionController::Base
     redirect_to main_app.root_path, notice: exeption.message
   end
 
-
-  def access_denied(exception)
-    redirect_to root_path, alert: exception.message
-  end
-
   def after_sign_in_path_for(user)
     user.is_admin? ? rails_admin_path : root_path
   end
@@ -25,6 +20,10 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+  def access_denied(exception)
+    redirect_to root_path, alert: exception.message
+  end
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale

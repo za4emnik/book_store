@@ -14,25 +14,29 @@ RSpec.describe CheckoutController, type: :controller do
       end
     end
 
-    it_should_behave_like 'when guest' do
+    it_behaves_like 'when guest' do
       subject { get :index }
     end
   end
 
   describe '#show' do
-    let(:order) { FactoryGirl.create(:order) }
 
     context 'when logged' do
       login_user
+
+      before do
+        allow(controller).to receive(:check_order)
+        subject
+      end
 
       steps.each do |step|
         context "#{step} step" do
           subject { get :show, params: { id: :"#{step}" } }
 
-          it_should_behave_like 'should have @form'
+          it_behaves_like 'controller have variables', {'form': nil} unless step == 'complete'
+          it_behaves_like 'given page'
         end
       end
-
     end
 
     context 'when guest' do
@@ -53,32 +57,32 @@ RSpec.describe CheckoutController, type: :controller do
       login_user
 
       context 'address step' do
-        address = FactoryGirl.attributes_for(:order_shipping_address)
-        subject { put :update, params: { id: :address, address_form: { billing_form: address, shipping_form: address } } }
+        shipping = FactoryGirl.attributes_for(:order_shipping_address)
+        billing = FactoryGirl.attributes_for(:order_billing_address)
+        subject { put :update, params: { id: :address, address_form: { billing_form: billing, shipping_form: shipping } } }
 
-        it_should_behave_like 'should have @form'
+        it_behaves_like 'controller have variables', { 'form': nil }
       end
 
       context 'delivery step' do
         delivery = FactoryGirl.create(:delivery)
         subject { put :update, params: { id: :delivery, order: { delivery: delivery.id } } }
 
-        it_should_behave_like 'should have @form'
+        it_behaves_like 'controller have variables', { 'form': nil }
       end
 
       context 'payment step' do
         cart = FactoryGirl.attributes_for(:cart)
         subject { put :update, params: { id: :payment, cart_form: cart } }
 
-        it_should_behave_like 'should have @form'
+        it_behaves_like 'controller have variables', { 'form': nil }
       end
 
       context 'confirm step' do
         subject { put :update, params: { id: :confirm } }
 
-        it_should_behave_like 'should have @form'
+        it_behaves_like 'controller have variables', { 'form': nil }
       end
-
     end
 
     context 'when guest' do
@@ -91,5 +95,4 @@ RSpec.describe CheckoutController, type: :controller do
       end
     end
   end
-
 end

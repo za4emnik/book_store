@@ -2,34 +2,21 @@ require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
 
+  before do
+    subject
+  end
+
   describe '#index' do
-    subject { get :index }
+    subject { get :index, params: { filter: nil }}
 
-    it 'response should be 200' do
-      expect(subject.status).to eq(200)
-    end
-
-    variables = ['books_count', 'categories']
-    variables.each do |variable|
-      it "should have ##{variable} variable" do
-        expect(subject.instance_variable_get(:@variable)).kind_of? subject.class
-      end
-    end
+    it_behaves_like 'controller have variables', {'books': ActiveRecord::Relation, 'books_count': Integer}
+    it_behaves_like 'given page'
   end
 
   describe '#show' do
     subject { get :show, params: { id: FactoryGirl.create(:category).id } }
 
-    it 'response should be 200' do
-      expect(subject.status).to eq(200)
-    end
-
-    variables = ['books_count', 'categories']
-    variables.each do |variable|
-      it "should have ##{variable} variable" do
-        expect(subject.instance_variable_get(:@variable)).kind_of? subject.class
-      end
-    end
+    it_behaves_like 'controller have variables', {'books': ActiveRecord::Relation, 'books_count': Integer}
+    it_behaves_like 'given page'
   end
-
 end

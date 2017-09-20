@@ -9,7 +9,6 @@ FactoryGirl.define do
     phone { FFaker::PhoneNumberCU::e164_mobile_phone_number }
     association :addressable, factory: :user
     type 'ShippingAddress'
-    use_billing_address false
 
   trait :billing_address do
     type 'BillingAddress'
@@ -17,6 +16,7 @@ FactoryGirl.define do
 
   trait :shipping_address do
     type 'ShippingAddress'
+    use_billing_address false
   end
 
   trait :user_address do

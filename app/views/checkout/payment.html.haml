@@ -21,7 +21,7 @@
         .form-group{class: "relative #{add_error_class(@form, :cvv)}"}
           = f.label :cvv, {class: "control-label font-weight-light", value: t(:cvv)}
           = f.text_field :cvv, {class: "form-control", placeholder: t(:cvv)}
-          %i.fa.fa-question-circle.general-form-help.font-18
+          %i.fa.fa-question-circle.general-form-help.font-18{title: t(:cvv_help)}
           .span.help-block= show_errors(@form, :cvv)
     .general-text-align
       %p.in-gold-500.font-18=t :order_summary

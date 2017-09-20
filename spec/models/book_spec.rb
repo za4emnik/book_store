@@ -6,9 +6,9 @@ RSpec.describe Book, type: :model do
     it { should have_and_belong_to_many(:authors) }
     it { should have_and_belong_to_many(:materials) }
     it { should have_many(:order_items) }
-    it { should belong_to(:category) }
     it { should have_many(:pictures) }
     it { should have_many(:reviews) }
+    it { should belong_to(:category) }
     it { should accept_nested_attributes_for(:pictures) }
   end
 
@@ -89,5 +89,4 @@ RSpec.describe Book, type: :model do
       expect(Book.with_filter('title_a_z')).to eq(books)
     end
   end
-
 end

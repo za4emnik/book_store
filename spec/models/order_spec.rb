@@ -16,6 +16,10 @@ RSpec.describe Order, type: :model do
     it { expect(subject).to transition_from(:waiting_for_processing).to(:in_progress).on_event(:progress) }
     it { expect(subject).to transition_from(:in_progress).to(:in_delivery).on_event(:delivered) }
     it { expect(subject).to transition_from(:in_delivery).to(:delivered).on_event(:complete) }
+    states = Order.aasm.states.map(&:name) - [:cancelled]
+    states.each do |state|
+      it { expect(subject).to transition_from(state).to(:cancelled).on_event(:cancelled) }
+    end
   end
 
   describe '#with_filter' do

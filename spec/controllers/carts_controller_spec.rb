@@ -7,7 +7,7 @@ RSpec.describe CartsController, type: :controller do
 
     FactoryGirl.create(:order)
 
-    it_should_behave_like 'given page'
+    it_behaves_like 'given page'
 
   end
 
@@ -38,7 +38,7 @@ RSpec.describe CartsController, type: :controller do
       end
     end
 
-    it_should_behave_like 'when guest' do
+    it_behaves_like 'when guest' do
       subject { put :update, params: { id: order.id, order_items: { order_item.id => item }, order: {:coupon => false} } }
     end
 

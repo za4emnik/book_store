@@ -51,7 +51,9 @@ group :test do
   gem 'shoulda-matchers'
   gem 'ffaker'
   gem 'rspec-html-matchers'
+  gem 'rails-controller-testing'
 end
+
 gem "rails_12factor", group: :production
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

@@ -17,7 +17,7 @@
     .col-sm-3
       %h3.general-subtitle Payment Information
       %p.general-address
-        #{current_order.cart.number}
+        #{current_order.decorate.filtred_cart_number}
         = link_to 'edit', wizard_path(:payment), class: 'general-edit'
         %br
         #{current_order.cart.date}

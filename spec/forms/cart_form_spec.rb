@@ -9,7 +9,6 @@ RSpec.describe CartForm, type: :model do
     it { should allow_values('11/15', '01/16').for(:date) }
     it { should_not allow_values('13/15').for(:date) }
     it { should validate_length_of(:name).is_at_most(50) }
-    it { should validate_numericality_of(:number).only_integer }
     it { should allow_values('12345678901234567').for(:number) }
     it { should_not allow_values('12345g-78901q3s56t').for(:number) }
     it { should allow_values('123').for(:cvv) }

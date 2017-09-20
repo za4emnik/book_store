@@ -6,10 +6,8 @@ RSpec.describe StepUpdateService do
     order = FactoryGirl.create(:order)
     subject { StepUpdateService.new(:address, order, {}, 'session') }
 
-    %w(step order user params session).each do |variable|
-      it "should have ##{variable} variable" do
-        expect(subject.instance_variable_get("@#{variable}".to_sym)).not_to be_nil
-      end
+    it_behaves_like 'controller have variables', { 'step': Symbol, 'order': Order, 'params': Hash, 'session': nil } do
+      let(:controller) { subject }
     end
   end
 

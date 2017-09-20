@@ -3,7 +3,10 @@ require 'rails_helper'
 describe OrderDecorator, type: :decorator do
   let(:coupon) { FactoryGirl.build(:coupon) }
   let(:delivery) { FactoryGirl.build(:delivery) }
+  let(:billing_address) { FactoryGirl.attributes_for(:user_billing_address) }
+  let(:shipping_address) { FactoryGirl.attributes_for(:user_shipping_address) }
   let(:order) { FactoryGirl.create(:order, coupon: coupon, delivery: delivery).decorate }
+
 
   describe '#summary_coupon' do
 
@@ -39,4 +42,36 @@ describe OrderDecorator, type: :decorator do
     end
   end
 
+  describe '#render_shipping_address' do
+
+    before do
+      order.billing_address = BillingAddress.create(billing_address)
+    end
+
+    it 'should render billing_address if shipping_address is nil' do
+      expect(h).to receive(:render).with(partial: '/checkout/address', locals: { obj: order.billing_address })
+      order.render_shipping_address
+    end
+
+    it 'should render billing_address if use_billing_address is used' do
+      order.shipping_address = ShippingAddress.create(shipping_address)
+      allow(order.shipping_address).to receive(:use_billing_address).and_return true
+      expect(h).to receive(:render).with(partial: '/checkout/address', locals: { obj: order.billing_address })
+      order.render_shipping_address
+    end
+
+    it 'should render shipping if shipping_address is not nil' do
+      order.shipping_address = ShippingAddress.create(shipping_address)
+      expect(h).to receive(:render).with(partial: '/checkout/address', locals: { obj: order.shipping_address })
+      order.render_shipping_address
+    end
+  end
+
+  describe '#filtred_cart_number' do
+
+    it 'should filter number of cart' do
+      order.cart = FactoryGirl.create(:cart, number: '000000000000000003577')
+      expect(order.filtred_cart_number).to eq('*****************3577')
+    end
+  end
 end

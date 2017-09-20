@@ -7,7 +7,7 @@
     .general-img-wrap-table
       %img.cart-img-shadow.width-full{src: "#{item.book.pictures.first.image.url}", alt: "#{item.book.title}"}
     %p.general-title #{item.book.title}
-    %p.in-grey-600.font-weight-light #{markdown(item.book.description)}
+    %p.in-grey-600.font-weight-light=item.show_description
     %table.table
       %tr
         %td

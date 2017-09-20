@@ -15,4 +15,10 @@ class OrderItemDecorator < ApplicationDecorator
       end
     end
   end
+
+  def show_description
+    if h.request.fullpath == h.checkout_path(:complete) || h.request.fullpath == h.orders_path
+      h.markdown(model.book.description.split('.').first.concat('.'))
+    end
+  end
 end

@@ -14,20 +14,21 @@ RSpec.describe OrdersController, type: :controller do
         FactoryGirl.create(:order, user: controller.current_user, aasm_state: 'pending')
       end
 
-      it_should_behave_like 'given page'
-
       it 'should return orders where state isn\'t pending' do
         expect(controller.instance_variable_get(:@orders)).to eq([delivered_order])
       end
+
+      it_behaves_like 'controller have variables', { 'orders': ActiveRecord::AssociationRelation }
+      it_behaves_like 'given page'
     end
 
     context 'when guest' do
-      it_should_behave_like 'when guest'
+      it_behaves_like 'when guest'
     end
   end
 
   describe '#show' do
-    let(:order) { FactoryGirl.create(:order) }
+    let(:order) { FactoryGirl.create(:order, user: controller.current_user, aasm_state: 'pending') }
     subject { get :show, params: { id: order.id } }
 
     context 'when logged' do
@@ -35,19 +36,18 @@ RSpec.describe OrdersController, type: :controller do
 
       before do
         subject
-        FactoryGirl.create(:order, user: controller.current_user, aasm_state: 'pending')
       end
-
-      it_should_behave_like 'given page'
 
       it 'should return order' do
         expect(controller.instance_variable_get(:@order)).to eq(order)
       end
+
+      it_behaves_like 'controller have variables', { 'order': Order }
+      it_behaves_like 'given page'
     end
 
     context 'when guest' do
-      it_should_behave_like 'when guest'
+      it_behaves_like 'when guest'
     end
   end
-
 end

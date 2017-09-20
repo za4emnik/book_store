@@ -35,4 +35,11 @@ class OrderDecorator < ApplicationDecorator
     end
     h.render partial: '/checkout/address', locals: { obj: object }
   end
+
+  def filtred_cart_number
+    if model.cart.try(:number)
+      stars = '*' * (model.cart.number.length - 4)
+      stars.concat(model.cart.number.last(4))
+    end
+  end
 end

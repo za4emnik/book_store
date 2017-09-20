@@ -3,7 +3,7 @@ require 'rails_helper'
 describe OrderItemDecorator, type: :decorator do
   let(:order_item) { FactoryGirl.create(:order_item).decorate }
 
-  context '#quantity_field' do
+  describe '#quantity_field' do
 
     it 'should render quantity_field partial' do
       allow(order_item).to receive(:is_cart_page?).and_return true
@@ -17,7 +17,7 @@ describe OrderItemDecorator, type: :decorator do
     end
   end
 
-  context '#delete_button' do
+  describe '#delete_button' do
 
     it 'should return delete button' do
       allow(order_item).to receive(:is_cart_page?).and_return true
@@ -25,4 +25,20 @@ describe OrderItemDecorator, type: :decorator do
     end
   end
 
+  describe '#show_description' do
+
+    before do
+      order_item.book.description = 'First. Second.'
+    end
+
+    it 'should return first sentence of description if complete step' do
+      allow(h.request).to receive(:fullpath).and_return(h.checkout_path(:complete))
+      expect(h.strip_tags(order_item.show_description)).to eq("First.\n")
+    end
+
+    it 'should return first sentence of description if orders page' do
+      allow(h.request).to receive(:fullpath).and_return(h.orders_path)
+      expect(h.strip_tags(order_item.show_description)).to eq("First.\n")
+    end
+  end
 end

@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_one  :billing_address, as: :addressable, dependent: :destroy
   has_many :reviews
   has_many :orders
+  has_many :order_items, through: :orders
 
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable,

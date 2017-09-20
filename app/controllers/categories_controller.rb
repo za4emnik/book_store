@@ -1,13 +1,18 @@
 class CategoriesController < ApplicationController
+  before_action :count_books
 
   def index
-    @books_count = Book.count
     @books = Book.with_filter(params[:filter]).page params[:page]
   end
 
   def show
-    @books_count = Book.count
     @books = Book.where(category_id: params[:id]).with_filter(params[:filter]).page params[:page]
   end
 
+
+  private
+
+  def count_books
+    @books_count = Book.count
+  end
 end

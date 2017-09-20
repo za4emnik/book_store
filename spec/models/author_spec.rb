@@ -16,5 +16,4 @@ RSpec.describe Author, type: :model do
       expect(subject.full_name).to eq("#{subject.first_name} #{subject.last_name}")
     end
   end
-
 end

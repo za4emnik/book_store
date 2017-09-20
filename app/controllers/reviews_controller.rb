@@ -11,7 +11,6 @@ class ReviewsController < ApplicationController
 
   protected
 
-
   def reviews_params
     params.require(:review).permit(:title, :score, :message, :book_id)
   end

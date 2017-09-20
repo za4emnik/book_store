@@ -26,8 +26,8 @@
                 %p.in-gold-500.font-18=t :order_summary
                 %table.general-summary-table.general-summary-table-right.general-text-right
                   = render partial: '/checkout/summary'
-    = button_to "Checkout",  checkout_index_path, method: :get, class: "btn btn-default mb-20 visible-xs-inline-block"
-    = button_to "Checkout",  checkout_index_path, method: :get, class: "btn btn-default mb-20 hidden-xs center-block"
+    = button_to t(:checkout),  checkout_index_path, method: :get, class: "btn btn-default mb-20 visible-xs-inline-block"
+    = button_to t(:checkout),  checkout_index_path, method: :get, class: "btn btn-default mb-20 hidden-xs center-block"
   - else
     %h1.general-title-margin=t :cart_empty
 :javascript

@@ -23,7 +23,7 @@ class StepUpdateService
   end
 
   def payment
-    form = CartForm.new(cart_params)
+    form = CartForm.new(cart_params.to_h)
     form.order = @order
     form.save
     form

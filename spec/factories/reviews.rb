@@ -5,5 +5,6 @@ FactoryGirl.define do
     message { FFaker::CheesyLingo::sentence }
     association :book
     association :user
+    aasm_state 'unprocessed'
   end
 end

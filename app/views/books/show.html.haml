@@ -54,8 +54,8 @@
             %div
               .general-message-date.hidden-xs #{review.updated_at.strftime("%d/%m/%y")}
               .max-240
-                .general-message-verified=t :verified_reviewer
-                .general-message-name #{review.user.email}
+                =review.user.decorate.verified_reviewer(@book.id)
+                .general-message-name #{ review.user.billing_address.try(:full_name) || review.user.email }
             .mb-15
               - review.score.to_i.times do
                 %i.fa.fa-star.rate-star

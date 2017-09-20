@@ -10,13 +10,21 @@ RSpec.describe ReviewsController, type: :controller do
     context 'when logged' do
       login_user
 
-      it 'shoul redirect to book page' do
+      before do
+        subject
+      end
+
+      it 'should set success mesage' do
+        expect(flash[:success]).to be
+      end
+
+      it 'should redirect to book page' do
         expect(subject).to redirect_to(book_path(id: book.id))
       end
     end
 
     context 'when guest' do
-      it 'shoul redirect to login page' do
+      it 'should redirect to login page' do
         expect(subject).to redirect_to(new_user_session_path)
       end
     end

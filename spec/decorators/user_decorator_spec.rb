@@ -1,29 +1,15 @@
 require 'rails_helper'
 
 describe UserDecorator, type: :decorator do
-  let(:shipping_address) { ShippingAddress.new(FactoryGirl.attributes_for(:user_shipping_address)) }
-  let(:billing_address) { BillingAddress.new(FactoryGirl.attributes_for(:user_billing_address)) }
-  let(:user) { FactoryGirl.create(:user, billing_address: billing_address, shipping_address: shipping_address).decorate }
+  let(:user) { FactoryGirl.create(:user).decorate }
+  let(:order) { FactoryGirl.create(:order, user_id: user.id) }
+  let(:book) { FactoryGirl.create(:book) }
+  let!(:order_item) { FactoryGirl.create(:order_item, book_id: book.id, order_id: order.id) }
 
-  describe '#show_billing_address' do
+  describe '#verified_reviewer' do
 
-    it 'should render address partial' do
-      expect(h).to receive(:render).with(partial: '/checkout/address', locals: { obj: user.billing_address })
-      user.show_billing_address
-    end
-  end
-
-  describe '#show_shipping_address' do
-
-    it 'should call #show_billing_address' do
-      allow(user.shipping_address).to receive(:use_billing_address).and_return true
-      expect(user).to receive(:show_billing_address)
-      user.show_shipping_address
-    end
-
-    it 'should render address partial' do
-      expect(h).to receive(:render).with(partial: '/checkout/address', locals: { obj: user.shipping_address })
-      user.show_shipping_address
+    it 'should retun \'verified reviewer\' if the user bought a book' do
+      expect(user.verified_reviewer(book.id)).to have_content(I18n.t(:verified_reviewer))
     end
   end
 end

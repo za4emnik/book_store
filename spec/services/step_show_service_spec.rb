@@ -7,14 +7,8 @@ RSpec.describe StepShowService do
     order = FactoryGirl.create(:order)
     subject { StepShowService.new(:address, order, 'session') }
 
-    %w(step order user session).each do |variable|
-      it "should have ##{variable} variable" do
-        expect(subject.instance_variable_get("@#{variable}".to_sym)).not_to be_nil
-      end
-    end
-
-    it '@user should be decorated' do
-      expect(subject.instance_variable_get(:@user)).to be_decorated
+    it_behaves_like 'controller have variables', { 'step': Symbol, 'order': Order, 'obj': nil, 'session': nil } do
+      let(:controller) { subject }
     end
   end
 
@@ -84,8 +78,8 @@ RSpec.describe StepShowService do
       expect{ subject.confirm }.to change{ subject.instance_variable_get(:@session)[:steps_taken?] }.from(nil).to(true)
     end
 
-    it 'should return @user' do
-      expect(subject.confirm).to eq(subject.instance_variable_get(:@user))
+    it 'should return @obj' do
+      expect(subject.confirm).to eq(subject.instance_variable_get(:@obj))
     end
   end
 

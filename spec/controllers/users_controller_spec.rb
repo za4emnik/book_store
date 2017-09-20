@@ -8,13 +8,8 @@ RSpec.describe UsersController, type: :controller do
     context 'when logged' do
       login_user
 
-      %w(billing_address shipping_address).each do |variable|
-        it "should have @#{variable} variable" do
-          expect(subject.request.env['action_controller.instance'].current_user.public_send(variable)).kind_of? Address
-        end
-      end
-
-      it_should_behave_like 'given page'
+      it_behaves_like 'controller have variables', { 'billing_address': BillingForm, 'shipping_address': ShippingForm }
+      it_behaves_like 'given page'
     end
 
     context 'when guest' do
@@ -28,8 +23,8 @@ RSpec.describe UsersController, type: :controller do
       login_user
 
       context 'shipping form' do
-        let(:address) { FactoryGirl.attributes_for(:user_shipping_address) }
-        subject { patch :update, params: { user_id: 1, shipping_form: address } }
+        let(:address) { FactoryGirl.attributes_for(:user_shipping_address, country_id: 1) }
+        subject { patch :update, params: { user_id: FactoryGirl.create(:user).id, shipping_form: address } }
 
         it 'should update shipping address' do
           subject
@@ -42,7 +37,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       context 'billing form' do
-        let(:address) { FactoryGirl.attributes_for(:user_billing_address) }
+        let(:address) { FactoryGirl.attributes_for(:user_billing_address, country_id: 1) }
         subject { patch :update, params: { user_id: 1, billing_form: address } }
 
         it 'should update billing address' do
@@ -87,7 +82,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe '#destroy' do
-    subject { delete :destroy, params: { id: 1 } }
+    subject { delete :destroy, params: { id: controller.current_user.id } }
 
     context 'when logged' do
       login_user
@@ -100,6 +95,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'when guest' do
+      subject { patch :update, params: { user_id: 1 } }
       it_should_behave_like 'when guest'
     end
   end

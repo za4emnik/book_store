@@ -17,7 +17,7 @@
     .col-sm-3
       %h3.general-subtitle.mt-0=t :payment_information
       %p.general-address
-        #{@order.cart.number}
+        #{@order.filtred_cart_number}
         %br
         #{@order.cart.date}
   .visible-xs
@@ -64,7 +64,7 @@
                 %img.cart-img-shadow.pull-left.width-full{src: "#{item.book.pictures.first.image.url}", alt: "#{item.book.title}"}
             %td
               %p.general-title #{item.book.title}
-              %p.in-grey-600.font-weight-light #{markdown(item.book.description)}
+              %p.in-grey-600.font-weight-light #{item.show_description}
             %td
               %span.font-16.in-gold-500 €#{item.book.price}
             %td

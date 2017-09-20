@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def update_billing
-    @billing_address = BillingForm.new(address_params(:billing_form))
+    @billing_address = BillingForm.new(address_params(:billing_form).to_h)
     if @billing_address.valid?
       current_user.build_billing_address unless current_user.billing_address
       current_user.billing_address.update_attributes(address_params(:billing_form))
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update_shipping
-    @shipping_address = ShippingForm.new(address_params(:shipping_form))
+    @shipping_address = ShippingForm.new(address_params(:shipping_form).to_h)
     if @shipping_address.valid?
       current_user.build_shipping_address unless current_user.shipping_address
       current_user.shipping_address.update_attributes(address_params(:shipping_form))
