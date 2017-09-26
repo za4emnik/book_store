@@ -1,6 +1,6 @@
 %main.container.general-main-wrap
   = render partial: '/checkout/steps'
-  %h3.general-subtitle Credit Card
+  %h3.general-subtitle=t :delivery
   .visible-xs
     = form_for current_order, url: wizard_path, method: :put do |f|
       -@form.each do |delivery|

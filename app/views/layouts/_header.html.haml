@@ -30,7 +30,7 @@
               %li
                 %a.collapse-link{href: "/?category=web_development"}=t :web_development
           %li
-            %a{type: "button", 'data-toggle': "collapse", href: "/", 'aria-expanded': "false", 'aria-controls': "menu"}=t :shop
+            %a{type: "button", 'data-toggle': "collapse", href: "/categories", 'aria-expanded': "false", 'aria-controls': "menu"}=t :shop
             %ul#menu.collapse.list-unstyled.pl-30.mb-10{'aria-expanded': "false"}
             - categories.each do |category|
               %li

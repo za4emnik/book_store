@@ -1,9 +1,8 @@
 FactoryGirl.define do
   factory :cart do
-    number { FFaker::PhoneNumber::imei }
+    number '12345678901234567'
     name { FFaker::NatoAlphabet::alphabetic_code }
-    date 11/17
+    date '11/18'
     cvv 123
-    association :order
   end
 end

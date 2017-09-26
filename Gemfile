@@ -35,7 +35,6 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'capybara'
   gem 'pry'
 end
 
@@ -47,6 +46,8 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
+  gem 'poltergeist'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'ffaker'
