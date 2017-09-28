@@ -23,5 +23,4 @@ class CartsController < ApplicationController
       current_order.coupon = coupon
     end
   end
-
 end

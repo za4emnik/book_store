@@ -1,21 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe StepShowService do
-
   context '#initialize' do
-
     order = FactoryGirl.create(:order)
     subject { StepShowService.new(:address, order, 'session') }
 
-    it_behaves_like 'controller have variables', { 'step': Symbol, 'order': Order, 'obj': nil, 'session': nil } do
+    it_behaves_like 'controller have variables', 'step': Symbol, 'order': Order, 'obj': nil, 'session': nil do
       let(:controller) { subject }
     end
   end
 
   context '#form' do
-
-    [:address, :delivery, :payment, :confirm, :complete].each do |step|
-      it "should call ##{step.to_s} method" do
+    %i[address delivery payment confirm complete].each do |step|
+      it "should call ##{step} method" do
         order = FactoryGirl.create(:order)
         obj = StepShowService.new(step, order, 'session')
         expect(obj).to receive(step)
@@ -75,7 +72,7 @@ RSpec.describe StepShowService do
     subject { StepShowService.new(:address, order, session) }
 
     it 'should set :steps_taken? flag to true' do
-      expect{ subject.confirm }.to change{ subject.instance_variable_get(:@session)[:steps_taken?] }.from(nil).to(true)
+      expect { subject.confirm }.to change { subject.instance_variable_get(:@session)[:steps_taken?] }.from(nil).to(true)
     end
 
     it 'should return @obj' do
@@ -84,7 +81,6 @@ RSpec.describe StepShowService do
   end
 
   context '#complete' do
-
     before do
       2.times { user.orders << FactoryGirl.create(:order, aasm_state: 'pending') }
     end

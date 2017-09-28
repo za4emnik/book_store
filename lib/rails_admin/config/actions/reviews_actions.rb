@@ -27,7 +27,7 @@ module RailsAdmin
         end
 
         register_instance_option :controller do
-          Proc.new do
+          proc do
             if params[:id] && object.may_approve?
               object.approve!
               flash[:notice] = I18n.t('admin.actions.change_to_approved.flash.success')
@@ -53,7 +53,7 @@ module RailsAdmin
         end
 
         register_instance_option :controller do
-          Proc.new do
+          proc do
             if params[:id] && object.may_reject?
               object.reject!
               flash[:notice] = I18n.t('admin.actions.change_to_rejected.flash.success')

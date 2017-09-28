@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe 'order page', type: :feature do
-
   context 'when logged' do
-
     let(:country) { FactoryGirl.create(:country) }
     let(:shipping) { FactoryGirl.attributes_for(:order_shipping_address, country_id: country.id) }
     let(:billing) { FactoryGirl.attributes_for(:order_billing_address, country_id: country.id) }
@@ -38,7 +36,6 @@ describe 'order page', type: :feature do
   end
 
   context 'when guest' do
-
     before do
       visit orders_path
     end

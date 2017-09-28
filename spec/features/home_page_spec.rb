@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'home page', type: :feature do
-
   before do
     visit root_path
   end

@@ -1,5 +1,4 @@
 class ShippingForm < AddressBuildForm
-
   include ActiveModel::Model
   include Virtus.model
 
@@ -8,5 +7,4 @@ class ShippingForm < AddressBuildForm
   def invalid?
     use_billing_address ? false : super
   end
-
 end

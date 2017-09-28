@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe 'orders page', type: :feature do
-
   context 'when logged' do
-
     before do
       @user = signin_user
       visit orders_path
@@ -14,7 +12,6 @@ describe 'orders page', type: :feature do
     it_behaves_like 'functionality for logged user'
 
     describe 'sorting criteria' do
-
       it 'should have all link' do
         expect(page).to have_link(I18n.t(:all), match: :first)
       end
@@ -38,7 +35,6 @@ describe 'orders page', type: :feature do
   end
 
   context 'when guest' do
-
     before do
       visit orders_path
     end

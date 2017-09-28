@@ -1,7 +1,5 @@
 module DecoratorHelpModule
-
   def wizard_path(path)
-    "/#{path.to_s}"
+    "/#{path}"
   end
-
 end

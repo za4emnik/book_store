@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe CartForm, type: :model do
-
   describe 'validates' do
-    %w(number name date cvv order).each do |field|
+    %w[number name date cvv order].each do |field|
       it { should validate_presence_of(field) }
     end
     it { should allow_values('11/15', '01/16').for(:date) }

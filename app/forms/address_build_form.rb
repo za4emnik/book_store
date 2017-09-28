@@ -1,5 +1,4 @@
 class AddressBuildForm
-
   include ActiveModel::Model
   include Virtus.model
 
@@ -12,7 +11,7 @@ class AddressBuildForm
   attribute :phone, String
 
   validates :first_name, :last_name, :address, :city, :zip, :phone, :country_id, presence: true
-  validates :first_name, :last_name, :city, format: { with:  /[A-Z][a-z]/ }
+  validates :first_name, :last_name, :city, format: { with: /[A-Z][a-z]/ }
   validates :first_name, :last_name, :city, length: { maximum: 50 }
   validates :zip, numericality: { only_integer: true }
   validates :phone, length: { maximum: 21 }
@@ -24,5 +23,4 @@ class AddressBuildForm
       false
     end
   end
-
 end

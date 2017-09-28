@@ -21,7 +21,7 @@ module RailsAdmin
         end
 
         register_instance_option :controller do
-          Proc.new do
+          proc do
             @objects = Review.where(aasm_state: 'unprocessed')
             render :index
           end
@@ -36,8 +36,8 @@ module RailsAdmin
         end
 
         register_instance_option :controller do
-          Proc.new do
-            @objects = Review.where(aasm_state: ['approved', 'rejected'])
+          proc do
+            @objects = Review.where(aasm_state: %w[approved rejected])
             render :index
           end
         end

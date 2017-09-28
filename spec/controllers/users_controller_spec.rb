@@ -1,14 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-
   describe '#edit' do
     subject { get :edit }
 
     context 'when logged' do
       login_user
 
-      it_behaves_like 'controller have variables', { 'billing_address': BillingForm, 'shipping_address': ShippingForm }
+      it_behaves_like 'controller have variables', 'billing_address': BillingForm, 'shipping_address': ShippingForm
       it_behaves_like 'given page'
     end
 
@@ -18,7 +17,6 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe '#update' do
-
     context 'when logged' do
       login_user
 
@@ -28,7 +26,7 @@ RSpec.describe UsersController, type: :controller do
 
         it 'should update shipping address' do
           subject
-          expect(controller.current_user.shipping_address.attributes.symbolize_keys.delete_if{ |item| address.exclude?(item) }).to eq(address)
+          expect(controller.current_user.shipping_address.attributes.symbolize_keys.delete_if { |item| address.exclude?(item) }).to eq(address)
         end
 
         it 'should redirect to settings page' do
@@ -42,7 +40,7 @@ RSpec.describe UsersController, type: :controller do
 
         it 'should update billing address' do
           subject
-          expect(controller.current_user.billing_address.attributes.symbolize_keys.delete_if{ |item| address.exclude?(item) }).to eq(address)
+          expect(controller.current_user.billing_address.attributes.symbolize_keys.delete_if { |item| address.exclude?(item) }).to eq(address)
         end
 
         it 'should redirect to settings page' do
@@ -88,7 +86,7 @@ RSpec.describe UsersController, type: :controller do
       login_user
 
       it 'should delete user' do
-        expect{subject}.to change(User, :count).by(-1)
+        expect { subject }.to change(User, :count).by(-1)
       end
 
       it_should_behave_like 'redirect to root page'

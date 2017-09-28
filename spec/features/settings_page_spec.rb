@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe 'settings page', type: :feature do
-
   context 'when logged' do
-
     before do
       signin_user
       visit settings_path
@@ -20,7 +18,6 @@ describe 'settings page', type: :feature do
     end
 
     describe 'remove account' do
-
       it 'should have remove account button' do
         expect(page).to have_content(I18n.t(:remove_account))
       end
@@ -33,7 +30,6 @@ describe 'settings page', type: :feature do
   end
 
   context 'when guest' do
-
     before do
       visit settings_path
     end

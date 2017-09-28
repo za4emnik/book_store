@@ -1,5 +1,4 @@
 class ApplicationDecorator < Draper::Decorator
-
   delegate_all
 
   def edit_link
@@ -8,7 +7,7 @@ class ApplicationDecorator < Draper::Decorator
     end
   end
 
-  def is_cart_page?
+  def cart_page?
     h.request.fullpath == h.cart_page_path
   end
 

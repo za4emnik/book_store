@@ -1,5 +1,4 @@
 class AddressForm
-
   include ActiveModel::Model
   include Virtus.model
 
@@ -7,7 +6,7 @@ class AddressForm
   attribute :shipping_address, ShippingForm, default: ShippingForm.new
   attribute :obj, Object
 
-  validate  :all_addresses_valid
+  validate :all_addresses_valid
 
   def save
     if valid?
@@ -22,7 +21,6 @@ class AddressForm
     errors.add(:billing_address, billing_address.errors.messages) if billing_address.invalid?
     errors.add(:shipping_address, shipping_address.errors.messages) if shipping_address.invalid?
   end
-
 
   private
 

@@ -23,7 +23,7 @@ module RailsAdmin
           'fa fa-exchange'
         end
         register_instance_option :controller do
-          Proc.new do
+          proc do
             if request.get?
               @events = []
               object.aasm.events.map(&:name).each do |event|
@@ -40,7 +40,7 @@ module RailsAdmin
           end
         end
         register_instance_option :http_methods do
-          [:get, :post]
+          %i[get post]
         end
       end
     end

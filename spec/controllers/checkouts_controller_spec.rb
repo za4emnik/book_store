@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CheckoutController, type: :controller do
-
-  steps = %w(address delivery payment confirm complete)
+  steps = %w[address delivery payment confirm complete]
 
   describe '#index' do
     context 'when logged' do
@@ -20,7 +19,6 @@ RSpec.describe CheckoutController, type: :controller do
   end
 
   describe '#show' do
-
     context 'when logged' do
       login_user
 
@@ -33,7 +31,7 @@ RSpec.describe CheckoutController, type: :controller do
         context "#{step} step" do
           subject { get :show, params: { id: :"#{step}" } }
 
-          it_behaves_like 'controller have variables', {'form': nil} unless step == 'complete'
+          it_behaves_like 'controller have variables', 'form': nil unless step == 'complete'
           it_behaves_like 'given page'
         end
       end
@@ -61,27 +59,27 @@ RSpec.describe CheckoutController, type: :controller do
         billing = FactoryGirl.attributes_for(:order_billing_address)
         subject { put :update, params: { id: :address, address_form: { billing_form: billing, shipping_form: shipping } } }
 
-        it_behaves_like 'controller have variables', { 'form': nil }
+        it_behaves_like 'controller have variables', 'form': nil
       end
 
       context 'delivery step' do
         delivery = FactoryGirl.create(:delivery)
         subject { put :update, params: { id: :delivery, order: { delivery: delivery.id } } }
 
-        it_behaves_like 'controller have variables', { 'form': nil }
+        it_behaves_like 'controller have variables', 'form': nil
       end
 
       context 'payment step' do
         cart = FactoryGirl.attributes_for(:cart)
         subject { put :update, params: { id: :payment, cart_form: cart } }
 
-        it_behaves_like 'controller have variables', { 'form': nil }
+        it_behaves_like 'controller have variables', 'form': nil
       end
 
       context 'confirm step' do
         subject { put :update, params: { id: :confirm } }
 
-        it_behaves_like 'controller have variables', { 'form': nil }
+        it_behaves_like 'controller have variables', 'form': nil
       end
     end
 

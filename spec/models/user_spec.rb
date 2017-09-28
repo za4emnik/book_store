@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   describe 'associations' do
-
     before do
       subject.shipping_address = ShippingAddress.create(FactoryGirl.attributes_for(:user_shipping_address))
       subject.billing_address = BillingAddress.create(FactoryGirl.attributes_for(:user_billing_address))
@@ -39,11 +37,10 @@ RSpec.describe User, type: :model do
   end
 
   describe '#new_with_session' do
-
     it 'should add email for new users who already has session' do
       email = 'some_email@domain.com'
       params = { password: 'qqqqqqq', password_confirmation: 'qqqqqqq' }
-      session = {'devise.facebook_data'=>{ 'extra'=> { 'raw_info'=> { 'email'=> email} } }}
+      session = { 'devise.facebook_data' => { 'extra' => { 'raw_info' => { 'email' => email } } } }
       expect(User.new_with_session(params, session).email).to eq(email)
     end
   end

@@ -19,7 +19,7 @@ describe AvatarUploader do
   end
 
   it 'makes the image readable only to the owner and not executable' do
-    expect(uploader).to have_permissions(0644)
+    expect(uploader).to have_permissions(0o644)
   end
 
   it 'has the correct format' do

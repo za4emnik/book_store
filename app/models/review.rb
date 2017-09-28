@@ -17,11 +17,11 @@ class Review < ApplicationRecord
     state :rejected
 
     event :approve do
-      transitions from: [:unprocessed, :rejected], to: :approved
+      transitions from: %i[unprocessed rejected], to: :approved
     end
 
     event :reject do
-      transitions from: [:unprocessed, :approved], to: :rejected
+      transitions from: %i[unprocessed approved], to: :rejected
     end
   end
 end

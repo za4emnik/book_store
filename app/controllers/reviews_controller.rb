@@ -8,7 +8,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-
   protected
 
   def reviews_params

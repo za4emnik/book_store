@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe 'cart page', type: :feature do
-
   context 'when logged' do
-
     before do
       signin_user
       add_book_to_cart
@@ -19,7 +17,6 @@ describe 'cart page', type: :feature do
   end
 
   context 'when guest' do
-
     before do
       add_book_to_cart
       visit carts_path
@@ -34,9 +31,7 @@ describe 'cart page', type: :feature do
   end
 
   context 'when logged or guest' do
-
     context 'when have items' do
-
       before do
         add_book_to_cart
         visit carts_path
@@ -60,7 +55,6 @@ describe 'cart page', type: :feature do
     end
 
     context 'when cart is empty' do
-
       before do
         visit carts_path
       end

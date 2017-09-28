@@ -4,7 +4,6 @@ describe 'checkout page', type: :feature do
   include ApplicationHelper
 
   describe 'address step' do
-
     context 'when logged' do
       before do
         signin_user
@@ -40,7 +39,6 @@ describe 'checkout page', type: :feature do
   end
 
   describe 'delivery step' do
-
     context 'when logged' do
       before do
         signin_user
@@ -80,7 +78,6 @@ describe 'checkout page', type: :feature do
   end
 
   describe 'payment step' do
-
     context 'when logged' do
       before do
         signin_user
@@ -124,7 +121,6 @@ describe 'checkout page', type: :feature do
   end
 
   describe 'confirm step' do
-
     context 'when logged' do
       before do
         signin_user
@@ -168,7 +164,6 @@ describe 'checkout page', type: :feature do
   end
 
   describe 'complete step' do
-
     context 'when logged' do
       before do
         signin_user

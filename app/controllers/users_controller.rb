@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_variables, only: [:edit, :update]
+  before_action :set_variables, only: %i[edit update]
   load_and_authorize_resource
 
   def update
@@ -12,18 +12,16 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
-
   private
 
   def update_user_data
-    case
-    when params.include?('billing_form')
+    if params.include?('billing_form')
       update_billing
-    when params.include?('shipping_form')
+    elsif params.include?('shipping_form')
       update_shipping
-    when params.include?('email_form')
+    elsif params.include?('email_form')
       update_email
-    when params.include?('password_form')
+    elsif params.include?('password_form')
       update_password
     end
   end

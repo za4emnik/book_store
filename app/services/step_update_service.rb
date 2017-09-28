@@ -1,7 +1,9 @@
 class StepUpdateService
-
   def initialize(step, order, params, session)
-    @step, @order, @params, @session = step, order, params, session
+    @step = step
+    @order = order
+    @params = params
+    @session = session
   end
 
   def update
@@ -35,11 +37,9 @@ class StepUpdateService
     @order
   end
 
-  def complete
-  end
+  def complete; end
 
   private
-
 
   def address_params(type)
     @params.require(:address_form).require(type).permit(:first_name, :last_name, :address, :city, :zip, :phone, :country_id, :use_billing_address)

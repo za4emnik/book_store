@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'aasm/rspec'
 
 RSpec.describe Order, type: :model do
-
   describe 'associations' do
     it { should have_one(:coupon) }
     it { should have_one(:cart) }
@@ -23,7 +22,7 @@ RSpec.describe Order, type: :model do
   end
 
   describe '#with_filter' do
-    states = %w(waiting_for_processing in_progress in_delivery delivered)
+    states = %w[waiting_for_processing in_progress in_delivery delivered]
 
     before do
       states.each do |state|
@@ -67,7 +66,6 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'generate orders numbers' do
-
     let(:order) { FactoryGirl.create(:order) }
 
     it 'should generate order with format \'R00000000\'' do
@@ -75,7 +73,7 @@ RSpec.describe Order, type: :model do
     end
 
     it 'number should include order id' do
-      order = FactoryGirl.create(:order, id: 55555)
+      order = FactoryGirl.create(:order, id: 55_555)
       expect(order.number).to eq('R00055555')
     end
   end

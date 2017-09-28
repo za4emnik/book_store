@@ -9,7 +9,6 @@ class CategoriesController < ApplicationController
     @books = Book.where(category_id: params[:id]).with_filter(params[:filter]).page params[:page]
   end
 
-
   private
 
   def count_books

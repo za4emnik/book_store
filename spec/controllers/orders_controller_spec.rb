@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
-
   describe '#index' do
     subject { get :index }
 
@@ -18,7 +17,7 @@ RSpec.describe OrdersController, type: :controller do
         expect(controller.instance_variable_get(:@orders)).to eq([delivered_order])
       end
 
-      it_behaves_like 'controller have variables', { 'orders': ActiveRecord::AssociationRelation }
+      it_behaves_like 'controller have variables', 'orders': ActiveRecord::AssociationRelation
       it_behaves_like 'given page'
     end
 
@@ -42,7 +41,7 @@ RSpec.describe OrdersController, type: :controller do
         expect(controller.instance_variable_get(:@order)).to eq(order)
       end
 
-      it_behaves_like 'controller have variables', { 'order': Order }
+      it_behaves_like 'controller have variables', 'order': Order
       it_behaves_like 'given page'
     end
 

@@ -6,23 +6,20 @@ describe ApplicationDecorator, type: :decorator do
   let(:shipping_address) { FactoryGirl.attributes_for(:user_shipping_address) }
 
   describe '#edit_link' do
-
     it 'should return edit link if confirm page' do
       allow(h.request).to receive(:fullpath).and_return('/confirm')
       expect(order.edit_link).to have_tag('a.general-edit', href: h.wizard_path(:address))
     end
   end
 
-  describe '#is_cart_page?' do
-
+  describe '#cart_page?' do
     it 'should return true if cart page' do
       allow(h.request).to receive(:fullpath).and_return(h.cart_page_path)
-      expect(order.is_cart_page?).to be_truthy
+      expect(order.cart_page?).to be_truthy
     end
   end
 
   describe '#show_billing_address' do
-
     it 'should render address partial' do
       expect(h).to receive(:render).with(partial: '/checkout/address', locals: { obj: order.billing_address })
       order.show_billing_address
@@ -30,7 +27,6 @@ describe ApplicationDecorator, type: :decorator do
   end
 
   describe '#show_shipping_address' do
-
     it 'should call #show_billing_address if used billing address' do
       allow(order.shipping_address).to receive(:use_billing_address).and_return true
       expect(order).to receive(:show_billing_address)

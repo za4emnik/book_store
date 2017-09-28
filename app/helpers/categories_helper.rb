@@ -1,6 +1,5 @@
 module CategoriesHelper
-
   def filter_state
-    params[:filter].humanize if params[:filter]
+    params[:filter]&.humanize
   end
 end

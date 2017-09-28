@@ -1,5 +1,4 @@
 RSpec.shared_examples 'functionality for guest' do |params|
-
   if params && params[:visit_path]
     before do
       visit params[:visit_path]

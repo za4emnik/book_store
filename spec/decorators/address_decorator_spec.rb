@@ -4,7 +4,6 @@ describe AddressDecorator, type: :decorator do
   let(:address) { FactoryGirl.create(:order_shipping_address).decorate }
 
   describe '#show_selected_value' do
-
     it "should return 'Nothing selected' text" do
       address.country = nil
       expect(address.show_selected_value).to eq(I18n.t(:nothing_selected))

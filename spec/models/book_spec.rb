@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-
   context 'associations' do
     it { should have_and_belong_to_many(:authors) }
     it { should have_and_belong_to_many(:materials) }
@@ -13,7 +12,7 @@ RSpec.describe Book, type: :model do
   end
 
   context 'validations' do
-    [:title, :price, :description, :category_id].each do |field|
+    %i[title price description category_id].each do |field|
       it { should validate_presence_of(field) }
     end
   end
@@ -29,7 +28,7 @@ RSpec.describe Book, type: :model do
   end
 
   context '#with_category_filter' do
-    ['photo', 'web_design', 'web_development'].each do |category|
+    %w[photo web_design web_development].each do |category|
       it "should return books in #{category} category" do
         allow(Book).to receive(:joins).and_return Book
         expect(Book).to receive(:where).with("categories.name = '#{category.humanize}'")

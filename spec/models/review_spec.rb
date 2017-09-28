@@ -2,14 +2,13 @@ require 'rails_helper'
 require 'aasm/rspec'
 
 RSpec.describe Review, type: :model do
-
   describe 'associations' do
     it { should belong_to(:book) }
     it { should belong_to(:user) }
   end
 
   describe 'validations' do
-    %w(title message score user_id book_id).each do |field|
+    %w[title message score user_id book_id].each do |field|
       it { should validate_presence_of(field) }
     end
     it { should validate_length_of(:title).is_at_most(80) }

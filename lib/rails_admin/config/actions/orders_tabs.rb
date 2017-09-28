@@ -24,7 +24,7 @@ module RailsAdmin
         end
         register_instance_option :controller do
           proc do
-            @objects = Order.where(aasm_state: ['in_progress', 'waiting_for_processing', 'in_delivery', 'pending'])
+            @objects = Order.where(aasm_state: %w[in_progress waiting_for_processing in_delivery pending])
             render :index
           end
         end

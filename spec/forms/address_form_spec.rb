@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe AddressForm, type: :model do
-
-  let(:address_form) { AddressForm.new() }
+  let(:address_form) { AddressForm.new }
 
   describe '#all_addresses_valid' do
-
     it 'should adds errors if some addresses not valid' do
       expect(address_form.errors).to receive(:add).with(:billing_address, address_form.billing_address.errors.messages)
       expect(address_form.errors).to receive(:add).with(:shipping_address, address_form.shipping_address.errors.messages)

@@ -1,5 +1,4 @@
 class DeliveryForm
-
   include ActiveModel::Model
   include Virtus.model
 
@@ -18,7 +17,6 @@ class DeliveryForm
   end
 
   private
-
 
   def persist!
     current_order.delivery_id = delivery_id

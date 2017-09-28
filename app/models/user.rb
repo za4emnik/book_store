@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_one  :shipping_address, as: :addressable, dependent: :destroy
-  has_one  :billing_address, as: :addressable, dependent: :destroy
+  has_one :shipping_address, as: :addressable, dependent: :destroy
+  has_one :billing_address, as: :addressable, dependent: :destroy
   has_many :reviews
   has_many :orders
   has_many :order_items, through: :orders
@@ -17,31 +17,26 @@ class User < ApplicationRecord
 
   def self.new_with_session(params, session)
     super.tap do |user|
-     if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-       user.email = data["email"] if user.email.blank?
-     end
+      data = session['devise.facebook_data']['extra']['raw_info'] if session['devise.facebook_data']
+      user.email = data['email'] if user.email.blank? && data
     end
   end
 
   def update_email(value)
     self.email = value
-    self.valid?
-    if self.errors[:email].blank?
-      self.save(validate: false)
+    valid?
+    if errors[:email].blank?
+      save(validate: false)
     else
-      self.errors.delete(:password)
+      errors.delete(:password)
       false
     end
   end
 
-
-  protected
-
-
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
+      user.password = Devise.friendly_token[0, 20]
     end
   end
 end

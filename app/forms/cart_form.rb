@@ -1,5 +1,4 @@
 class CartForm
-
   include ActiveModel::Model
   include Virtus.model
 
@@ -10,13 +9,11 @@ class CartForm
   attribute :date, String
   attribute :cvv, Integer
 
-
   validates :number, :name, :date, :cvv, :order, presence: true
-  validates :date, format: { with:  /\A([0][1-9]|[1][0-2])(\/)([1-3][0-9])\Z/ }
+  validates :date, format: { with: %r{\A([0][1-9]|[1][0-2])(\/)([1-3][0-9])\Z} }
   validates :name, length: { maximum: 50 }
   validates :number, format: { with:  /\A[0-9]{17,21}\Z/ }
-  validates :cvv, numericality: { only_integer: true }, format: { with:  /\A[0-9]{3,4}\Z/ }
-
+  validates :cvv, numericality: { only_integer: true }, format: { with: /\A[0-9]{3,4}\Z/ }
 
   def save
     if valid?
@@ -29,9 +26,8 @@ class CartForm
 
   private
 
-
   def persist!
     cart = Cart.where(order_id: order).first_or_initialize
-    cart.update_attributes!(self.attributes)
+    cart.update_attributes!(attributes)
   end
 end

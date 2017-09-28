@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ShippingForm, type: :model do
-
   describe '#invalid?' do
     subject { ShippingForm.new }
 

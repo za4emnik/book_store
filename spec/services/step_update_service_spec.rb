@@ -1,20 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe StepUpdateService do
-
   context '#initialize' do
     order = FactoryGirl.create(:order)
     subject { StepUpdateService.new(:address, order, {}, 'session') }
 
-    it_behaves_like 'controller have variables', { 'step': Symbol, 'order': Order, 'params': Hash, 'session': nil } do
+    it_behaves_like 'controller have variables', 'step': Symbol, 'order': Order, 'params': Hash, 'session': nil do
       let(:controller) { subject }
     end
   end
 
   context '#update' do
-
-    [:address, :delivery, :payment, :confirm, :complete].each do |step|
-      it "should call ##{step.to_s} method" do
+    %i[address delivery payment confirm complete].each do |step|
+      it "should call ##{step} method" do
         order = FactoryGirl.create(:order)
         obj = StepUpdateService.new(step, order, {}, 'session')
         expect(obj).to receive(step)
@@ -24,7 +22,6 @@ RSpec.describe StepUpdateService do
   end
 
   context '#address' do
-
     before do
       allow(subject).to receive(:address_params).and_return(address)
     end
@@ -36,12 +33,12 @@ RSpec.describe StepUpdateService do
 
     it 'should set shipping address to form' do
       attrs = subject.address.shipping_address.attributes
-      expect(attrs.delete_if{ |item| address.exclude?(item) }).to eq(address)
+      expect(attrs.delete_if { |item| address.exclude?(item) }).to eq(address)
     end
 
     it 'should set billing address to form' do
       attrs = subject.address.billing_address.attributes
-      expect(attrs.delete_if{ |item| address.exclude?(item) }).to eq(address)
+      expect(attrs.delete_if { |item| address.exclude?(item) }).to eq(address)
     end
 
     it 'should return AddressForm instance' do
@@ -61,7 +58,6 @@ RSpec.describe StepUpdateService do
   end
 
   context '#payment' do
-
     before do
       allow(subject).to receive(:cart_params).and_return(cart)
     end
@@ -80,9 +76,8 @@ RSpec.describe StepUpdateService do
   end
 
   context '#confirm' do
-
     let(:order) { FactoryGirl.create(:order) }
-    subject { StepUpdateService.new(:address, order, {}, { steps_taken?: true }) }
+    subject { StepUpdateService.new(:address, order, {}, steps_taken?: true) }
 
     it 'should change order\'s state' do
       expect(subject.instance_variable_get(:@order)).to receive(:waiting_processing!)
@@ -90,7 +85,7 @@ RSpec.describe StepUpdateService do
     end
 
     it 'should set :steps_taken? flag to false' do
-      expect{ subject.confirm }.to change{ subject.instance_variable_get(:@session)[:steps_taken?] }.from(true).to(false)
+      expect { subject.confirm }.to change { subject.instance_variable_get(:@session)[:steps_taken?] }.from(true).to(false)
     end
 
     it 'should return @order' do

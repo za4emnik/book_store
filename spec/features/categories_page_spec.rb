@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'categories page', type: :feature do
-
   before do
     visit categories_path
   end
@@ -15,7 +14,6 @@ describe 'categories page', type: :feature do
   end
 
   describe 'sorting criteria' do
-
     it 'should have a-z link' do
       expect(page).to have_link(I18n.t(:title_a_z), match: :first)
     end

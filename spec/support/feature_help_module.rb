@@ -1,6 +1,5 @@
 module FeatureHelpModule
-
-  def functionality_steps(content, expected_path=nil)
+  def functionality_steps(content, expected_path = nil)
     expect(page).to have_link(content, match: :first)
     if expected_path
       click_link(content, match: :first)
@@ -16,15 +15,14 @@ module FeatureHelpModule
   end
 
   def go_to_step(step)
-    steps = [:address, :delivery, :payment, :confirm, :complete]
+    steps = %i[address delivery payment confirm complete]
     visit checkout_path(:address)
-    steps[0...steps.index(step)].each do |step|
-      expect(current_path).to eq(checkout_path(step))
-      self.send(step)
+    steps[0...steps.index(step)].each do |current_step|
+      expect(current_path).to eq(checkout_path(current_step))
+      send(current_step)
     end
     expect(current_path).to eq(checkout_path(step))
   end
-
 
   private
 
@@ -32,7 +30,7 @@ module FeatureHelpModule
     country = FactoryGirl.create(:country)
     address = FactoryGirl.attributes_for(:order_shipping_address)
     visit checkout_path(:address)
-    within "#new_address_form"  do
+    within '#new_address_form' do
       fill_in 'address_form[billing_form][first_name]', with: address[:first_name]
       fill_in 'address_form[billing_form][last_name]', with: address[:last_name]
       fill_in 'address_form[billing_form][address]', with: address[:address]

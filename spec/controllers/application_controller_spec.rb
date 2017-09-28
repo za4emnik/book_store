@@ -4,7 +4,6 @@ RSpec.describe ApplicationController, type: :controller do
   let(:order) { FactoryGirl.create(:order) }
 
   describe 'cancan access denied' do
-
     controller do
       def index
         raise CanCan::AccessDenied
@@ -35,7 +34,6 @@ RSpec.describe ApplicationController, type: :controller do
   end
 
   describe '#current_order' do
-
     it 'should return order' do
       subject.current_order
       expect(subject.instance_variable_get(:@current_order)).to be_a_kind_of(Order)

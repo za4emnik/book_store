@@ -1,5 +1,4 @@
 RSpec.shared_examples 'functionality for logged user' do |params|
-
   if params && params[:login_before] && params[:visit_path]
     before do
       signin_user

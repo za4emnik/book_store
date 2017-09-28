@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def categories
     Category.all
   end
@@ -15,7 +14,7 @@ module ApplicationHelper
     end
   end
 
-  def separated(obj, field=:name, mark=', ')
+  def separated(obj, field = :name, mark = ', ')
     obj.map(&field).join(mark).html_safe
   end
 
@@ -26,5 +25,4 @@ module ApplicationHelper
   def add_error_class(obj, field)
     'has-error' if obj.errors[field].any?
   end
-
 end

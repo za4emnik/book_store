@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe 'login page', type: :feature do
-
   context 'when logged' do
-
     before do
       signin_user
       visit login_path
@@ -16,7 +14,6 @@ describe 'login page', type: :feature do
   end
 
   context 'when guest' do
-
     before do
       visit login_path
     end
@@ -24,7 +21,7 @@ describe 'login page', type: :feature do
     it_behaves_like 'functionality for guest'
 
     it 'should show failure message if incorrect authentication data is entered' do
-      within("#new_user") do
+      within('#new_user') do
         fill_in 'user[email]', with: 'testcustom@email.com'
         fill_in 'user[password]', with: 'testpassword12345'
       end

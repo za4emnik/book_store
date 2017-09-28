@@ -1,5 +1,4 @@
 module CheckoutHelper
-
   def current_step(current_step)
     'active' if current_step == @step
   end
@@ -11,5 +10,4 @@ module CheckoutHelper
       true
     end
   end
-
 end

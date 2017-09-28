@@ -7,31 +7,26 @@ describe OrderDecorator, type: :decorator do
   let(:shipping_address) { FactoryGirl.attributes_for(:user_shipping_address) }
   let(:order) { FactoryGirl.create(:order, coupon: coupon, delivery: delivery).decorate }
 
-
   describe '#summary_coupon' do
-
     it 'should return coupon info' do
       expect(order.summary_coupon).to have_content(coupon.value)
     end
   end
 
   describe '#summary_delivery' do
-
     it 'should return delivery info' do
       expect(order.summary_delivery).to have_content(delivery.price)
     end
   end
 
   describe '#delete_button_header' do
-
     it 'should return close button' do
-      allow(order).to receive(:is_cart_page?).and_return true
+      allow(order).to receive(:cart_page?).and_return true
       expect(order.delete_button_header).to have_tag('th.col-close')
     end
   end
 
   describe '#show_total' do
-
     it 'should return total price' do
       expect(order.show_total).to eq(order.total)
     end
@@ -43,7 +38,6 @@ describe OrderDecorator, type: :decorator do
   end
 
   describe '#render_shipping_address' do
-
     before do
       order.billing_address = BillingAddress.create(billing_address)
     end
@@ -68,7 +62,6 @@ describe OrderDecorator, type: :decorator do
   end
 
   describe '#filtred_cart_number' do
-
     it 'should filter number of cart' do
       order.cart = FactoryGirl.create(:cart, number: '000000000000000003577')
       expect(order.filtred_cart_number).to eq('*****************3577')

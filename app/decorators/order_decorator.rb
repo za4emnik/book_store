@@ -20,7 +20,7 @@ class OrderDecorator < ApplicationDecorator
   end
 
   def delete_button_header
-    h.content_tag(:th, '', class: 'col-close') if is_cart_page?
+    h.content_tag(:th, '', class: 'col-close') if cart_page?
   end
 
   def show_total
@@ -29,10 +29,10 @@ class OrderDecorator < ApplicationDecorator
 
   def render_shipping_address
     object = if model.try(:shipping_address).try(:use_billing_address) || !model.shipping_address
-      model.billing_address
-    else
-      model.shipping_address
-    end
+               model.billing_address
+             else
+               model.shipping_address
+             end
     h.render partial: '/checkout/address', locals: { obj: object }
   end
 

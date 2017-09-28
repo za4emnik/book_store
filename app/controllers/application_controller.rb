@@ -13,11 +13,10 @@ class ApplicationController < ActionController::Base
 
   def current_order
     return @current_order if @current_order
-    @current_order = get_order
+    @current_order = order
     session[:order_id] = @current_order.id
     @current_order
   end
-
 
   private
 
@@ -29,7 +28,7 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || I18n.default_locale
   end
 
-  def get_order
+  def order
     if session[:order_id]
       Order.where(id: session[:order_id], aasm_state: 'pending').first || Order.create!
     else

@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe 'signup page', type: :feature do
-
   context 'when logged' do
-
     before do
       signin_user
       visit signup_path
@@ -16,7 +14,6 @@ describe 'signup page', type: :feature do
   end
 
   context 'when guest' do
-
     before do
       visit signup_path
     end

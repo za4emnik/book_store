@@ -1,12 +1,13 @@
 class StepShowService
-
   def initialize(step, order, session)
-    @step, @order, @session = step, order, session
+    @step = step
+    @order = order
+    @session = session
     @obj = if order.billing_address && order.shipping_address
-      order.decorate
-    else
-      order.user.decorate
-    end
+             order.decorate
+           else
+             order.user.decorate
+           end
   end
 
   def form
@@ -41,14 +42,13 @@ class StepShowService
     order.decorate if order.present?
   end
 
-
   private
 
   def address_attributes(type)
     if @obj.public_send(type)
       @obj.public_send(type).attributes
     else
-      @obj.public_send("build_#{type.to_s}".to_sym).attributes
+      @obj.public_send("build_#{type}".to_sym).attributes
     end
   end
 end

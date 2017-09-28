@@ -17,7 +17,6 @@ class CheckoutController < ApplicationController
 
   private
 
-
   def render_page
     if need_redirect?
       jump_to(:confirm)
@@ -29,8 +28,8 @@ class CheckoutController < ApplicationController
 
   def need_redirect?
     session[:steps_taken?] &&
-    request.fullpath != wizard_path(:confirm) &&
-    (@form ? @form.valid? : true)
+      request.fullpath != wizard_path(:confirm) &&
+      (@form ? @form.valid? : true)
   end
 
   def finish_wizard_path
@@ -45,7 +44,7 @@ class CheckoutController < ApplicationController
   end
 
   def check_order
-    unless ([wizard_path(:complete), wizard_path(:wicked_finish)].include?(request.fullpath))
+    unless [wizard_path(:complete), wizard_path(:wicked_finish)].include?(request.fullpath)
       redirect_to(carts_path) if current_order.order_items.blank?
     end
   end
