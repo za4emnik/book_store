@@ -8,6 +8,10 @@ class BookCoverUploader < CarrierWave::Uploader::Base
     "uploads/books/#{mounted_as}/#{model.id}"
   end
 
+  def cache_dir
+    '/tmp/books'
+  end
+
   version :thumb do
     process resize_to_fill: [174, 200]
   end
