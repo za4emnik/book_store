@@ -1,4 +1,3 @@
-require 'ffaker'
 user = User.create!(email: 'admin@example.com', password: 'paSsword1', password_confirmation: 'paSsword1', is_admin: true)
 user.billing_address = BillingAddress.create!(first_name: 'Vincent', last_name: 'Palmer', address: '2009 Tree Frog Lane', city: 'Longview', zip: 75604, country_id: 227, phone: '903-808-7859')
 user.shipping_address = ShippingAddress.create!(use_billing_address: true)
@@ -130,7 +129,7 @@ Category.all.each do |category|
   end
 end
 order.cart = Cart.create(number: '4539 7544 3086 5687', name: 'CONNOR KELLY', date: '03/19', cvv: '582')
-order.billing_address = BillingAddress.create!(first_name: FFaker::Name::first_name, last_name: FFaker::Name::last_name, address: FFaker::Address::street_address, city: FFaker::AddressAU::city, zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
+order.billing_address = BillingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
 order.subtotal!
 order.update_total!
 order.save!
@@ -140,8 +139,8 @@ Book.order("RANDOM()").first(3).each do |book|
   order.order_items << OrderItem.create(book: book, quantity: rand(1..5))
 end
 order.cart = Cart.create(number: '4024 0071 4207 9887', name: 'CHARLES VANCE', date: '05/18', cvv: '328')
-order.billing_address = BillingAddress.create!(first_name: FFaker::Name::first_name, last_name: FFaker::Name::last_name, address: FFaker::Address::street_address, city: FFaker::AddressAU::city, zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
-order.shipping_address = ShippingAddress.create!(first_name: FFaker::Name::first_name, last_name: FFaker::Name::last_name, address: FFaker::Address::street_address, city: FFaker::AddressAU::city, zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
+order.billing_address = BillingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
+order.shipping_address = ShippingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
 order.subtotal!
 order.update_total!
 order.save!
@@ -151,8 +150,8 @@ Book.order("RANDOM()").first(2).each do |book|
   order.order_items << OrderItem.create(book: book, quantity: rand(1..5))
 end
 order.cart = Cart.create(number: '5573 6641 8757 5708', name: 'KATHERINE ROBERTS', date: '04/19', cvv: '215')
-order.billing_address = BillingAddress.create!(first_name: FFaker::Name::first_name, last_name: FFaker::Name::last_name, address: FFaker::Address::street_address, city: FFaker::AddressAU::city, zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
-order.shipping_address = ShippingAddress.create!(first_name: FFaker::Name::first_name, last_name: FFaker::Name::last_name, address: FFaker::Address::street_address, city: FFaker::AddressAU::city, zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
+order.billing_address = BillingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
+order.shipping_address = ShippingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
 order.subtotal!
 order.update_total!
 order.save!
@@ -163,7 +162,7 @@ order.save!
     order.order_items << OrderItem.create(book: book, quantity: rand(1..5))
   end
   order.cart = Cart.create(number: '3765 153926 73359', name: 'SAMUEL TIMMONS', date: '08/18', cvv: '529')
-  order.billing_address = BillingAddress.create!(first_name: FFaker::Name::first_name, last_name: FFaker::Name::last_name, address: FFaker::Address::street_address, city: FFaker::AddressAU::city, zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
+  order.billing_address = BillingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
   order.subtotal!
   order.update_total!
   order.save!
@@ -172,7 +171,7 @@ end
 #reviews
 reviews_states = ['unprocessed', 'approved', 'rejected']
 30.times do
-  Review.create!(title: FFaker::Book::title, score: rand(1..5).to_s, message: FFaker::Lorem::sentences.join(' '), book: Book.order("RANDOM()").first, user: User.order("RANDOM()").first, aasm_state: reviews_states[rand(0..2)])
+  Review.create!(title: 'some review', score: rand(1..5).to_s, message: 'Laudantium explicabo et corporis soluta rem ad. Qui nostrum laboriosam quae voluptatum pariatur sapiente rerum voluptatem. Non unde et molestiae id et.', book: Book.order("RANDOM()").first, user: User.order("RANDOM()").first, aasm_state: reviews_states[rand(0..2)])
 end
 
 #countries
