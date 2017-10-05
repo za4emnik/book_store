@@ -18,7 +18,6 @@
 !/log/.keep
 !/tmp/.keep
 !/public/uploads/books_examples
-!/public/uploads/books
 
 # Ignore Byebug command history file.
 .byebug_history

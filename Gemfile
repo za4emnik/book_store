@@ -39,6 +39,11 @@ group :development, :test do
 end
 
 group :development do
+  gem 'capistrano',         require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano3-puma',   require: false
   gem 'listen', '~> 3.0.5'
   gem 'rubocop', '~> 0.49.1', require: false
   gem 'spring'
