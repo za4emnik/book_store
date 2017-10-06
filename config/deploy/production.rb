@@ -1,8 +1,8 @@
 server '138.197.180.213', roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'http://github.com/za4emnik/book_store.git'
+#set :repo_url,        'http://github.com/za4emnik/book_store.git'
 set :branch,          :dev
-#set :repo_url,        '.'
+set :repo_url,        '.'
 set :application,     'book_store'
 set :user,            'deploy'
 set :puma_threads,    [4, 16]
@@ -50,8 +50,8 @@ namespace :deploy do
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
+      unless 'git rev-parse HEAD' == "git rev-parse origin/#{fetch(:branch)}"
+        puts "WARNING: HEAD is not the same as origin/#{fetch(:branch)}"
         puts "Run `git push` to sync changes."
         exit
       end
