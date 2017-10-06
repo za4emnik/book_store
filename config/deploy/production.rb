@@ -1,8 +1,9 @@
-server '138.197.180.213', port: 80, roles: [:web, :app, :db], primary: true
+server '138.197.180.213', roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'http://github.com/za4emnik/book_store.git'
+#set :repo_url,        'http://github.com/za4emnik/book_store.git'
 set :branch,          'dev'
-set :application,     'book-store'
+set :repo_url,        '.'
+set :application,     'book_store'
 set :user,            'deploy'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
