@@ -1,8 +1,8 @@
 server '138.197.180.213', roles: [:web, :app, :db], primary: true
 
-#set :repo_url,        'http://github.com/za4emnik/book_store.git'
-set :branch,          'dev'
-set :repo_url,        '.'
+set :repo_url,        'http://github.com/za4emnik/book_store.git'
+set :branch,          :dev
+#set :repo_url,        '.'
 set :application,     'book_store'
 set :user,            'deploy'
 set :puma_threads,    [4, 16]
@@ -25,7 +25,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 
 ## Defaults:
 # set :scm,           :git
-# set :branch,        :master
+#set :branch,         :dev
 # set :format,        :pretty
 # set :log_level,     :debug
 # set :keep_releases, 5
