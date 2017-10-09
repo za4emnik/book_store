@@ -1,11 +1,12 @@
 server '128.199.48.8', roles: [:web, :app, :db], primary: true
 
-set :repo_url,        'git@github.com:za4emnik/book_store_test.git'
-set :application,     'book_store_test'
+set :repo_url,        'git@github.com:za4emnik/book_store.git'
+set :application,     'book_store'
 set :user,            'deploy'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
-set :branch,          :dev
+set :branch,          'dev'
+set :branch, proc     { `git rev-parse --abbrev-ref dev`.chomp }
 
 set :pty,             true
 set :use_sudo,        false
@@ -21,6 +22,8 @@ set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
+
+set :linked_files, %w{config/database.yml config/secrets.yml}
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
@@ -38,8 +41,8 @@ namespace :deploy do
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-        puts "WARNING: HEAD is not the same as origin/master"
+      unless `git rev-parse HEAD` === `git rev-parse origin/dev`
+        puts "WARNING: HEAD is not the same as origin/#{fetch(:branch)}"
         puts "Run `git push` to sync changes."
         exit
       end
@@ -70,6 +73,15 @@ namespace :deploy do
       end
     end
    end
+  end
+
+  desc 'Upload YAML files.'
+  task :upload_yml do
+    on roles(:app) do
+      execute "mkdir #{shared_path}/config -p"
+      upload! StringIO.new(File.read("config/database.yml")), "#{shared_path}/config/database.yml"
+      upload! StringIO.new(File.read("config/secrets.yml")), "#{shared_path}/config/secrets.yml"
+    end
   end
 
   before :starting,     :check_revision

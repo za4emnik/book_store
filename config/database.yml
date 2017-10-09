@@ -3,8 +3,8 @@ default: &default
   pool: 5
   timeout: 5000
   encoding: unicode
-  username: store_user
-  password: admin
+  username: deploy
+  password: password1
   host: localhost
 
 development:
