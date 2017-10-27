@@ -47,19 +47,20 @@
   .mb-80
     %h3.in-gold-500.mb-25=t(:reviews, count: @book.reviews.count)
     - @book.reviews.each do |review|
-      .general-message-wrap.divider-lg
-        .clearfix
-          %img.img-circle.logo-size.inlide-block.pull-left{src: "#{review.user.avatar.url(:thumb).blank? ? '/uploads/img/darthavatar.jpg' : review.user.avatar.url(:thumb)}"}
-          .ml-70
-            %div
-              .general-message-date.hidden-xs #{review.updated_at.strftime("%d/%m/%y")}
-              .max-240
-                =review.user.decorate.verified_reviewer(@book.id)
-                .general-message-name #{ review.user.billing_address.try(:full_name) || review.user.email }
-            .mb-15
-              - review.score.to_i.times do
-                %i.fa.fa-star.rate-star
-            %p #{review.message}
+      - if review.user
+        .general-message-wrap.divider-lg
+          .clearfix
+            %img.img-circle.logo-size.inlide-block.pull-left{src: "#{review.decorate.avatar_url}"}
+            .ml-70
+              %div
+                .general-message-date.hidden-xs #{review.updated_at.strftime("%d/%m/%y")}
+                .max-240
+                  =review.user.decorate.verified_reviewer(@book.id)
+                  .general-message-name #{ review.user.billing_address.try(:full_name) || review.user.email }
+              .mb-15
+                - review.score.to_i.times do
+                  %i.fa.fa-star.rate-star
+              %p #{review.message}
     - if user_signed_in?
       = form_for @review, url: reviews_path, method: :post, html: { class: "max-600 mb-80" } do |f|
         = hidden_field(:review, :book_id, :value => @book.id)
@@ -74,29 +75,10 @@
         = f.text_area :message, class: "form-control", placeholder: t(:review)
         = f.submit t(:post), class: "btn btn-default center-block mb-20"
 = javascript_include_tag "readmore.min.js"
+= javascript_include_tag "books.js"
 :javascript
   $('#descr').readmore({
     maxHeight: 165,
     moreLink: "<a class='in-gold-500 ml-10' href='#'>#{t(:read_more)}</a>",
     lessLink: '<a href="#"></a>'
   });
-:javascript
-  $('.inc').bind('click', function(){
-    inc_dec('+');
-  });
-  $('.dec').bind('click', function(){
-    inc_dec('-');
-  });
-
-  function inc_dec(sign){
-    let value = $('#quantity').val() * 1;
-
-    if (sign == '+'){
-      value += 1;
-    }else{
-      if(value >= 2){
-        value -= 1;
-      }
-    }
-    $('#quantity').val(value);
-  }

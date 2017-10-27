@@ -29,10 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   def order
-    if session[:order_id]
-      Order.where(id: session[:order_id], aasm_state: 'pending').first || Order.create!
-    else
-      Order.create!
-    end
+    Order.where(id: session[:order_id], aasm_state: 'pending').first || Order.create!
   end
 end

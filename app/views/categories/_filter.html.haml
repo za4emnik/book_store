@@ -4,19 +4,7 @@
       %a.dropdown-toggle.dropdown-btn.width-240{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
         #{filter_state || t(:title_a_z)}
         %i.fa.fa-angle-down.dropdown-icon
-      %ul.dropdown-menu
-        %li
-          %a{href: "?filter=newest_first"}=t :newest_first
-        %li
-          %a{href: "?filter=popular_first"}=t :popular_first
-        %li
-          %a{href: "?filter=price_low_to_hight"}=t :price_low_hight
-        %li
-          %a{href: "?filter=price_hight_to_low"}=t :price_hight_low
-        %li
-          %a{href: "?filter=title_a_z"}=t :title_a_z
-        %li
-          %a{href: "?filter=title_z_a"}=t :title_z_a
+      = render partial: '/categories/filter_options'
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
       %a.filter-link{href: "/categories"}
@@ -24,7 +12,7 @@
         %span.badge.general-badge= @books_count
     - categories.each do |category|
       %li.mr-35
-        %a.filter-link{href: "/categories/#{category.id}"}
+        =link_to category, class: 'filter-link' do
           = category.name
           %span.badge.general-badge= category.books.count
 .mb-40.visible-xs
@@ -33,26 +21,10 @@
     %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
       =t :newest_first
       %i.fa.fa-angle-down.dropdown-icon
-    %ul.dropdown-menu
-      %li
-        %a{href: "?filter=newest_first"}=t :newest_first
-      %li
-        %a{href: "?filter=popular_first"}=t :popular_first
-      %li
-        %a{href: "?filter=price_low_to_hight"}=t :price_low_hight
-      %li
-        %a{href: "?filter=price_hight_to_low"}=t :price_hight_low
+    = render partial: '/categories/filter_options'
   %p.in-grey-600.small.mb-10=t :sort_by
   .dropdown
     %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
       =t :newest_first
       %i.fa.fa-angle-down.dropdown-icon
-    %ul.dropdown-menu
-      %li
-        %a{href: "?filter=newest_first"}=t :newest_first
-      %li
-        %a{href: "?filter=popular_first"}=t :popular_first
-      %li
-        %a{href: "?filter=price_low_to_hight"}=t :price_hight_low
-      %li
-        %a{href: "?filter=price_hight_to_low"}=t :price_low_hight
+    = render partial: '/categories/filter_options'

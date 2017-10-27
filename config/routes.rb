@@ -8,10 +8,11 @@ Rails.application.routes.draw do
     get 'signup' => 'devise/registrations#new', as: :signup
   end
 
+  put 'checkout' => 'checkout#update_cart', as: :checkout_update
   root 'home#index'
   resources :books,       only: [:show]
   resources :addresses,   only: [:create]
-  resources :categories,  only: [:index, :show]
+  resources :categories,  only: [:show]
   resources :reviews,     only: [:create]
   resources :orders,      only: [:index, :show]
   resources :checkout
@@ -21,5 +22,5 @@ Rails.application.routes.draw do
 
   put 'settings' => 'users#update'
   get 'settings' => 'users#edit'
-  get 'cart' => 'carts#index', as: :cart_page
+  get 'categories' => 'books#index', :as => 'categories'
 end

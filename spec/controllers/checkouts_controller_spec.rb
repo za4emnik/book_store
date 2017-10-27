@@ -3,24 +3,47 @@ require 'rails_helper'
 RSpec.describe CheckoutController, type: :controller do
   steps = %w[address delivery payment confirm complete]
 
-  describe '#index' do
-    context 'when logged' do
-      login_user
+  describe '#update_cart' do
+    let!(:order) { FactoryGirl.create(:order) }
+    let!(:order_item) { FactoryGirl.create(:order_item, order: order, quantity: 0) }
+    let!(:item) { FactoryGirl.attributes_for(:order_item, quantity: 5) }
+    subject { put :update_cart, params: { id: 'address', order_items: { order_item.id => item }, order: { coupon: true } } }
 
-      it 'should redirect to #show' do
-        get :index
-        expect(response).to redirect_to(checkout_path('address'))
+    context 'when logged' do
+      before do
+        allow(request.env['warden']).to receive(:authenticate!).and_return(order.user)
+        allow(controller).to receive(:current_user).and_return(order.user)
+      end
+
+      it 'should update order items' do
+        order.order_items << order_item
+        expect { subject }.to change { OrderItem.find(order_item.id).quantity }.from(order_item.quantity).to(item[:quantity])
+      end
+
+      it 'should call #check_coupon if coupon is entered' do
+        expect(controller).to receive(:check_coupon)
+        subject
+      end
+
+      it 'should redirect to home page' do
+        subject
+        request.env['HTTP_REFERER'] = root_url
+        expect(response).to redirect_to(root_url)
       end
     end
 
     it_behaves_like 'when guest' do
-      subject { get :index }
+      subject { put :update_cart, params: { id: 'address', order_items: { order_item.id => item }, order: { coupon: false } } }
     end
   end
 
   describe '#show' do
     context 'when logged' do
-      login_user
+      before do
+        user = FactoryGirl.create(:user)
+        allow(request.env['warden']).to receive(:authenticate!).and_return(user)
+        allow(controller).to receive(:current_user).and_return(user)
+      end
 
       before do
         allow(controller).to receive(:check_order)
@@ -52,7 +75,11 @@ RSpec.describe CheckoutController, type: :controller do
     let(:order) { FactoryGirl.create(:order) }
 
     context 'when logged' do
-      login_user
+      before do
+        user = FactoryGirl.create(:user)
+        allow(request.env['warden']).to receive(:authenticate!).and_return(user)
+        allow(controller).to receive(:current_user).and_return(user)
+      end
 
       context 'address step' do
         shipping = FactoryGirl.attributes_for(:order_shipping_address)

@@ -8,10 +8,8 @@
       = f.email_field :email, autofocus: true, class: 'form-control', placeholder: t(:enter_email)
     .form-group.mb-30
       = f.label :password, class: 'control-label font-weight-light'
-      - if @minimum_password_length
-        %em
-          (#{@minimum_password_length} characters minimum)
       = f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: t(:enter_password)
+      =t(:password_validate)
     .form-group.mb-30
       = f.label :password_confirmation, class: 'control-label font-weight-light'
       = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: t(:confirm_password)

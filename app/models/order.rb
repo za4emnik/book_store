@@ -41,24 +41,17 @@ class Order < ApplicationRecord
   end
 
   def self.with_filter(filter)
-    case filter
-    when 'waiting_for_processing'
-      where(aasm_state: 'waiting_for_processing')
-    when 'in_progress'
-      where(aasm_state: 'in_progress')
-    when 'in_delivery'
-      where(aasm_state: 'in_delivery')
-    when 'delivered'
-      where(aasm_state: 'delivered')
+    if Order.aasm.states.map(&:name).include?(filter&.to_sym)
+      where(aasm_state: filter)
     else
       all
     end
   end
 
   def update_total!
-    total = coupon ? coupon.value : 0
-    total -= delivery.price if delivery
-    self.total = subtotal - total
+    estimation = coupon ? coupon.value : 0
+    estimation -= delivery.price if delivery
+    self.total = subtotal - estimation
     save
   end
 
@@ -70,7 +63,6 @@ class Order < ApplicationRecord
   private
 
   def generate_order_number
-    number = 'R' + ('0' * (8 - id.to_s.length)) if id.to_s.length < 8
-    update!(number: number + id.to_s)
+    update!(number: format('R%08d', id))
   end
 end

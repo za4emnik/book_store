@@ -20,7 +20,7 @@ class OrderDecorator < ApplicationDecorator
   end
 
   def delete_button_header
-    h.content_tag(:th, '', class: 'col-close') if cart_page?
+    h.content_tag(:th, '', class: 'col-close') if checkout_index_page?
   end
 
   def show_total
@@ -41,5 +41,9 @@ class OrderDecorator < ApplicationDecorator
       stars = '*' * (model.cart.number.length - 4)
       stars.concat(model.cart.number.last(4))
     end
+  end
+
+  def show_order_title
+    h.current_user.orders.any? ? I18n.t(:my_orders) : I18n.t(:no_orders)
   end
 end

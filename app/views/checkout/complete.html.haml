@@ -14,9 +14,9 @@
       %p.general-order-number.mb-0 #{t(:order)} # #{@form.number}
       %p.general-address.mb-30 #{@form.updated_at.strftime('%B %-d %Y')}
   .visible-xs
-    = render partial: '/carts/order_products_xs', locals: { obj: @form }
+    = render partial: '/checkout/order_products_xs', locals: { obj: @form }
   .hidden-xs.divider-lg.pt-20
-    = render partial: '/carts/order_products_md', locals: { obj: @form }
+    = render partial: '/checkout/order_products_md', locals: { obj: @form }
   .text-center.general-text-right
     %p.in-gold-500.font-18=t :order_summary
     %table.general-summary-table.general-summary-table-right.general-text-right

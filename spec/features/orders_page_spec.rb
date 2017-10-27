@@ -7,8 +7,6 @@ describe 'orders page', type: :feature do
       visit orders_path
     end
 
-    let(:order) { FactoryGirl.create(:order) }
-
     it_behaves_like 'functionality for logged user'
 
     describe 'sorting criteria' do

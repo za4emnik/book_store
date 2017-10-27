@@ -7,8 +7,8 @@ class ApplicationDecorator < Draper::Decorator
     end
   end
 
-  def cart_page?
-    h.request.fullpath == h.cart_page_path
+  def checkout_index_page?
+    h.request.fullpath == h.checkout_index_path
   end
 
   def show_billing_address

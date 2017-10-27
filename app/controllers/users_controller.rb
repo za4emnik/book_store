@@ -4,7 +4,12 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def update
-    update_user_data ? redirect_to(settings_path) : render(:edit)
+    if update_user_data
+      flash[:success] = I18n.t(:settings_successfully_saved)
+      redirect_to(settings_path)
+    else
+      render(:edit)
+    end
   end
 
   def destroy
@@ -15,15 +20,23 @@ class UsersController < ApplicationController
   private
 
   def update_user_data
-    if params.include?('billing_form')
-      update_billing
-    elsif params.include?('shipping_form')
-      update_shipping
+    if params.include?('addresses')
+      update_addresses
     elsif params.include?('email_form')
       update_email
     elsif params.include?('password_form')
       update_password
     end
+  end
+
+  def update_addresses
+    billing = update_billing if values_present?('billing_form')
+    shipping = update_shipping if values_present?('shipping_form')
+    billing || shipping
+  end
+
+  def values_present?(type)
+    params['addresses']&.[](type)&.values&.any?(&:present?)
   end
 
   def update_billing
@@ -56,11 +69,12 @@ class UsersController < ApplicationController
   end
 
   def get_attributes(type)
-    current_user.public_send(type) ? current_user.public_send(type).attributes : nil
+    current_user.public_send(type)&.attributes
   end
 
   def address_params(type)
-    params.require(type).permit(:first_name, :last_name, :address, :city, :zip, :country_id, :phone)
+    address = params.require('addresses').require(type)
+    address.permit(:first_name, :last_name, :address, :city, :zip, :country_id, :phone)
   end
 
   def password_params

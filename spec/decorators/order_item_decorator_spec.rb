@@ -1,24 +1,25 @@
 require 'rails_helper'
 
 describe OrderItemDecorator, type: :decorator do
-  let(:order_item) { FactoryGirl.create(:order_item).decorate }
+  let(:book) { FactoryGirl.create(:book, price: 10) }
+  let(:order_item) { FactoryGirl.create(:order_item, book: book, quantity: 5).decorate }
 
   describe '#quantity_field' do
     it 'should render quantity_field partial' do
-      allow(order_item).to receive(:cart_page?).and_return true
-      expect(h).to receive(:render).with(partial: '/carts/quantity_field', locals: { field: 'field', item: 'item' })
+      allow(order_item).to receive(:checkout_index_page?).and_return true
+      expect(h).to receive(:render).with(partial: '/checkout/quantity_field', locals: { field: 'field', item: 'item' })
       order_item.quantity_field('field', 'item')
     end
 
     it 'should return quantity' do
-      allow(order_item).to receive(:cart_page?).and_return false
+      allow(order_item).to receive(:checkout_index_page?).and_return false
       expect(order_item.quantity_field('field', 'item')).to have_content(order_item.quantity)
     end
   end
 
   describe '#delete_button' do
     it 'should return delete button' do
-      allow(order_item).to receive(:cart_page?).and_return true
+      allow(order_item).to receive(:checkout_index_page?).and_return true
       expect(order_item.delete_button(order_item)).to have_tag('a', href: h.order_item_path(order_item.id), 'data-method': 'delete')
     end
   end
@@ -36,6 +37,12 @@ describe OrderItemDecorator, type: :decorator do
     it 'should return first sentence of description if orders page' do
       allow(h.request).to receive(:fullpath).and_return(h.orders_path)
       expect(h.strip_tags(order_item.show_description)).to eq("First.\n")
+    end
+  end
+
+  describe '#show_subtotal' do
+    it 'should return subtotal value' do
+      expect(order_item.show_subtotal).to eq(50)
     end
   end
 end

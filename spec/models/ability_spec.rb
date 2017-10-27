@@ -13,7 +13,6 @@ RSpec.describe Ability, type: :model do
       let(:user) { FactoryGirl.create(:user) }
       subject { Ability.new(user) }
 
-      it { should be_able_to(:manage, :Account) }
       it { should be_able_to(:manage, User.new(id: user.id)) }
       it { should be_able_to(:read, Order.new(user_id: user.id)) }
     end

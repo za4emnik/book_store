@@ -1,9 +1,15 @@
 class CheckoutController < ApplicationController
   include Wicked::Wizard
-  before_action :authenticate_user!, :order_to_user
+  before_action :assign_order_to_user
+  before_action :authenticate_user!, except: :index
   before_action :check_order, only: :show
 
   steps :address, :delivery, :payment, :confirm, :complete
+
+  def index
+    current_order.subtotal!
+    current_order.update_total!
+  end
 
   def show
     @form = StepShowService.new(step, current_order, session).form
@@ -13,6 +19,13 @@ class CheckoutController < ApplicationController
   def update
     @form = StepUpdateService.new(step, current_order, params, session).update
     render_page
+  end
+
+  def update_cart
+    authorize! :manage, current_order
+    update_items
+    check_coupon if params[:order]&.[](:coupon).present?
+    redirect_back(fallback_location: root_path)
   end
 
   private
@@ -28,7 +41,7 @@ class CheckoutController < ApplicationController
 
   def need_redirect?
     session[:steps_taken?] &&
-      request.fullpath != wizard_path(:confirm) &&
+      step != :confirm &&
       (@form ? @form.valid? : true)
   end
 
@@ -36,7 +49,7 @@ class CheckoutController < ApplicationController
     categories_path
   end
 
-  def order_to_user
+  def assign_order_to_user
     unless current_order.user
       current_order.user = current_user
       current_order.save
@@ -44,8 +57,29 @@ class CheckoutController < ApplicationController
   end
 
   def check_order
-    unless [wizard_path(:complete), wizard_path(:wicked_finish)].include?(request.fullpath)
-      redirect_to(carts_path) if current_order.order_items.blank?
+    unless %i[complete wicked_finish].include?(step.to_sym)
+      redirect_to(checkout_index_path) if current_order.order_items.blank?
     end
+  end
+
+  def check_coupon
+    coupon = Coupon.where(code: params[:order][:coupon], active: true).first
+    if coupon
+      coupon.active = false
+      current_order.coupon = coupon
+    end
+    flash[:error] = I18n.t(:coupon_not_found) unless coupon
+  end
+
+  def update_items
+    params[:order_items].each do |key|
+      if order_items_params(key)[:quantity].to_i.positive?
+        OrderItem.update(key, order_items_params(key))
+      end
+    end
+  end
+
+  def order_items_params(item)
+    params.require(:order_items).require(item).permit(:quantity)
   end
 end

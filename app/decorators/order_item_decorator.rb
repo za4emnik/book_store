@@ -1,14 +1,14 @@
 class OrderItemDecorator < ApplicationDecorator
   def quantity_field(field, item)
-    if cart_page?
-      h.render partial: '/carts/quantity_field', locals: { field: field, item: item }
+    if checkout_index_page?
+      h.render partial: '/checkout/quantity_field', locals: { field: field, item: item }
     else
       h.content_tag(:p, model.quantity)
     end
   end
 
   def delete_button(item)
-    if cart_page?
+    if checkout_index_page?
       h.content_tag :td do
         h.content_tag(:a, h.content_tag(:span, '&times;'.html_safe, 'aria-hidden': 'true'), class: 'close general-cart-close', href: h.order_item_path(item.id), 'aria-label': 'Close', 'data-method': 'delete')
       end
@@ -19,5 +19,9 @@ class OrderItemDecorator < ApplicationDecorator
     if h.request.fullpath == h.checkout_path(:complete) || h.request.fullpath == h.orders_path
       h.markdown(model.book.description.split('.').first.concat('.'))
     end
+  end
+
+  def show_subtotal
+    model.quantity * model.book.price
   end
 end

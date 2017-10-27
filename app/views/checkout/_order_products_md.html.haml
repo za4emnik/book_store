@@ -26,5 +26,5 @@
         = fields_for 'order_items[]', item do |field|
           =item.quantity_field(field, item)
       %td
-        %span.font-16.in-gold-500 €#{item.quantity * item.book.price}
+        %span.font-16.in-gold-500 €#{item.show_subtotal}
       =item.delete_button(item)

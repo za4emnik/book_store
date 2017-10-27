@@ -48,10 +48,6 @@ RailsAdmin.config do |config|
     new_tab_review
     process_tab_review
 
-    #index do
-    #  except [Order, Review]
-    #end
-
     new do
       except [Order, Review]
     end
@@ -90,18 +86,14 @@ RailsAdmin.config do |config|
       end
     end
 
-    configure :description do
-      pretty_value do
-        binding.pry
-      end
-    end
-
     list do
       exclude_fields :materials, :year, :dimensions
 
       field :pictures do
         pretty_value do
-          bindings[:view].tag(:img, { :src => bindings[:object].pictures.first.image.url(:thumb) }) unless bindings[:object].pictures.first.blank?
+          unless bindings[:object].pictures.first.blank?
+            bindings[:view].tag(:img, { :src => bindings[:object].pictures.first.image.url(:thumb) })
+          end
         end
       end
 
@@ -125,12 +117,6 @@ RailsAdmin.config do |config|
     edit do
       include_all_fields
       exclude_fields :reviews, :order_items, :pictures
-
-      field :authors do
-        render do
-          bindings[:view].render partial: 'multiple_select', locals: { field: self, form: bindings[:form], method: :full_name }
-        end
-      end
     end
 
     show do

@@ -37,8 +37,6 @@ class StepUpdateService
     @order
   end
 
-  def complete; end
-
   private
 
   def address_params(type)

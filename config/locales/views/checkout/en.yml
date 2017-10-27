@@ -28,3 +28,4 @@ en:
   date_format: 'MM / YY'
   cvv: 'CVV'
   cvv_help: '3-digit security code, usually found on the back of your card. American Express cards has 4-digit code, located on the front'
+  coupon_not_found: 'Sorry, but coupon not found or was already used :('

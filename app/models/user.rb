@@ -26,7 +26,8 @@ class User < ApplicationRecord
     self.email = value
     valid?
     if errors[:email].blank?
-      save(validate: false)
+      update_column(:email, value)
+      true
     else
       errors.delete(:password)
       false

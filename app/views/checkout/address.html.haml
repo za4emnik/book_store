@@ -33,12 +33,4 @@
       %table.general-summary-table
         = render partial: '/checkout/summary'
         = f.submit t(:save_and_continue), class: "btn btn-primary center-block mb-20"
-:javascript
-  $( document ).ready(hide_block($('#address_form_shipping_form_use_billing_address')[0]));
-
-  function hide_block(el){
-    if (el.checked)
-      $('#shipping_address_form').hide();
-    else
-      $('#shipping_address_form').show();
-  }
+= javascript_include_tag "checkout.js"

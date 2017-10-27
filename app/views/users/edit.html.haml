@@ -1,5 +1,6 @@
 %main.container
   %h1.general-title-margin=t :settings
+  %p.notice=flash[:success]
   %ul.nav.nav-tabs.mb-20{role: "tablist"}
     %li.mb-10.active{role: "presentation"}
       %a{href: "#address", 'aria-controls': "address", role: "tab", 'data-toggle': "tab"}=t :address
@@ -14,22 +15,23 @@
           .col-md-5.col-md-offset-1
             %h3.general-subtitle.mt-0=t :shipping_address
       .row
-        = form_for @billing_address, method: :put, url: settings_path do |f|
-          .col-md-5.mb-40
-            .visible-xs.visible-sm
-              %h3.general-subtitle.mt-0=t :billing_address
-            .form-group.has-error
-            = render partial: '/checkout/fields', locals: {f: f, obj: @billing_address}
-            .text-center.general-text-align
-              = f.submit t(:save), class: "button btn btn-default"
-        = form_for @shipping_address, method: :put, url: settings_path do |f|
-          .col-md-5.col-md-offset-1.mb-25
-            .visible-xs.visible-sm
-              %h3.general-subtitle.mt-0=t :shipping_address
-            .form-group.has-error
-            = render partial: '/checkout/fields', locals: {f: f, obj: @shipping_address}
-            .text-center.general-text-align
-              = f.submit t(:save), class: "button btn btn-default"
+        = form_for 'addresses', method: :put, url: settings_path do |f|
+          = f.fields_for @billing_address do |b|
+            .col-md-5.mb-40
+              .visible-xs.visible-sm
+                %h3.general-subtitle.mt-0=t :billing_address
+              .form-group.has-error
+              = render partial: '/checkout/fields', locals: {f: b, obj: @billing_address}
+              .text-center.general-text-align
+                = f.submit t(:save), class: "button btn btn-default"
+          = f.fields_for @shipping_address do |s|
+            .col-md-5.col-md-offset-1.mb-25
+              .visible-xs.visible-sm
+                %h3.general-subtitle.mt-0=t :shipping_address
+              .form-group.has-error
+              = render partial: '/checkout/fields', locals: {f: s, obj: @shipping_address}
+              .text-center.general-text-align
+                = f.submit t(:save), class: "button btn btn-default"
     #privacy.tab-pane.fade{role: "tabpanel"}
       .row.mb-60
         .col-sm-5
@@ -69,17 +71,9 @@
                 %span.checkbox-icon
                   %i.fa.fa-check
                 %span.checkbox-text=t :understand_lost_data
+= javascript_include_tag "users.js"
 :javascript
-  $(document).on("click", ".general-settings-checkbox", function(){
-    let input = $('#delete-account-button');
-
-    if ($('#understand-button').is(":checked")){
-     input.prop('disabled', false);
-     input.removeClass('disabled');
-     input.addClass('btn-default');
-    }else{
-     input.prop('disabled', true);
-     input.removeClass('btn-default');
-     input.addClass('disabled');
-    }
-  });
+  $(function(){
+    var tab = "#{j (active_tab)}"
+    if(tab) $('.nav-tabs:first a[href='+tab+']').tab('show');
+  })

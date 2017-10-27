@@ -1,4 +1,5 @@
 module LoginControllerMacros
+
   def login_admin
     before(:each) do
       @request.env['devise.mapping'] = Devise.mappings[:admin]
@@ -9,10 +10,9 @@ module LoginControllerMacros
 
   def login_user
     before(:each) do
+      @logged_user = FactoryGirl.create(:user)
       @request.env['devise.mapping'] = Devise.mappings[:user]
-      user = FactoryGirl.create(:user)
-      sign_in user, scope: :user
-      user
+      sign_in @logged_user
     end
   end
 end

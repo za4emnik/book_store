@@ -39,7 +39,7 @@ RSpec.describe Book, type: :model do
     it 'shoud return books in mobile development category by default' do
       allow(Book).to receive(:joins).and_return Book
       expect(Book).to receive(:where).with('categories.name = \'Mobile development\'')
-      Book.with_category_filter('mobile')
+      Book.with_category_filter('mobile_development')
     end
   end
 

@@ -1,4 +1,7 @@
 class Book < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+
   validates :title, :price, :description, :category_id, presence: true
   default_scope -> { preload(:authors, :pictures) }
 
@@ -25,32 +28,11 @@ class Book < ApplicationRecord
   end
 
   def self.with_category_filter(category)
-    case category
-    when 'photo'
-      joins(:category).where("categories.name = 'Photo'")
-    when 'web_design'
-      joins(:category).where("categories.name = 'Web design'")
-    when 'web_development'
-      joins(:category).where("categories.name = 'Web development'")
-    else
-      joins(:category).where("categories.name = 'Mobile development'")
-    end
+    category = category&.humanize || 'Mobile development'
+    joins(:category).where("categories.name = '#{category}'")
   end
 
   def self.with_filter(filter)
-    case filter
-    when 'newest_first'
-      order(created_at: :desc)
-    when 'popular_first'
-      quantity_items = BooksQuery.new(joins(:order_items)).sum_items_quantity
-      quantity_items.order('quantity desc')
-    when 'price_low_to_hight'
-      order(price: :asc)
-    when 'price_hight_to_low'
-      order(price: :desc)
-    when 'title_z_a'
-      order(title: :desc)
-    else order(title: :asc)
-    end
+    BooksQuery.new.with_filter(filter)
   end
 end

@@ -18,3 +18,5 @@ en:
   remove_account: 'Remove Account'
   please_remove_account: 'Please Remove My Account'
   understand_lost_data: 'I understand that all data will be lost'
+  password_validate: Minimum 8 letters, at least 1 uppercase, at least 1 lowercase, at least 1 number
+  settings_successfully_saved: 'Settings successfully saved!'

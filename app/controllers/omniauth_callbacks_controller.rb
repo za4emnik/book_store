@@ -4,7 +4,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(auth)
 
     if @user.persisted?
-      update_avatar
+      update_avatar(auth)
       sign_in_and_redirect @user
     else
       session['devise.facebook_data'] = auth
@@ -18,9 +18,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
-  def update_avatar
+  def update_avatar(auth)
     if auth.info.image.present?
-      auth_image = auth.info.image.gsub('http://', 'https://')
+      auth_image = auth.info.image.gsub('http://','https://')
       @user.update_attribute(:remote_avatar_url, auth_image)
     end
   end

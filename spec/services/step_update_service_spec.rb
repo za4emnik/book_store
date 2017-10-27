@@ -11,7 +11,7 @@ RSpec.describe StepUpdateService do
   end
 
   context '#update' do
-    %i[address delivery payment confirm complete].each do |step|
+    %i[address delivery payment confirm].each do |step|
       it "should call ##{step} method" do
         order = FactoryGirl.create(:order)
         obj = StepUpdateService.new(step, order, {}, 'session')

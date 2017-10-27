@@ -21,7 +21,7 @@ describe OrderDecorator, type: :decorator do
 
   describe '#delete_button_header' do
     it 'should return close button' do
-      allow(order).to receive(:cart_page?).and_return true
+      allow(order).to receive(:checkout_index_page?).and_return true
       expect(order.delete_button_header).to have_tag('th.col-close')
     end
   end
@@ -65,6 +65,18 @@ describe OrderDecorator, type: :decorator do
     it 'should filter number of cart' do
       order.cart = FactoryGirl.create(:cart, number: '000000000000000003577')
       expect(order.filtred_cart_number).to eq('*****************3577')
+    end
+  end
+
+  describe '#show_order_title' do
+    it 'should return \'my orders\' title if orders are present' do
+      allow(h).to receive_message_chain(:current_user, :orders).and_return([order, order])
+      expect(order.show_order_title).to eq(I18n.t(:my_orders))
+    end
+
+    it 'should return \'no orders\' title if orders are not present' do
+      allow(h).to receive_message_chain(:current_user, :orders).and_return([])
+      expect(order.show_order_title).to eq(I18n.t(:no_orders))
     end
   end
 end

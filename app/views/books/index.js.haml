@@ -1,0 +1,4 @@
+$("#{j (render partial: '/categories/books', locals: {books: @books})}").appendTo($(".container .mb-120 .row"))
+$(".view_more a").remove()
+- unless @books.last_page?
+  $(".view_more").append("#{j (link_to_next_page @books, t(:view_more), class: 'btn btn-primary', remote: true) }")

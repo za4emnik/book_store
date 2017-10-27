@@ -6,6 +6,7 @@ FactoryGirl.define do
     email { FFaker::Internet.email }
     password @pass
     password_confirmation @pass
+    is_admin false
 
     trait :admin do
       is_admin true

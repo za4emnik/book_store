@@ -1,9 +1,10 @@
 %main.container.general-main-wrap
   - if current_order.order_items.any?
     %h1.general-title-margin=t :cart
+    %p.notice=flash[:error]
     .visible-xs
-      = form_for current_order, url: cart_path(current_order), method: :put do |f|
-        = render partial: '/carts/order_products_xs'
+      = form_for current_order, url: checkout_update_path, method: :put do |f|
+        = render partial: '/checkout/order_products_xs'
         = f.submit t(:update_cart), class: "btn btn-primary mb-15 res-block"
         .col-sm-8
           .res-mr-200.text-center.general-text-right
@@ -11,8 +12,8 @@
             %table.general-summary-table.general-summary-table-right.general-text-right
               = render partial: '/checkout/summary'
     .hidden-xs
-      = form_for current_order, url: cart_path(current_order), method: :put do |f|
-        = render partial: '/carts/order_products_md'
+      = form_for current_order, url: checkout_update_path, method: :put do |f|
+        = render partial: '/checkout/order_products_md'
         .general-order-wrap
           .row
             .col-sm-4
@@ -26,24 +27,8 @@
                 %p.in-gold-500.font-18=t :order_summary
                 %table.general-summary-table.general-summary-table-right.general-text-right
                   = render partial: '/checkout/summary'
-    = button_to t(:checkout),  checkout_index_path, method: :get, class: "btn btn-default mb-20 visible-xs-inline-block"
-    = button_to t(:checkout),  checkout_index_path, method: :get, class: "btn btn-default mb-20 hidden-xs center-block"
+    = button_to t(:checkout),  wizard_path(:address), method: :get, class: "btn btn-default mb-20 visible-xs-inline-block"
+    = button_to t(:checkout),  wizard_path(:address), method: :get, class: "btn btn-default mb-20 hidden-xs center-block"
   - else
     %h1.general-title-margin=t :cart_empty
-:javascript
-
-  function inc_dec(sign, el){
-    let id = Number(el.id.match(/\d+/));
-    let value = $('#order_items_'+id+'_quantity').val() * 1;
-
-    if (sign == '+'){
-      value += 1;
-    }else{
-      if(value >= 2){
-        value -= 1;
-      }
-    }
-    $('.order-items-'+id+'-quantity').each(function() {
-      $(this).val(value);
-    });
-  }
+= javascript_include_tag "checkout.js"

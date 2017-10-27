@@ -81,6 +81,7 @@ namespace :deploy do
       execute "mkdir #{shared_path}/config -p"
       upload! StringIO.new(File.read("config/database.yml")), "#{shared_path}/config/database.yml"
       upload! StringIO.new(File.read("config/secrets.yml")), "#{shared_path}/config/secrets.yml"
+      upload! StringIO.new(File.read(".env")), "#{shared_path}/.env"
     end
   end
 

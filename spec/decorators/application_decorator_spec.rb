@@ -12,10 +12,10 @@ describe ApplicationDecorator, type: :decorator do
     end
   end
 
-  describe '#cart_page?' do
-    it 'should return true if cart page' do
-      allow(h.request).to receive(:fullpath).and_return(h.cart_page_path)
-      expect(order.cart_page?).to be_truthy
+  describe '#checkout_index_page?' do
+    it 'should return true if checkout index page' do
+      allow(h.request).to receive(:fullpath).and_return(h.checkout_index_path)
+      expect(order.checkout_index_page?).to be_truthy
     end
   end
 
