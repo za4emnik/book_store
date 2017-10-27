@@ -6,7 +6,7 @@ $('.dec').bind('click', function(){
 });
 
 function inc_dec(sign){
-  let value = $('#quantity').val() * 1;
+  var value = $('#quantity').val() * 1;
 
   if (sign == '+'){
     value += 1;
