@@ -1,5 +1,3 @@
-path = Rails.env.production? ? 'https://s3.us-east-2.amazonaws.com/bookstoretest' : './public'
-
 user = User.create!(email: 'admin@example.com', password: 'paSsword1', password_confirmation: 'paSsword1', is_admin: true)
 user.billing_address = BillingAddress.create!(first_name: 'Vincent', last_name: 'Palmer', address: '2009 Tree Frog Lane', city: 'Longview', zip: 75604, country_id: 227, phone: '903-808-7859')
 user.shipping_address = ShippingAddress.create!(use_billing_address: true)
@@ -28,9 +26,9 @@ def create_book(title, description, category, image, dimensions)
   book = Book.create!(title: title, price: rand(1.0..20.0).round(2), description: description, category: category, year: rand(10.years).seconds.ago.year, dimensions: dimensions[rand(0..4)])
   (1..Author.count-1).to_a.shuffle.first(rand(1..4)).each { |number| book.authors << Author.limit(1).offset(number) }
   (1..Material.count-1).to_a.shuffle.first(rand(1..3)).each { |number| book.materials << Material.limit(1).offset(number) }
-  book.pictures << Picture.new(image: File.open("#{path}/uploads/books_examples/#{image}", 'rb'))
+  book.pictures << Picture.new(image: File.open("./public/uploads/books_examples/#{image}", 'rb'))
   (1..6).to_a.shuffle.first(3).each do |number|
-    book.pictures << Picture.new(image: File.open("#{path}/uploads/books_examples/book-large#{number}.jpg", 'rb'))
+    book.pictures << Picture.new(image: File.open("./public/uploads/books_examples/book-large#{number}.jpg", 'rb'))
   end
   book.save!
 end
