@@ -23,7 +23,7 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 
-set :linked_files, %w{config/database.yml config/secrets.yml}
+set :linked_files, %w{config/database.yml config/secrets.yml .env}
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'

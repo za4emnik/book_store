@@ -1,6 +1,6 @@
 function inc_dec(sign, el){
-  let id = Number(el.id.match(/\d+/));
-  let value = $('#order_items_'+id+'_quantity').val() * 1;
+  var id = Number(el.id.match(/\d+/));
+  var value = $('#order_items_'+id+'_quantity').val() * 1;
 
   if (sign == '+'){
     value += 1;

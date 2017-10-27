@@ -1,5 +1,5 @@
 $(document).on("click", ".general-settings-checkbox", function(){
-  let input = $('#delete-account-button');
+  var input = $('#delete-account-button');
 
   if ($('#understand-button').is(":checked")){
    input.prop('disabled', false);
