@@ -5,7 +5,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.friendly.find params[:id]
-    @review = Review.new
+    @review = Review.new(book: @book)
     @order_item = OrderItem.new
   end
 end

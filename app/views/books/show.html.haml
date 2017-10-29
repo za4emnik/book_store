@@ -62,18 +62,8 @@
                   %i.fa.fa-star.rate-star
               %p #{review.message}
     - if user_signed_in?
-      = form_for @review, url: reviews_path, method: :post, html: { class: "max-600 mb-80" } do |f|
-        = hidden_field(:review, :book_id, :value => @book.id)
-        .form-group
-        = f.label :score, t(:rating), class: "control-label input-label"
-        = f.number_field :score, class: "form-control", min: "1", max: "5"
-        .form-group
-        = f.label :title, t(:title), class: "control-label input-label"
-        = f.text_field :title, class: "form-control", placeholder: t(:title)
-        .form-group
-        = f.label :message, t(:review), class: "control-label input-label"
-        = f.text_area :message, class: "form-control", placeholder: t(:review)
-        = f.submit t(:post), class: "btn btn-default center-block mb-20"
+      #review-form
+        =render partial: '/reviews/review_form', locals: {review: @review}
 = javascript_include_tag "readmore.min.js"
 = javascript_include_tag "books.js"
 :javascript
