@@ -1,5 +1,4 @@
 module LoginControllerMacros
-
   def login_admin
     before(:each) do
       @request.env['devise.mapping'] = Devise.mappings[:admin]

@@ -20,7 +20,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def update_avatar(auth)
     if auth.info.image.present?
-      auth_image = auth.info.image.gsub('http://','https://')
+      auth_image = auth.info.image.gsub('http://', 'https://')
       @user.update_attribute(:remote_avatar_url, auth_image)
     end
   end

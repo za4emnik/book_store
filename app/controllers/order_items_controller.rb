@@ -1,7 +1,6 @@
 class OrderItemsController < ApplicationController
-
   def create
-    create_and_set_quantity
+    save_quantity
     redirect_back(fallback_location: root_path)
   end
 
@@ -13,9 +12,14 @@ class OrderItemsController < ApplicationController
 
   private
 
-  def create_and_set_quantity
+  def save_quantity
     item = current_order.order_items.where(book_id: params[:book_id]).first_or_initialize
-    item.quantity += params[:order_item].present? ? params[:order_item][:quantity].to_i : 1
+    item.quantity = quantity
     item.save
+  end
+
+  def quantity
+    quantity = params[:order_item]&.[](:quantity).to_i
+    quantity.positive? ? quantity : 1
   end
 end
