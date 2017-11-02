@@ -5,7 +5,8 @@ class ReviewsController < ApplicationController
     @review = current_user.reviews.create(reviews_params)
     if @review.errors.empty?
       flash[:success] = I18n.t(:thanks_for_review)
-      redirect_to book_path(id: params[:review][:book_id])
+      book = Book.find params[:review][:book_id]
+      redirect_to book_path(book)
     end
   end
 
