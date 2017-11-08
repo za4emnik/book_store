@@ -15,6 +15,7 @@ class AddressBuildForm
   validates :first_name, :last_name, :city, length: { maximum: 50 }
   validates :zip, numericality: { only_integer: true }
   validates :phone, length: { maximum: 21 }
+  validates :phone, format: { with: /\A[\+]([0-9]){11,}\Z/, message: I18n.t(:phone_error) }
 
   def save
     if valid?

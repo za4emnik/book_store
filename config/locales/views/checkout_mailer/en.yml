@@ -1,0 +1,4 @@
+en:
+  thanks_for_order: 'Thank You for Order!'
+  your_order_number: 'Your Order #%{number}.'
+  view_more: 'View more'

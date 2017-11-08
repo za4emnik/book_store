@@ -4,9 +4,9 @@ FactoryGirl.define do
     last_name { FFaker::Name.last_name }
     address { FFaker::Address.street_address }
     city { FFaker::Address.city }
-    zip 7_777_777
+    zip 7777777
     association :country
-    phone { FFaker::PhoneNumberCU.e164_mobile_phone_number }
+    phone '+35566123457'
     association :addressable, factory: :user
     type 'ShippingAddress'
 

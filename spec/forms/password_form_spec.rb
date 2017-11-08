@@ -12,7 +12,7 @@ RSpec.describe PasswordForm, type: :model do
     it 'should add old password error if password not valid' do
       password_form.old_password = 'some_invalid_password'
       password_form.old_password_validation
-      expect(password_form.errors[:old_password]).to be
+      expect(password_form.errors[:old_password]).not_to be_empty
     end
   end
 

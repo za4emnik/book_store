@@ -44,6 +44,7 @@ class OrderDecorator < ApplicationDecorator
   end
 
   def show_order_title
-    h.current_user.orders.any? ? I18n.t(:my_orders) : I18n.t(:no_orders)
+    orders = h.current_user.orders.select{ |order| order.aasm_state != 'pending' }
+    orders.any? ? I18n.t(:my_orders) : I18n.t(:no_orders)
   end
 end

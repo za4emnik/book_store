@@ -71,6 +71,7 @@ describe OrderDecorator, type: :decorator do
   describe '#show_order_title' do
     it 'should return \'my orders\' title if orders are present' do
       allow(h).to receive_message_chain(:current_user, :orders).and_return([order, order])
+      allow(order).to receive(:aasm_state).and_return('waiting_for_processing')
       expect(order.show_order_title).to eq(I18n.t(:my_orders))
     end
 
