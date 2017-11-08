@@ -28,7 +28,6 @@
             - categories.each do |category|
               %li
                 =link_to category.name, category, class: 'collapse-link'
-                %a.collapse-link{href: "/categories/#{category.id}"}= category.name
             - if user_signed_in?
               %li
                 =link_to t(:settings), settings_path
