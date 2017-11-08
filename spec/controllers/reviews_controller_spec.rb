@@ -3,7 +3,7 @@ include Shoulda::Matchers::ActionController
 
 RSpec.describe ReviewsController, type: :controller do
   describe '#create' do
-    let (:book) { FactoryGirl.build_stubbed(:book) }
+    let (:book) { FactoryGirl.create(:book) }
     subject { post :create, params: { review: FactoryGirl.attributes_for(:review, book_id: book) } }
 
     context 'when logged' do
@@ -18,7 +18,7 @@ RSpec.describe ReviewsController, type: :controller do
       end
 
       it 'should redirect to book page' do
-        expect(subject).to redirect_to(book_path(id: book.id))
+        expect(subject).to redirect_to(book_path(book))
       end
     end
 

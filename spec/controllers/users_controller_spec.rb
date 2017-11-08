@@ -7,7 +7,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when logged' do
       login_user
 
-      it_behaves_like 'controller have variables', 'billing_address': BillingForm, 'shipping_address': ShippingForm
+      it_behaves_like 'controller have variables', 'billing_address': BillingForm, 'shipping_address': ShippingForm, 'password_form': PasswordForm
       it_behaves_like 'given page'
     end
 

@@ -1,6 +1,6 @@
 class CheckoutMailer < ApplicationMailer
-  def success_mail(user)
-    @user = user
-    mail(to: @user.email, subject: 'Checkout success!')
+  def order_confirmation(order)
+    @order = order
+    mail(to: order.user.email, subject: 'Order confirmation')
   end
 end

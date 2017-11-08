@@ -60,12 +60,15 @@ class UsersController < ApplicationController
   end
 
   def update_password
-    bypass_sign_in(current_user) if current_user.update(password_params)
+    @password_form = PasswordForm.new(password_params)
+    @password_form.current_user = current_user
+    @password_form.save ? bypass_sign_in(current_user) : false
   end
 
   def set_variables
     @billing_address = BillingForm.new(get_attributes('billing_address'))
     @shipping_address = ShippingForm.new(get_attributes('shipping_address'))
+    @password_form = PasswordForm.new
   end
 
   def get_attributes(type)
@@ -78,6 +81,6 @@ class UsersController < ApplicationController
   end
 
   def password_params
-    params.require(:password_form).permit(:password, :password_confirmation)
+    params.require(:password_form).permit(:old_password, :password, :password_confirmation)
   end
 end

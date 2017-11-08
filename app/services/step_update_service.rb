@@ -34,6 +34,7 @@ class StepUpdateService
   def confirm
     @order.waiting_processing!
     @session[:steps_taken?] = false
+    CheckoutMailer.order_confirmation(@order).deliver_now
     @order
   end
 

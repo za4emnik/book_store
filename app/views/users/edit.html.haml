@@ -44,19 +44,19 @@
               = f.submit t(:save), class: "btn btn-default mb-35"
         .col-sm-5.col-sm-offset-1
           %p.in-gold-500.font-18.mb-25=t :password
-          = form_for current_user, as: :password_form, method: :put, url: settings_path, class: "general-form-md pb-25" do |f|
-            .form-group.mb-30{class: add_error_class(current_user, :old_password)}
+          = form_for @password_form, as: :password_form, autocomplete: :off, method: :put, url: settings_path, class: "general-form-md pb-25" do |f|
+            .form-group.mb-30{class: add_error_class(@password_form, :old_password)}
               %label.control-label.font-weight-light{for: "oldPassword"}=t :old_password
-              = f.text_field :current_password, {id: "oldPassword", class: "form-control", type: 'password', placeholder: t(:old_password)}
-              .span.help-block= show_errors(current_user, :old_password)
-            .form-group.mb-30{class: add_error_class(current_user, :password)}
+              = f.text_field :old_password, {id: "oldPassword", value: '', class: "form-control", type: 'password', placeholder: t(:old_password)}
+              .span.help-block= show_errors(@password_form, :old_password)
+            .form-group.mb-30{class: add_error_class(@password_form, :password)}
               %label.control-label.font-weight-light{for: "password"}=t :new_password
               = f.text_field :password, {id: "password", class: "form-control", type: 'password', placeholder: t(:new_password)}
-              .span.help-block= show_errors(current_user, :password)
-            .form-group.mb-40{class: add_error_class(current_user, :confirmation_password)}
+              .span.help-block= show_errors(@password_form, :password)
+            .form-group.mb-40{class: add_error_class(@password_form, :password_confirmation)}
               %label.control-label.font-weight-light{for: "confirmPassword"}=t :confirm_password
               = f.text_field :password_confirmation, {id: "confirmPassword", class: "form-control", type: 'password', placeholder: t(:confirm_password)}
-              .span.help-block= show_errors(current_user, :confirmation_password)
+              .span.help-block= show_errors(@password_form, :password_confirmation)
             .general-text-align
               = f.submit t(:save), class: "btn btn-default mb-10"
         .col-sm-12

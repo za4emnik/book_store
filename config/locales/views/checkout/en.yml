@@ -17,7 +17,7 @@ en:
   use_billing_address: 'Use Billing Adress'
   save_and_continue: 'Save and Continue'
   thank_for_order: 'Thank You for your Order!'
-  confirmation_sent: 'An order confirmation has been has been sent to %{email}'
+  confirmation_sent: 'An order confirmation has been sent to %{email}'
   back_to_store: 'Back to Store'
   edit: 'edit'
   place_order: 'Place Order'

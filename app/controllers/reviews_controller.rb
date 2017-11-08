@@ -3,16 +3,18 @@ class ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.create(reviews_params)
-    if @review.errors.empty?
-      flash[:success] = I18n.t(:thanks_for_review)
-      book = Book.find params[:review][:book_id]
-      redirect_to book_path(book)
-    end
+    redirect_to_reviews_book if @review.errors.empty?
   end
 
-  protected
+  private
 
   def reviews_params
     params.require(:review).permit(:title, :score, :message, :book_id)
+  end
+
+  def redirect_to_reviews_book
+    flash[:success] = I18n.t(:thanks_for_review)
+    book = Book.friendly.find params[:review][:book_id]
+    redirect_to book_path(book)
   end
 end

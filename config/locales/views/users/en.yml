@@ -8,6 +8,8 @@ en:
   or: 'or'
   remember_me: 'Remember me'
   dont_have_account: 'Don’t have an Account?'
+  change_your_password: 'Change your password'
+  change_my_password: 'Change my password'
   privacy: 'Privacy'
   save: 'Save'
   email: 'Email'
@@ -20,3 +22,4 @@ en:
   understand_lost_data: 'I understand that all data will be lost'
   password_validate: Minimum 8 letters, at least 1 uppercase, at least 1 lowercase, at least 1 number
   settings_successfully_saved: 'Settings successfully saved!'
+  password_is_not_correct: 'Password is not correct'

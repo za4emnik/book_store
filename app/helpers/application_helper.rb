@@ -23,6 +23,6 @@ module ApplicationHelper
   end
 
   def add_error_class(obj, field)
-    'has-error' if obj.errors[field].any?
+    'has-error' if obj.errors[field].flatten.any?
   end
 end
