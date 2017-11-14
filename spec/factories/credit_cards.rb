@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :cart do
+  factory :credit_card do
     number '12345678901234567'
     name { FFaker::NatoAlphabet.alphabetic_code }
     date '11/18'

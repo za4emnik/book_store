@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CartForm, type: :model do
+RSpec.describe CreditCardForm, type: :model do
   describe 'validates' do
     %w[number name date cvv order].each do |field|
       it { should validate_presence_of(field) }

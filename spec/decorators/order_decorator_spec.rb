@@ -61,10 +61,10 @@ describe OrderDecorator, type: :decorator do
     end
   end
 
-  describe '#filtred_cart_number' do
-    it 'should filter number of cart' do
-      order.cart = FactoryGirl.create(:cart, number: '000000000000000003577')
-      expect(order.filtred_cart_number).to eq('*****************3577')
+  describe '#filtred_card_number' do
+    it 'should filter number of credit card' do
+      order.credit_card = FactoryGirl.create(:credit_card, number: '000000000000000003577')
+      expect(order.filtred_card_number).to eq('*****************3577')
     end
   end
 

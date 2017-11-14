@@ -25,7 +25,7 @@ class StepUpdateService
   end
 
   def payment
-    form = CartForm.new(cart_params.to_h)
+    form = CreditCardForm.new(credit_card_params.to_h)
     form.order = @order
     form.save
     form
@@ -44,7 +44,7 @@ class StepUpdateService
     @params.require(:address_form).require(type).permit(:first_name, :last_name, :address, :city, :zip, :phone, :country_id, :use_billing_address)
   end
 
-  def cart_params
-    @params.require(:cart_form).permit(:number, :name, :date, :cvv)
+  def credit_card_params
+    @params.require(:credit_card_form).permit(:number, :name, :date, :cvv)
   end
 end

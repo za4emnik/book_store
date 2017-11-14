@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   after_create :generate_order_number
 
   has_one :coupon
-  has_one :cart
+  has_one :credit_card
   has_one :shipping_address, as: :addressable, dependent: :destroy
   has_one :billing_address, as: :addressable, dependent: :destroy
   has_many :order_items

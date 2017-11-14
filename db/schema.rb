@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024100711) do
+ActiveRecord::Schema.define(version: 20171114151203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,25 @@ ActiveRecord::Schema.define(version: 20171024100711) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "carts", force: :cascade do |t|
+  create_table "bs_checkout_addresses", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "city"
+    t.integer  "zip"
+    t.integer  "country_id"
+    t.string   "phone"
+    t.string   "addressable_type"
+    t.integer  "addressable_id"
+    t.string   "type"
+    t.boolean  "use_billing_address", default: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["addressable_type", "addressable_id"], name: "addressable_type", using: :btree
+    t.index ["country_id"], name: "index_bs_checkout_addresses_on_country_id", using: :btree
+  end
+
+  create_table "bs_checkout_carts", force: :cascade do |t|
     t.string   "number"
     t.string   "name"
     t.string   "date"
@@ -74,7 +92,53 @@ ActiveRecord::Schema.define(version: 20171024100711) do
     t.integer  "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_carts_on_order_id", using: :btree
+    t.index ["order_id"], name: "index_bs_checkout_carts_on_order_id", using: :btree
+  end
+
+  create_table "bs_checkout_countries", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bs_checkout_coupons", force: :cascade do |t|
+    t.string   "code"
+    t.decimal  "value",      precision: 8, scale: 2
+    t.integer  "order_id"
+    t.boolean  "active",                             default: true
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.index ["order_id"], name: "index_bs_checkout_coupons_on_order_id", using: :btree
+  end
+
+  create_table "bs_checkout_deliveries", force: :cascade do |t|
+    t.string   "name"
+    t.string   "interval"
+    t.decimal  "price",      precision: 5, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  create_table "bs_checkout_order_items", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.integer  "quantity",   default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["order_id"], name: "index_bs_checkout_order_items_on_order_id", using: :btree
+  end
+
+  create_table "bs_checkout_orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "delivery_id"
+    t.decimal  "total",       precision: 8, scale: 2, default: "0.0"
+    t.decimal  "subtotal",    precision: 8, scale: 2, default: "0.0"
+    t.string   "aasm_state"
+    t.string   "number",                              default: "R00000000"
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.index ["delivery_id"], name: "index_bs_checkout_orders_on_delivery_id", using: :btree
+    t.index ["user_id"], name: "index_bs_checkout_orders_on_user_id", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
@@ -99,6 +163,17 @@ ActiveRecord::Schema.define(version: 20171024100711) do
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
     t.index ["order_id"], name: "index_coupons_on_order_id", using: :btree
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "number"
+    t.string   "name"
+    t.string   "date"
+    t.integer  "cvv"
+    t.integer  "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_credit_cards_on_order_id", using: :btree
   end
 
   create_table "deliveries", force: :cascade do |t|

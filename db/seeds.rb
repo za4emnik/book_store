@@ -128,7 +128,7 @@ Category.all.each do |category|
     order.order_items << OrderItem.create(book: book, quantity: rand(1..5))
   end
 end
-order.cart = Cart.create(number: '4539 7544 3086 5687', name: 'CONNOR KELLY', date: '03/19', cvv: '582')
+order.credit_card = CreditCard.create(number: '4539 7544 3086 5687', name: 'CONNOR KELLY', date: '03/19', cvv: '582')
 order.billing_address = BillingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
 order.subtotal!
 order.update_total!
@@ -138,7 +138,7 @@ order = Order.create!(user: user, delivery: Delivery.order("RANDOM()").first, aa
 Book.order("RANDOM()").first(3).each do |book|
   order.order_items << OrderItem.create(book: book, quantity: rand(1..5))
 end
-order.cart = Cart.create(number: '4024 0071 4207 9887', name: 'CHARLES VANCE', date: '05/18', cvv: '328')
+order.credit_card = CreditCard.create(number: '4024 0071 4207 9887', name: 'CHARLES VANCE', date: '05/18', cvv: '328')
 order.billing_address = BillingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
 order.shipping_address = ShippingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
 order.subtotal!
@@ -149,7 +149,7 @@ order = Order.create!(user: user, delivery: Delivery.order("RANDOM()").first, aa
 Book.order("RANDOM()").first(2).each do |book|
   order.order_items << OrderItem.create(book: book, quantity: rand(1..5))
 end
-order.cart = Cart.create(number: '5573 6641 8757 5708', name: 'KATHERINE ROBERTS', date: '04/19', cvv: '215')
+order.credit_card = CreditCard.create(number: '5573 6641 8757 5708', name: 'KATHERINE ROBERTS', date: '04/19', cvv: '215')
 order.billing_address = BillingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
 order.shipping_address = ShippingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
 order.subtotal!
@@ -161,7 +161,7 @@ order.save!
   Book.order("RANDOM()").first(5).each do |book|
     order.order_items << OrderItem.create(book: book, quantity: rand(1..5))
   end
-  order.cart = Cart.create(number: '3765 153926 73359', name: 'SAMUEL TIMMONS', date: '08/18', cvv: '529')
+  order.credit_card = CreditCard.create(number: '3765 153926 73359', name: 'SAMUEL TIMMONS', date: '08/18', cvv: '529')
   order.billing_address = BillingAddress.create!(first_name: 'Tomiko', last_name: 'Gulgowski', address: '8663 Vernell Spur', city: 'Lake Anneberg', zip: 75604, country_id: rand(1..245), phone: '903-808-7859')
   order.subtotal!
   order.update_total!

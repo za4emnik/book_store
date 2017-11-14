@@ -97,8 +97,8 @@ RSpec.describe CheckoutController, type: :controller do
       end
 
       context 'payment step' do
-        cart = FactoryGirl.attributes_for(:cart)
-        subject { put :update, params: { id: :payment, cart_form: cart } }
+        credit_card = FactoryGirl.attributes_for(:credit_card)
+        subject { put :update, params: { id: :payment, credit_card_form: credit_card } }
 
         it_behaves_like 'controller have variables', 'form': nil
       end

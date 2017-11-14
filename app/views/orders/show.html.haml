@@ -17,9 +17,9 @@
     .col-sm-3
       %h3.general-subtitle.mt-0=t :payment_information
       %p.general-address
-        #{@order.filtred_cart_number}
+        #{@order.filtred_card_number}
         %br
-        #{@order.cart.date}
+        #{@order.credit_card.date}
   .visible-xs
     -@order.order_items.each do |item|
       .general-cart-item.divider-lg
