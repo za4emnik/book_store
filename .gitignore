@@ -23,6 +23,6 @@
 .env
 
 # Ignore yarn files
-/node_moduless
+/node_modules
 /yarn-error.log
 /yarn.lock
