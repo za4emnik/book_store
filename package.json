@@ -1,0 +1,14 @@
+{
+  "name": "book_store",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/za4emnik/book_store.git",
+  "author": "za4emnik <maxots@rambler.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "bootstrap-sass": "3.3.7",
+    "jquery": "^2.2.0",
+    "readmore-js": "^2.1.0"
+  }
+}

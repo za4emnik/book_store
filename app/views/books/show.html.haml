@@ -64,8 +64,7 @@
     - if user_signed_in?
       #review-form
         =render partial: '/reviews/review_form', locals: {review: @review}
-= javascript_include_tag "readmore.min.js"
-= javascript_include_tag "books.js"
+= javascript_include_tag 'books.js'
 :javascript
   $('#descr').readmore({
     maxHeight: 165,

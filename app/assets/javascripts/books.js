@@ -1,3 +1,6 @@
+//= require readmore-js/readmore
+//= require_self
+
 $('.inc').bind('click', function(){
   inc_dec('+');
 });
