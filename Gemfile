@@ -46,6 +46,7 @@ group :development do
   gem 'capistrano-rails',   require: false
   gem 'capistrano-rvm',     require: false
   gem 'capistrano3-puma',   require: false
+  gem 'capistrano-yarn',    require: false
   gem 'listen', '~> 3.0.5'
   gem 'rubocop', '~> 0.49.1', require: false
   gem 'spring'
