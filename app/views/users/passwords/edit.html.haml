@@ -1,0 +1,17 @@
+%main.container.general-main-wrap
+  .text-center
+    %h2=t :change_your_password
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'general-form' }) do |f|
+    = devise_error_messages!
+    = f.input :reset_password_token, as: :hidden
+    = f.full_error :reset_password_token
+    .form-group.mb-30
+      = f.label :password, class: 'control-label font-weight-light'
+      = f.password_field :password, autocomplete: 'off', required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), class: 'form-control'
+      =t(:password_validate)
+    .form-group.mb-30
+      = f.label :password_confirmation, autocomplete: 'off', type: :password, class: 'control-label font-weight-light'
+      = f.password_field :password_confirmation, required: true, class: 'form-control'
+    .text-center
+      = f.button :submit, t(:change_my_password), class: 'btn btn-default mb-20'
+    = render 'devise/shared/links'

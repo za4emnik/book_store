@@ -1,0 +1,73 @@
+%main.container
+  %div.center= flash[:success]
+  = link_to :back, class: "general-back-link" do
+    %i.fa.fa-long-arrow-left.mr-15
+    = t :back_to_results
+  .row
+    .col-sm-6
+      .product-gallery
+        .mb-20
+          %img.img-responsive{src: "#{@book.pictures.first.image.url}"}
+        .images.clearfix
+          - @book.pictures.offset(1).each do |picture|
+            %a.img-link{href: "#"}
+              %img{src: "#{picture.image.url(:thumb)}"}
+    .col-sm-6
+      %h1.mt-res-0= @book.title
+      %p.lead.small= separated @book.authors, :full_name
+      .row
+        .col-xs-12.col-md-4
+          %p.h1.in-gold-500.mt-10 €#{@book.price}
+        =form_for @order_item, url: order_items_path(book_id: @book.id), method: :post do |f|
+          .col-xs-5.col-md-3
+            .input-group.general-position
+              %div.input-link.dec.button
+                %i.fa.fa-minus.line-height-40
+              = f.text_field :quantity, {class: "form-control quantity-input", id: 'quantity', value: '1'}
+              %div.input-link.inc.button
+                %i.fa.fa-plus.line-height-40
+          .col-xs-7.col-md-5
+            = f.submit t(:add_to_cart), class: "btn btn-default pull-right general-position"
+      .general-info-wrap.divider-lg#descr
+        %p=t :description
+        %p.lead.small.line-height-2
+          = markdown(@book.description)
+      .general-info-wrap.divider-lg
+        .clearfix
+          %p.pull-left=t :year_of_publication
+          %p.lead.small.pull-right= @book.year
+      .general-info-wrap.divider-lg
+        .clearfix
+          %p.pull-left=t(:dimensions)
+          %p.lead.small.pull-right= @book.dimensions
+      .general-info-wrap.divider-lg
+        .clearfix
+          %p.pull-left=t :materials
+          %p.lead.small.pull-right= separated @book.materials
+  .mb-80
+    %h3.in-gold-500.mb-25=t(:reviews, count: @book.reviews.count)
+    - @book.reviews.each do |review|
+      - if review.user
+        .general-message-wrap.divider-lg
+          .clearfix
+            %img.img-circle.logo-size.inlide-block.pull-left{src: "#{review.decorate.avatar_url}"}
+            .ml-70
+              %div
+                .general-message-date.hidden-xs #{review.updated_at.strftime("%d/%m/%y")}
+                .max-240
+                  =review.user.decorate.verified_reviewer(@book.id)
+                  .general-message-name #{ review.user.billing_address.try(:full_name) || review.user.email }
+              .mb-15
+                - review.score.to_i.times do
+                  %i.fa.fa-star.rate-star
+              %p #{review.message}
+    - if user_signed_in?
+      #review-form
+        =render partial: '/reviews/review_form', locals: {review: @review}
+= javascript_include_tag 'books.js'
+:javascript
+  $('#descr').readmore({
+    maxHeight: 165,
+    moreLink: "<a class='in-gold-500 ml-10' href='#'>#{t(:read_more)}</a>",
+    lessLink: '<a href="#"></a>'
+  });

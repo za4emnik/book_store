@@ -1,0 +1,30 @@
+.hidden-xs.clearfix
+  .pull-right
+    .dropdown
+      %a.dropdown-toggle.dropdown-btn.width-240{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+        #{filter_state || t(:title_a_z)}
+        %i.fa.fa-angle-down.dropdown-icon
+      = render partial: '/categories/filter_options'
+  %ul.list-inline.pt-10.mb-25.mr-240
+    %li.mr-35
+      %a.filter-link{href: "/categories"}
+        All
+        %span.badge.general-badge= @books_count
+    - categories.each do |category|
+      %li.mr-35
+        =link_to category, class: 'filter-link' do
+          = category.name
+          %span.badge.general-badge= category.books.count
+.mb-40.visible-xs
+  %p.in-grey-600.small.mb-10=t :filter_by_category
+  .dropdown.mb-20
+    %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      =t :newest_first
+      %i.fa.fa-angle-down.dropdown-icon
+    = render partial: '/categories/filter_options'
+  %p.in-grey-600.small.mb-10=t :sort_by
+  .dropdown
+    %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      =t :newest_first
+      %i.fa.fa-angle-down.dropdown-icon
+    = render partial: '/categories/filter_options'

@@ -1,0 +1,30 @@
+- obj ||= current_order
+- obj = obj.decorate
+%table.table.table-hover
+  %tr.no-hover
+    %th.col-pic.pl-0
+      %span.in-grey-600=t :product
+    %th.col-title
+    %th.col-price
+      %span.in-grey-600=t :price
+    %th.col-quantity
+      %span.in-grey-600=t :quantity
+    %th.col-total
+      %span.in-grey-600=t :subtotal
+    =obj.delete_button_header
+  - obj.decorate.order_items.each do |item|
+    %tr
+      %td
+        .general-img-wrap-table
+          %img.cart-img-shadow.pull-left.width-full{src: "#{item.book.pictures.first.image.url}", alt: "#{item.book.title}"}
+      %td
+        %p.general-title #{item.book.title}
+        =item.show_description
+      %td
+        %span.font-16.in-gold-500 €#{item.book.price}
+      %td
+        = fields_for 'order_items[]', item do |field|
+          =item.quantity_field(field, item)
+      %td
+        %span.font-16.in-gold-500 €#{item.show_subtotal}
+      =item.delete_button(item)

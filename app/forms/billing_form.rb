@@ -1,0 +1,2 @@
+class BillingForm < AddressBuildForm
+end
